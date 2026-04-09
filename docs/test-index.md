@@ -12,34 +12,50 @@ No automated tests exist yet. The sections below describe the first tests that s
 
 ## Planned Unit Tests
 
-- `useWindowManager` reducer behavior:
-  - open, close, focus, move, resize
-  - z-index ordering
-  - re-opening an existing window
-- Route-state parsing and serialization:
+- `useWindowManager` reducer behavior (`src/hooks/useWindowManager.ts`):
+  - OPEN_WINDOW: new window, re-opening existing, restoring from minimized
+  - CLOSE_WINDOW: marks window not open, clears focus
+  - MINIMIZE_WINDOW: marks minimized, clears focus
+  - FOCUS_WINDOW: sets focus and bumps z-index
+  - MOVE_WINDOW: updates position
+  - RESIZE_WINDOW: updates size and optional position
+  - TOGGLE_FULLSCREEN: saves/restores pre-fullscreen position and size
+  - z-index ordering across all actions
+- `useWindowDrag` hook behavior (`src/hooks/useWindowDrag.ts`):
+  - pointer-based drag updates position
+  - does not fire on non-primary pointer buttons
+- `useWindowResize` hook behavior (`src/hooks/useWindowResize.ts`):
+  - edge and corner resize from all 8 directions
+  - minimum size enforcement
+- Route-state parsing and serialization (not yet implemented):
   - default open windows
   - invalid query handling
   - shareable deep-link state
 - Content transformers:
-  - desktop item to window definition mapping
-  - project and business grouping helpers
+  - desktop item to window definition mapping (`Desktop.createWindowPayload`)
+  - portfolio section lookup by id
 
 ---
 
 ## Planned Component Tests
 
-- Desktop icon rendering and keyboard activation
-- Window chrome actions and focus changes
-- Mobile fallback rendering for the same content source
-- Resume window rendering for the primary hire-me flow
+- Desktop icon rendering and keyboard activation (`DesktopFiles`)
+- Window chrome: traffic light close, minimize, and fullscreen buttons (`TrafficLights`, `Window`)
+- Window animations: open, close, minimize-to-dock, restore-from-dock (`Window`)
+- Dock: dynamic rendering of open/minimized windows, click-to-minimize/restore/focus (`Dock`)
+- Mobile fallback rendering for the same content source (`MobileLanding`)
+- Resume window rendering for the primary hire-me flow (`PortfolioWindowContent`)
 
 ---
 
 ## Planned Integration Tests
 
 - Clicking a desktop file opens the correct content window
-- Dock shortcuts focus or open the right view
-- Query-state hydration opens expected windows on page load
+- Dock icon click: minimize focused window, restore minimized window, focus unfocused window
+- Minimize animation targets dock icon position; restore animation originates from dock icon
+- Fullscreen toggle saves and restores previous window position and size
+- Resume window auto-opens on initial desktop mount (320ms delay)
+- Query-state hydration opens expected windows on page load (not yet implemented)
 - External contact actions route users to the correct destination
 
 ---

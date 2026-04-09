@@ -25,18 +25,18 @@ The UI should feel like a modern macOS-inspired desktop:
 On medium and larger screens, the home page acts like a workspace:
 - Desktop icons represent primary content entry points.
 - Windows can be opened, focused, moved, and closed.
-- A dock can surface high-priority shortcuts such as Resume, Projects, Contact, and external links.
+- A dynamic dock shows only open and minimized windows (no static shortcuts).
+- Clicking a focused dock icon minimizes that window; clicking a minimized icon restores it.
 - The chrome should feel modern and clean rather than skeuomorphic or novelty-heavy.
 
-Suggested initial desktop items:
-- `Resume.pdf`
-- `Experience`
-- `Businesses`
-- `Projects`
-- `About Me`
-- `Contact`
-- `GitHub`
-- `LinkedIn`
+Current desktop items (defined in `src/data/portfolio-content.ts`):
+- `Resume.pdf` (document)
+- `Experience` (folder)
+- `Projects` (folder)
+- `Skills` (document)
+- `About Me` (document)
+- `Businesses` (folder)
+- `Contact` (contact)
 
 ### Mobile Breakpoint
 
@@ -123,36 +123,34 @@ Examples:
 ```text
 src/
   app/
-    layout.tsx
-    page.tsx
+    globals.css           # CSS tokens, animations, glass-panel, reduced-motion
+    layout.tsx            # Root layout with Fraunces + Manrope fonts
+    page.tsx              # Responsive entry: Desktop (md+) or MobileLanding
   components/
-    desktop/
-    dock/
-    window/
     content/
+      PortfolioWindowContent.tsx   # Renders section data inside windows
+    desktop/
+      Desktop.tsx         # Shell: wallpaper, menu bar, desktop files, windows, dock
+      DesktopFiles.tsx    # Positioned desktop icons with document/folder glyphs
+      Dock.tsx            # Dynamic dock showing open/minimized windows
+      MenuBar.tsx         # Top menu bar chrome
+      Wallpaper.tsx       # Background gradient
     mobile/
+      MobileLanding.tsx   # Stacked card layout for small screens
+    window/
+      TrafficLights.tsx   # Close / minimize / fullscreen button row
+      Window.tsx          # Draggable, resizable window with animations
+  data/
+    portfolio-content.ts  # All section content, desktop items, and site profile
   hooks/
-    useWindowManager.ts
-    useDesktopItems.ts
-    useRouteState.ts
-  content/
-    profile.ts
-    roles.ts
-    businesses.ts
-    projects.ts
-    desktop-items.ts
-  lib/
-    content-repository.ts
-    analytics.ts
-    markdown.ts
+    useWindowDrag.ts      # Pointer-based window dragging
+    useWindowManager.ts   # useReducer-based window state manager
+    useWindowResize.ts    # Pointer-based edge/corner resizing
   styles/
-    tokens.css
+    STYLE_GUIDE.md        # macOS fidelity design tokens reference
   types/
-    content.ts
-    windows.ts
+    index.ts              # WindowState, PortfolioSection, DesktopItem, action types
 ```
-
-This mirrors the reference app’s desktop/window split, but removes the agent, flow engine, and tool-call concerns that are specific to `../mcpviews-website`.
 
 ---
 
@@ -173,12 +171,14 @@ Should not own:
 ### Window Manager
 
 Owns:
-- Open/close/focus behavior.
+- Open/close/focus/minimize behavior.
 - Z-index ordering.
 - Default positions and sizes.
-- Optional persistence for recently opened windows.
+- Fullscreen toggle with saved/restored previous position and size.
+- Minimize animation toward dock icon and restore animation from it.
 
-This is the most reusable behavior to lift from `../mcpviews-website`.
+Implemented in `src/hooks/useWindowManager.ts` as a `useReducer` with these actions:
+`OPEN_WINDOW`, `CLOSE_WINDOW`, `MINIMIZE_WINDOW`, `FOCUS_WINDOW`, `MOVE_WINDOW`, `RESIZE_WINDOW`, `TOGGLE_FULLSCREEN`.
 
 ### Content Windows
 

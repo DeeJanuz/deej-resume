@@ -95,6 +95,8 @@ OS chrome is neutral and system-font. Brand personality lives only inside window
 |-----------|----------|--------|
 | window-open | 200ms | `cubic-bezier(0.16, 1, 0.3, 1)` |
 | window-close | 150ms | `cubic-bezier(0.16, 1, 0.3, 1)` |
-| window-minimize | 300ms | `cubic-bezier(0.4, 0, 1, 1)` |
+| window-minimize | 400ms | `cubic-bezier(0.4, 0, 0.8, 1)` |
+| window-restore | 400ms | `cubic-bezier(0, 0.2, 0.2, 1)` |
+| fullscreen-transition | 300ms | `cubic-bezier(0.16, 1, 0.3, 1)` |
 | dock hover | 200ms | default transition |
 | reduced-motion | all animations collapse to 0.01ms |
