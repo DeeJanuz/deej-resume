@@ -1,0 +1,126 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-sans-family);
+  --font-display: var(--font-display-family);
+}
+
+:root {
+  --background: #f0f0f0;
+  --foreground: #1d1d1f;
+  --font-sans-family: "Manrope", system-ui, sans-serif;
+  --font-display-family: "Fraunces", Georgia, serif;
+  --font-chrome: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  color-scheme: light;
+}
+
+html {
+  background: var(--background);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans-family), system-ui, sans-serif;
+}
+
+button {
+  cursor: pointer;
+}
+
+::selection {
+  background: rgba(0, 122, 255, 0.2);
+}
+
+@keyframes windowOpen {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes windowClose {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+}
+
+.window-open {
+  animation: windowOpen 200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.window-close {
+  animation: windowClose 150ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes windowMinimize {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--minimize-x, 0px), var(--minimize-y, 80vh)) scale(0.08);
+  }
+}
+
+.window-minimize {
+  --minimize-x: 0px;
+  --minimize-y: 80vh;
+  transform-origin: center center;
+  animation: windowMinimize 400ms cubic-bezier(0.4, 0, 0.8, 1) forwards;
+}
+
+@keyframes windowRestore {
+  0% {
+    opacity: 0;
+    transform: translate(var(--minimize-x, 0px), var(--minimize-y, 80vh)) scale(0.08);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+.window-restore {
+  --minimize-x: 0px;
+  --minimize-y: 80vh;
+  transform-origin: center center;
+  animation: windowRestore 400ms cubic-bezier(0, 0.2, 0.2, 1) forwards;
+}
+
+.glass-panel {
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.72);
+  -webkit-backdrop-filter: blur(22px);
+  backdrop-filter: blur(22px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
