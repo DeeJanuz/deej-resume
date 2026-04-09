@@ -2,10 +2,16 @@
 
 import { useState } from "react";
 import type { PortfolioSectionId, WindowState } from "@/types";
-import { desktopItems } from "@/data/portfolio-content";
+
+interface DockIconData {
+  label: string;
+  iconLabel: string;
+  accent: string;
+}
 
 interface DockProps {
   windows: readonly WindowState[];
+  iconData: Record<PortfolioSectionId, DockIconData>;
   onRestore: (id: PortfolioSectionId) => void;
   onFocus: (id: PortfolioSectionId) => void;
   onMinimize: (id: PortfolioSectionId) => void;
@@ -19,11 +25,7 @@ function lightenColor(hex: string): string {
   return `rgb(${mix(r)}, ${mix(g)}, ${mix(b)})`;
 }
 
-const itemDataById = Object.fromEntries(
-  desktopItems.map((item) => [item.id, item])
-) as Record<PortfolioSectionId, (typeof desktopItems)[number]>;
-
-export function Dock({ windows, onRestore, onFocus, onMinimize }: DockProps) {
+export function Dock({ windows, iconData, onRestore, onFocus, onMinimize }: DockProps) {
   const [hoveredId, setHoveredId] = useState<PortfolioSectionId | null>(null);
 
   if (windows.length === 0) {
@@ -34,7 +36,7 @@ export function Dock({ windows, onRestore, onFocus, onMinimize }: DockProps) {
     <div className="fixed bottom-3 left-1/2 z-40 -translate-x-1/2">
       <div className="glass-panel flex items-end gap-1.5 rounded-2xl px-3 py-1.5">
         {windows.map((win) => {
-          const item = itemDataById[win.id];
+          const item = iconData[win.id];
           if (!item) return null;
 
           const isHovered = hoveredId === win.id;

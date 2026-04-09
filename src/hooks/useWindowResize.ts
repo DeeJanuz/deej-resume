@@ -1,9 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import type { WindowPosition, WindowSize } from "@/types";
-
-type ResizeDirection = "n" | "s" | "e" | "w" | "ne" | "nw" | "se" | "sw";
+import type { ResizeDirection, WindowPosition, WindowSize } from "@/types";
 
 const MIN_WIDTH = 520;
 const MIN_HEIGHT = 360;

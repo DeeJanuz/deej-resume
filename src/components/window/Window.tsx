@@ -1,12 +1,11 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import type { WindowPosition, WindowSize } from "@/types";
+import { useRef } from "react";
+import type { ResizeDirection, WindowPosition, WindowSize } from "@/types";
+import { useWindowAnimations } from "@/hooks/useWindowAnimations";
 import { useWindowDrag } from "@/hooks/useWindowDrag";
 import { useWindowResize } from "@/hooks/useWindowResize";
 import { TrafficLights } from "./TrafficLights";
-
-type ResizeDirection = "n" | "s" | "e" | "w" | "ne" | "nw" | "se" | "sw";
 
 interface WindowProps {
   id: string;
@@ -43,17 +42,6 @@ const resizeHandles: readonly {
   { direction: "se", className: "absolute -right-[3px] -bottom-[3px] h-[12px] w-[12px] z-10", cursor: "nwse-resize" },
 ];
 
-function computeDockOffset(windowEl: HTMLElement, windowId: string) {
-  const dockIcon = document.querySelector(`[data-dock-id="${windowId}"]`);
-  if (!dockIcon) return;
-  const winRect = windowEl.getBoundingClientRect();
-  const dockRect = dockIcon.getBoundingClientRect();
-  const dx = dockRect.left + dockRect.width / 2 - (winRect.left + winRect.width / 2);
-  const dy = dockRect.top + dockRect.height / 2 - (winRect.top + winRect.height / 2);
-  windowEl.style.setProperty("--minimize-x", `${dx}px`);
-  windowEl.style.setProperty("--minimize-y", `${dy}px`);
-}
-
 export function Window({
   id,
   title,
@@ -74,14 +62,18 @@ export function Window({
   children,
 }: WindowProps) {
   const windowRef = useRef<HTMLDivElement>(null);
-  const [isClosing, setIsClosing] = useState(false);
-  const [isMinimizing, setIsMinimizing] = useState(false);
-  const [isRestoring, setIsRestoring] = useState(false);
-  const [isFullScreenTransitioning, setIsFullScreenTransitioning] = useState(false);
-  const wasMinimized = useRef(false);
-  const prevFullScreen = useRef(isFullScreen);
-  const skipOpenAnimation = useRef(false);
-  const handleMinimizeRef = useRef<() => void>(null);
+
+  const { animationClass, transitionStyle, handleClose, handleMinimize, isVisible } =
+    useWindowAnimations({
+      windowRef,
+      id,
+      isOpen,
+      isMinimized,
+      isFullScreen,
+      dockMinimizeRequested,
+      onClose,
+      onMinimize,
+    });
 
   const { handlePointerDown } = useWindowDrag({
     onMove,
@@ -93,84 +85,9 @@ export function Window({
     position,
   });
 
-  function handleClose() {
-    skipOpenAnimation.current = false;
-    setIsClosing(true);
-    window.setTimeout(() => {
-      setIsClosing(false);
-      onClose();
-    }, 180);
-  }
-
-  function handleMinimize() {
-    if (isMinimizing) return;
-    skipOpenAnimation.current = false;
-
-    const el = windowRef.current;
-    if (el) {
-      computeDockOffset(el, id);
-    }
-
-    setIsMinimizing(true);
-    window.setTimeout(() => {
-      setIsMinimizing(false);
-      onMinimize();
-    }, 400);
-  }
-
-  handleMinimizeRef.current = handleMinimize;
-
-  // Dock-triggered minimize via prop
-  useEffect(() => {
-    if (dockMinimizeRequested) {
-      handleMinimizeRef.current?.();
-    }
-  }, [dockMinimizeRequested]);
-
-  // Detect restore from minimized state
-  useLayoutEffect(() => {
-    if (wasMinimized.current && !isMinimized && isOpen) {
-      const el = windowRef.current;
-      if (el) {
-        computeDockOffset(el, id);
-      }
-      skipOpenAnimation.current = true;
-      setIsRestoring(true);
-    }
-    wasMinimized.current = isMinimized;
-  }, [isMinimized, isOpen, id]);
-
-  // Smooth fullscreen transition
-  useEffect(() => {
-    if (isFullScreen !== prevFullScreen.current) {
-      prevFullScreen.current = isFullScreen;
-      setIsFullScreenTransitioning(true);
-      const timer = window.setTimeout(() => setIsFullScreenTransitioning(false), 300);
-      return () => window.clearTimeout(timer);
-    }
-  }, [isFullScreen]);
-
-  // Clear restore animation after it plays
-  useEffect(() => {
-    if (isRestoring) {
-      const timer = window.setTimeout(() => setIsRestoring(false), 400);
-      return () => window.clearTimeout(timer);
-    }
-  }, [isRestoring]);
-
-  if ((!isOpen || isMinimized) && !isClosing && !isMinimizing) {
+  if (!isVisible) {
     return null;
   }
-
-  const animationClass = isRestoring
-    ? "window-restore"
-    : isMinimizing
-      ? "window-minimize"
-      : isClosing
-        ? "window-close"
-        : skipOpenAnimation.current
-          ? ""
-          : "window-open";
 
   return (
     <div
@@ -185,9 +102,7 @@ export function Window({
         height: size.height,
         zIndex,
         filter: isFocused ? "none" : "brightness(0.97)",
-        ...(isFullScreenTransitioning
-          ? { transition: "left 300ms cubic-bezier(0.16,1,0.3,1), top 300ms cubic-bezier(0.16,1,0.3,1), width 300ms cubic-bezier(0.16,1,0.3,1), height 300ms cubic-bezier(0.16,1,0.3,1)" }
-          : {}),
+        ...transitionStyle,
       }}
       onPointerDown={onFocus}
     >

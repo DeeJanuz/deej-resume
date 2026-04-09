@@ -64,6 +64,8 @@ export type WindowAction =
       };
     };
 
+export type ResizeDirection = "n" | "s" | "e" | "w" | "ne" | "nw" | "se" | "sw";
+
 export type DesktopItemKind = "document" | "folder" | "stack" | "contact";
 
 export interface DesktopItemDefinition {
