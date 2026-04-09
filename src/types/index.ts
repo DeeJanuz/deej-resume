@@ -86,12 +86,26 @@ export interface PortfolioMetric {
   label: string;
 }
 
+export interface PortfolioLink {
+  label: string;
+  href: string;
+}
+
 export interface PortfolioCard {
   title: string;
   eyebrow?: string;
   description: string;
   bullets?: readonly string[];
+  links?: readonly PortfolioLink[];
   tags?: readonly string[];
+}
+
+export interface PortfolioDetailSection {
+  title: string;
+  eyebrow?: string;
+  paragraphs?: readonly string[];
+  bullets?: readonly string[];
+  links?: readonly PortfolioLink[];
 }
 
 export interface PortfolioSection {
@@ -106,6 +120,7 @@ export interface PortfolioSection {
   heroGradient: string;
   metrics: readonly PortfolioMetric[];
   cards: readonly PortfolioCard[];
+  detailSections?: readonly PortfolioDetailSection[];
   quickFacts: readonly string[];
   defaultWindow: {
     position: WindowPosition;
@@ -119,4 +134,9 @@ export interface SiteProfile {
   location: string;
   availability: string;
   summary: string;
+}
+
+export interface PortfolioContentSource {
+  siteProfile: SiteProfile;
+  portfolioSections: readonly PortfolioSection[];
 }

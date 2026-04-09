@@ -3,11 +3,12 @@
 import { useCallback } from "react";
 import { PortfolioWindowContent } from "@/components/content/PortfolioWindowContent";
 import { Window } from "@/components/window/Window";
-import { portfolioSectionsById } from "@/data/portfolio-content";
-import type { PortfolioSectionId, WindowAction, WindowState } from "@/types";
+import type { PortfolioSection, WindowAction, WindowState } from "@/types";
 
 interface WindowContainerProps {
   windowState: WindowState;
+  section: PortfolioSection;
+  sectionIndex: number;
   dockMinimizeRequested: boolean;
   dispatch: React.Dispatch<WindowAction>;
   onDockMinimizeComplete: () => void;
@@ -15,12 +16,12 @@ interface WindowContainerProps {
 
 export function WindowContainer({
   windowState,
+  section,
+  sectionIndex,
   dockMinimizeRequested,
   dispatch,
   onDockMinimizeComplete,
 }: WindowContainerProps) {
-  const section = portfolioSectionsById[windowState.id];
-
   const onClose = useCallback(() => {
     dispatch({
       type: "CLOSE_WINDOW",
@@ -80,7 +81,7 @@ export function WindowContainer({
   return (
     <Window
       id={windowState.id}
-      title={windowState.title}
+      title={section.windowTitle}
       isOpen={windowState.isOpen}
       isFocused={windowState.isFocused}
       isMinimized={windowState.isMinimized}
@@ -96,7 +97,7 @@ export function WindowContainer({
       onMove={onMove}
       onResize={onResize}
     >
-      <PortfolioWindowContent section={section} />
+      <PortfolioWindowContent section={section} sectionIndex={sectionIndex} />
     </Window>
   );
 }

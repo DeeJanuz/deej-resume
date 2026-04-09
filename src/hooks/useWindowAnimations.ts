@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { RefObject } from "react";
 
 interface UseWindowAnimationsOptions {
@@ -49,21 +49,21 @@ export function useWindowAnimations({
   const [isFullScreenTransitioning, setIsFullScreenTransitioning] = useState(false);
   const wasMinimized = useRef(false);
   const prevFullScreen = useRef(isFullScreen);
-  const skipOpenAnimation = useRef(false);
-  const handleMinimizeRef = useRef<() => void>(null);
+  const dockMinimizeHandled = useRef(false);
+  const [shouldSkipOpenAnimation, setShouldSkipOpenAnimation] = useState(false);
 
-  function handleClose() {
-    skipOpenAnimation.current = false;
+  const handleClose = useCallback(() => {
+    setShouldSkipOpenAnimation(false);
     setIsClosing(true);
     window.setTimeout(() => {
       setIsClosing(false);
       onClose();
     }, 180);
-  }
+  }, [onClose]);
 
-  function handleMinimize() {
+  const handleMinimize = useCallback(() => {
     if (isMinimizing) return;
-    skipOpenAnimation.current = false;
+    setShouldSkipOpenAnimation(false);
 
     const el = windowRef.current;
     if (el) {
@@ -75,35 +75,70 @@ export function useWindowAnimations({
       setIsMinimizing(false);
       onMinimize();
     }, 400);
-  }
-
-  handleMinimizeRef.current = handleMinimize;
+  }, [id, isMinimizing, onMinimize, windowRef]);
 
   useEffect(() => {
-    if (dockMinimizeRequested) {
-      handleMinimizeRef.current?.();
+    if (!dockMinimizeRequested) {
+      dockMinimizeHandled.current = false;
+      return;
     }
-  }, [dockMinimizeRequested]);
+
+    if (dockMinimizeHandled.current) {
+      return;
+    }
+
+    dockMinimizeHandled.current = true;
+    const timer = window.setTimeout(() => {
+      handleMinimize();
+    }, 0);
+
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, [dockMinimizeRequested, handleMinimize]);
 
   useLayoutEffect(() => {
+    let frameId: number | null = null;
+
     if (wasMinimized.current && !isMinimized && isOpen) {
       const el = windowRef.current;
       if (el) {
         computeDockOffset(el, id);
       }
-      skipOpenAnimation.current = true;
-      setIsRestoring(true);
+      frameId = window.requestAnimationFrame(() => {
+        setShouldSkipOpenAnimation(true);
+        setIsRestoring(true);
+      });
     }
     wasMinimized.current = isMinimized;
+
+    return () => {
+      if (frameId !== null) {
+        window.cancelAnimationFrame(frameId);
+      }
+    };
   }, [isMinimized, isOpen, id, windowRef]);
 
   useEffect(() => {
+    let frameId: number | null = null;
+    let timer: number | null = null;
+
     if (isFullScreen !== prevFullScreen.current) {
       prevFullScreen.current = isFullScreen;
-      setIsFullScreenTransitioning(true);
-      const timer = window.setTimeout(() => setIsFullScreenTransitioning(false), 300);
-      return () => window.clearTimeout(timer);
+      frameId = window.requestAnimationFrame(() => {
+        setIsFullScreenTransitioning(true);
+        timer = window.setTimeout(() => setIsFullScreenTransitioning(false), 300);
+      });
     }
+
+    return () => {
+      if (frameId !== null) {
+        window.cancelAnimationFrame(frameId);
+      }
+      if (timer !== null) {
+        window.clearTimeout(timer);
+      }
+    };
   }, [isFullScreen]);
 
   useEffect(() => {
@@ -121,7 +156,7 @@ export function useWindowAnimations({
       ? "window-minimize"
       : isClosing
         ? "window-close"
-        : skipOpenAnimation.current
+        : shouldSkipOpenAnimation
           ? ""
           : "window-open";
 
