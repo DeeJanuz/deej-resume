@@ -27,6 +27,10 @@ No automated tests exist yet. The sections below describe the first tests that s
 - `useWindowResize` hook behavior (`src/hooks/useWindowResize.ts`):
   - edge and corner resize from all 8 directions
   - minimum size enforcement
+- `useWindowAnimations` hook behavior (`src/hooks/useWindowAnimations.ts`):
+  - animation state transitions: open, close, minimize, restore, fullscreen
+  - CSS class and inline style derivation from animation state
+  - dock offset computation for minimize/restore target
 - Route-state parsing and serialization (not yet implemented):
   - default open windows
   - invalid query handling
@@ -39,9 +43,10 @@ No automated tests exist yet. The sections below describe the first tests that s
 
 ## Planned Component Tests
 
-- Desktop icon rendering and keyboard activation (`DesktopFiles`)
+- Desktop icon rendering, glyph registry dispatch, and keyboard activation (`DesktopFiles`)
 - Window chrome: traffic light close, minimize, and fullscreen buttons (`TrafficLights`, `Window`)
-- Window animations: open, close, minimize-to-dock, restore-from-dock (`Window`)
+- Window animations: open, close, minimize-to-dock, restore-from-dock (`Window`, `useWindowAnimations`)
+- WindowContainer: memoized callback props, correct dispatch forwarding (`WindowContainer`)
 - Dock: dynamic rendering of open/minimized windows, click-to-minimize/restore/focus (`Dock`)
 - Mobile fallback rendering for the same content source (`MobileLanding`)
 - Resume window rendering for the primary hire-me flow (`PortfolioWindowContent`)

@@ -7,11 +7,11 @@ This document tracks follow-up work, refactoring ideas, and architecture risks d
 ## Latest Session Summary
 
 **Last Update:** 2026-04-09
-**Last Reviewed Commit:** d5eb170 (initial commit)
-**Commit Score:** 72/100 (Good)
+**Last Reviewed Commit:** 7e0cc7c (Resolve SOLID tech debt: extract hooks, components, and registries)
+**Commit Score:** 82/100 (Good)
 
-**Total Active Issues:** 7
-**Resolved This Month:** 2
+**Total Active Issues:** 4
+**Resolved This Month:** 7
 
 ---
 
@@ -25,6 +25,8 @@ This document tracks follow-up work, refactoring ideas, and architecture risks d
 
 ### Medium
 
+- **[DRY] `document`, `stack`, and `contact` glyph renderers are identical** (src/components/desktop/DesktopFiles.tsx:36-80)
+  The `glyphRenderers` registry correctly solves the OCP violation, but three of the four entries (`document`, `stack`, `contact`) have byte-identical JSX. Extract a shared `DocumentGlyph` renderer and alias it for the three kinds, or use a `defaultRenderer` fallback with `folder` as the only override. Severity: Medium. Added: 2026-04-09 (7e0cc7c).
 
 - Choose the final content source format for launch: pure TypeScript objects, MDX-backed documents, or a hybrid.
 - Define how shareable deep links should work when multiple windows are open.

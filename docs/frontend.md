@@ -130,11 +130,12 @@ src/
     content/
       PortfolioWindowContent.tsx   # Renders section data inside windows
     desktop/
-      Desktop.tsx         # Shell: wallpaper, menu bar, desktop files, windows, dock
-      DesktopFiles.tsx    # Positioned desktop icons with document/folder glyphs
-      Dock.tsx            # Dynamic dock showing open/minimized windows
-      MenuBar.tsx         # Top menu bar chrome
-      Wallpaper.tsx       # Background gradient
+      Desktop.tsx          # Shell: wallpaper, menu bar, desktop files, windows, dock
+      DesktopFiles.tsx     # Positioned desktop icons with glyph renderer registry
+      Dock.tsx             # Dynamic dock showing open/minimized windows (props-based)
+      MenuBar.tsx          # Top menu bar chrome
+      Wallpaper.tsx        # Background gradient
+      WindowContainer.tsx  # Per-window wrapper with memoized dispatch callbacks
     mobile/
       MobileLanding.tsx   # Stacked card layout for small screens
     window/
@@ -143,13 +144,14 @@ src/
   data/
     portfolio-content.ts  # All section content, desktop items, and site profile
   hooks/
-    useWindowDrag.ts      # Pointer-based window dragging
-    useWindowManager.ts   # useReducer-based window state manager
-    useWindowResize.ts    # Pointer-based edge/corner resizing
+    useWindowAnimations.ts # Window open/close/minimize/restore/fullscreen animation state
+    useWindowDrag.ts       # Pointer-based window dragging
+    useWindowManager.ts    # useReducer-based window state manager
+    useWindowResize.ts     # Pointer-based edge/corner resizing
   styles/
     STYLE_GUIDE.md        # macOS fidelity design tokens reference
   types/
-    index.ts              # WindowState, PortfolioSection, DesktopItem, action types
+    index.ts              # WindowState, PortfolioSection, DesktopItem, ResizeDirection, action types
 ```
 
 ---
