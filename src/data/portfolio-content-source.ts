@@ -5,7 +5,7 @@ export const contentSource = {
     "name": "Daenon Janis",
     "title": "AI product builder with secure systems depth",
     "location": "Denver, Colorado",
-    "availability": "Open to founding engineer, early product engineering, and fractional product build work",
+    "availability": "Open to hands-on CTO, founding CTO, founding engineer, early product engineering, and fractional product build work",
     "summary": "I help teams turn messy operations, data movement, and AI ideas into secure software people can actually use."
   },
   "portfolioSections": [
@@ -14,7 +14,7 @@ export const contentSource = {
       "title": "AI Product Builder With Secure Systems Depth",
       "windowTitle": "Resume.pdf",
       "eyebrow": "Core Story",
-      "intro": "I work in the overlap between product velocity, data infrastructure, and security. At Ivy Energy I own cross-functional systems that keep the company compliant, modernize the data stack, and help non-engineering teams ship software that materially improves how they work. test",
+      "intro": "I work in the overlap between product velocity, data infrastructure, and security. At Ivy Energy I own cross-functional systems that keep the company compliant, modernize the data stack, and help non-engineering teams ship software that materially improves how they work.",
       "summary": "This is the fastest path to understanding why I am a strong founding engineer or early product hire. I can move from compliance and data architecture into internal product delivery, automation, and AI-enabled tooling without losing operational discipline.",
       "sidebarNote": "Read this like the condensed founder version: scope, outcomes, and the kind of problems I reliably turn into shipped systems.",
       "accent": "#2f6b73",
@@ -48,22 +48,23 @@ export const contentSource = {
         {
           "title": "Selected outcomes",
           "eyebrow": "Impact",
-          "description": "The common pattern across my work is reducing organizational drag while making the resulting systems safer and more durable.",
+          "description": "The common pattern across my work is reducing organizational drag while making the resulting systems safer and durable.",
           "bullets": [
-            "Built Ivy Energy's SOC 2 program from scratch and maintained it through year two by coordinating recurring compliance work such as access reviews, tabletop exercises, permissions tracking, and role-based access control hygiene.",
-            "Reduced database costs by about one third by migrating from Timescale to RDS and reshaping the downstream data engineering pipeline into Snowflake and connected business systems.",
+            "Built Ivy Energy's SOC 2 program from scratch and maintained it through year two by working cross functionally with all departments, implementing RBAC, code reviews, vulnerability scanning, security policies, and all other necessary controls required for modern SOC 2 compliance.",
+            "Reduced database costs by about one third by migrating databases and systems architecture to a new provider and reshaping the downstream pipelines with minimal downtime.",
             "Enabled non-engineering teams to ship secure AI-developed tooling that automated support workflows, customer communication, internal operations, post-lead conversion steps, and cross-system sync."
           ]
         },
         {
           "title": "What I'm looking for",
           "eyebrow": "Next chapter",
-          "description": "I am looking for founding engineer or early product engineering work where range matters and where building fast still has to result in trustworthy systems.",
+          "description": "I am looking for hands-on CTO, founding CTO, founding engineer, or early product engineering work where range matters and where building fast still has to result in trustworthy systems.",
           "tags": [
+            "Hands-on CTO",
+            "Founding CTO",
             "Founding engineer",
             "Early product",
-            "Fractional consulting",
-            "Internal tools"
+            "Fractional consulting"
           ]
         }
       ],
@@ -80,10 +81,10 @@ export const contentSource = {
           "title": "Selected scope and responsibility",
           "eyebrow": "What I actually own",
           "bullets": [
-            "Built Ivy Energy's security posture from the ground up through SOC 2 readiness and then maintained that program through year two with access reviews, tabletop exercises, permissions tracking, and RBAC hygiene across the organization.",
-            "Migrated core workloads off Timescale onto RDS, then modernized the data stack so information from Postgres and business systems could be loaded into Snowflake for reporting, automation, and downstream operational use.",
+            "Built Ivy Energy's security posture from the ground up through SOC 2 readiness and then maintained that program through year two with all necessary controls required for modern SOC 2 compliance.",
+            "Migrated core workloads off old systems, then modernized the data stack so information from Postgres and business systems could be loaded into Snowflake for reporting, automation, and downstream operational use.",
             "Built and maintained integrations spanning Salesforce, Zendesk, Slack, ClickUp, Odoo, Snowflake, and other internal systems.",
-            "Created secure internal tools and AI-assisted workflows for operations teams that needed working software quickly, even when the work did not belong in the primary product stack.",
+            "Created secure internal tools and AI-assisted workflows for operations teams that needed working software quickly, being able to securely access core product data without compromising the core product's security or deployment operations.",
             "Acted as a translator between technical and non-technical stakeholders so semi-technical teams could turn process problems into deployable tools."
           ]
         },
@@ -91,7 +92,7 @@ export const contentSource = {
           "title": "Target opportunities",
           "eyebrow": "What I want next",
           "paragraphs": [
-            "I am looking for founding engineer or early product engineering roles where range matters: teams that need someone who can move from architecture to implementation to operational hardening without losing the plot.",
+            "I am looking for hands-on CTO, founding CTO, founding engineer, or early product engineering roles where range matters: teams that need someone who can move from architecture to implementation to operational hardening without losing the plot.",
             "I am also open to fractional consulting and product build work, especially where internal platforms, AI-enabled workflows, secure delivery, or messy cross-system operations need a strong first builder."
           ]
         }
@@ -161,7 +162,7 @@ export const contentSource = {
         {
           "title": "What I want next",
           "eyebrow": "Direction",
-          "description": "I am optimizing for founding engineer or early product roles, plus selective fractional consulting where a team needs a strong first builder for AI-enabled internal software."
+          "description": "I am optimizing for hands-on CTO, founding CTO, founding engineer, or early product roles, plus selective fractional consulting where a team needs a strong first builder for AI-enabled internal software."
         }
       ],
       "detailSections": [
@@ -186,7 +187,7 @@ export const contentSource = {
           "eyebrow": "Next chapter",
           "paragraphs": [
             "I click best with teams that want someone hands-on, product-minded, and comfortable moving across boundaries. I like early environments where the right builder can still change how a company operates.",
-            "That can look like a founding engineer seat, an early product engineering role, or fractional build work where a company needs help translating real operational pain into secure, usable software."
+            "That can look like a hands-on CTO seat, a founding CTO or founding engineer role, an early product engineering role, or fractional build work where a company needs help translating real operational pain into secure, usable software."
           ]
         }
       ],
@@ -473,55 +474,134 @@ export const contentSource = {
     },
     {
       "id": "businesses",
-      "title": "Businesses",
+      "title": "Founder Work",
       "windowTitle": "Businesses",
       "eyebrow": "Founder Work",
-      "intro": "Use this window if you want visitors to understand the ventures, experiments, and operator instincts that sit alongside your employment history.",
-      "summary": "This is especially useful if your business work makes you a stronger hire or a stronger partner.",
-      "sidebarNote": "This window should make founder or operator experience feel concrete rather than vague.",
+      "intro": "These are the founder-led products I am building outside my day job. They matter because they show more than implementation ability: they show product taste, positioning, and a willingness to turn recurring pain into something real people can use.",
+      "summary": "I do not just like building inside existing systems. I like identifying a wedge, shaping a product around it, and building the technical foundation for something that could stand on its own.",
+      "sidebarNote": "The distinction from Projects is ownership. These are product bets and platforms I am building with a founder mindset, not just technical proofs.",
       "accent": "#7b4b45",
       "heroGradient": "linear-gradient(135deg, rgba(123, 75, 69, 0.18) 0%, rgba(228, 196, 188, 0.84) 100%)",
       "metrics": [
         {
+          "value": "03",
+          "label": "Founder-led products in the current orbit"
+        },
+        {
           "value": "02",
-          "label": "Ventures worth featuring"
+          "label": "Live public product sites"
         },
         {
-          "value": "01",
-          "label": "Operator insight per venture"
-        },
-        {
-          "value": "↔",
-          "label": "Connect to employment story"
+          "value": "OSS",
+          "label": "Open-source distribution paired with private product work"
         }
       ],
       "cards": [
         {
-          "title": "Primary business or venture",
-          "eyebrow": "Flagship company",
-          "description": "Explain the business, the market or problem, and what your role says about your strengths as a founder or operator."
-        },
-        {
-          "title": "Side venture or studio effort",
-          "eyebrow": "Second chapter",
-          "description": "Use this slot for a smaller venture, consulting model, or productized service that shows range."
-        },
-        {
-          "title": "Key lessons",
-          "eyebrow": "Operator perspective",
-          "description": "Summarize the lessons from selling, building, serving customers, or managing constraints that shape how you work now.",
+          "title": "Ludflow",
+          "eyebrow": "Private company",
+          "description": "Ludflow is my privately owned platform for AI documentation, data governance, and MCP-based organizational context. It is built around a simple problem: teams do not trust documentation that drifts away from code, schemas, and operational reality. It also includes the surrounding decision and workflow tooling that I think belongs inside the broader Ludflow ecosystem.",
+          "links": [
+            {
+              "label": "Visit Ludflow",
+              "href": "https://ludflow.com"
+            }
+          ],
           "tags": [
-            "Customer empathy",
-            "Decision-making",
-            "Speed",
-            "Trade-offs"
+            "Private company",
+            "AI documentation",
+            "Data governance",
+            "MCP ecosystem"
+          ]
+        },
+        {
+          "title": "MCPViews",
+          "eyebrow": "Open-source product",
+          "description": "MCPViews is an open-source desktop companion that gives AI agents a visual interface, plugin system, and a richer interaction model than plain text alone. It is both a usable product and a public bet on where MCP-native software is going.",
+          "links": [
+            {
+              "label": "Visit MCPViews",
+              "href": "https://mcpviews.com"
+            },
+            {
+              "label": "GitHub Repo",
+              "href": "https://github.com/DeeJanuz/mcpviews"
+            }
+          ],
+          "tags": [
+            "Open source",
+            "Developer tool",
+            "Desktop app",
+            "Plugin system"
+          ]
+        },
+        {
+          "title": "DecidR MCP",
+          "eyebrow": "Product in the Ludflow ecosystem",
+          "description": "DecidR MCP is the decision and project-management layer inside the broader Ludflow ecosystem. It reflects how I think AI-native teams should coordinate work, architecture decisions, and stakeholder approval without turning everything into micromanaged tickets.",
+          "tags": [
+            "Ludflow ecosystem",
+            "Decision workflows",
+            "AI-native teams",
+            "Project coordination"
+          ]
+        }
+      ],
+      "detailSections": [
+        {
+          "title": "Ludflow",
+          "eyebrow": "Private product and company",
+          "paragraphs": [
+            "Ludflow is the clearest example of my founder instincts. The core problem is that most organizations split knowledge across code, schemas, docs, and tribal memory, then expect both humans and AI tools to somehow stitch the truth back together.",
+            "The product thesis is that documentation, governance, and AI context should not be separate systems. Ludflow generates documentation from the codebase and schemas, tracks ownership, and gives AI agents grounded context through MCP so the answer is easier to find and easier to trust.",
+            "Within that broader Ludflow ecosystem, I am also shaping the decision and workflow layer that helps teams collaborate on architecture, implementation choices, and stakeholder buy-in. I think of that as part of the Ludflow product system rather than a separate public-facing company.",
+            "As a founder bet, this shows how I like to work: start with a painful reality, sharpen the market point of view, and build something that unifies fragmented workflows into a clearer operating system."
+          ],
+          "links": [
+            {
+              "label": "Visit Ludflow",
+              "href": "https://ludflow.com"
+            }
+          ]
+        },
+        {
+          "title": "MCPViews",
+          "eyebrow": "Open-source product and ecosystem wedge",
+          "paragraphs": [
+            "MCPViews comes from a different founder instinct. Instead of packaging internal knowledge, it creates a better interface layer for AI-native software. The core idea is that agents should not be trapped inside text-only outputs when the underlying workflows clearly want tables, diagrams, reviews, and live interaction.",
+            "I positioned MCPViews as an open-source, free-to-use companion with plugins, live API hydration, and review workflows. That makes it both a real tool and a way to explore how MCP-native products can blur the line between AI tooling and traditional SaaS.",
+            "The business value for me is not just the code. It is the distribution model, the public proof, and the chance to test product ideas in the open while building trust with technical users."
+          ],
+          "links": [
+            {
+              "label": "Visit MCPViews",
+              "href": "https://mcpviews.com"
+            },
+            {
+              "label": "GitHub Repo",
+              "href": "https://github.com/DeeJanuz/mcpviews"
+            }
+          ]
+        },
+        {
+          "title": "DecidR MCP",
+          "eyebrow": "Decision and workflow layer in the Ludflow ecosystem",
+          "paragraphs": [
+            "DecidR MCP is its own product concept, but I think of it as part of the broader Ludflow ecosystem rather than a separate standalone company. It focuses on the collaboration layer around initiatives, projects, architecture decisions, and stakeholder buy-in.",
+            "The idea is that AI-native teams should be able to work at a higher level than individual tickets. Instead of centering everything around task micromanagement, DecidR helps people own larger slices of work, pass decisions asynchronously, and keep implementation context attached to the actual architecture.",
+            "Including it here matters because it shows I am thinking in systems of products. Ludflow handles documentation, governance, and context; DecidR extends that into decision-making and execution."
+          ],
+          "bullets": [
+            "Built for AI-native collaboration rather than traditional ticket-first project management.",
+            "Connects decisions, documentation, and implementation context across stakeholders.",
+            "Presented as part of the Ludflow ecosystem, which is why it is not framed here as a separate standalone site."
           ]
         }
       ],
       "quickFacts": [
-        "Show why the business experience is relevant, not just interesting.",
-        "Focus on ownership, constraints, and results.",
-        "Tie the lessons back to the work you want next."
+        "Ludflow is the private commercial product in the set.",
+        "MCPViews is the open-source public-facing product with its own site and repo.",
+        "DecidR MCP is its own entity, but it is intentionally presented as part of the broader Ludflow ecosystem."
       ],
       "defaultWindow": {
         "position": {

@@ -7,10 +7,10 @@ This document tracks follow-up work, refactoring ideas, and architecture risks d
 ## Latest Session Summary
 
 **Last Update:** 2026-04-09
-**Last Reviewed Commit:** 7e0cc7c (Resolve SOLID tech debt: extract hooks, components, and registries)
-**Commit Score:** 82/100 (Good)
+**Last Reviewed Commit:** 3e23697 (Add localhost inline content editing and save workflow)
+**Commit Score:** 74/100 (Needs hardening)
 
-**Total Active Issues:** 4
+**Total Active Issues:** 5
 **Resolved This Month:** 7
 
 ---
@@ -19,6 +19,8 @@ This document tracks follow-up work, refactoring ideas, and architecture risks d
 
 ### High
 
+- **[Security] Lock down the localhost save sidecar to trusted origins only** (`scripts/dev-with-inline-editor.mjs:18-24`, `scripts/dev-with-inline-editor.mjs:34-39`)
+  The new inline editing flow opens a write endpoint on `127.0.0.1:4010` and currently returns `Access-Control-Allow-Origin: *` for both the preflight and response path. Any website opened in the same browser can issue cross-origin requests to `POST /save` while local dev is running and overwrite `src/data/portfolio-content-source.ts`. Restrict the origin to the actual local app origin, reject unexpected `Origin` headers, and consider a per-session nonce or shared secret before this workflow is treated as hardened. Severity: High. Added: 2026-04-09 (3e23697).
 
 - Decide whether the first public version should treat `Resume.pdf` as a rendered web document, an embedded PDF, or both.
 - Finalize the desktop information architecture so each top-level file or folder maps to a single clear user intent.

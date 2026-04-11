@@ -38,6 +38,11 @@ No automated tests exist yet. The sections below describe the first tests that s
 - Content transformers:
   - desktop item to window definition mapping (`Desktop.createWindowPayload`)
   - portfolio section lookup by id
+- `ContentDevContext` draft workflow (`src/components/dev/ContentDevContext.tsx`):
+  - service health detection for localhost inline save
+  - fallback file-handle reconnect path when the save service is absent
+  - updateText path writes for nested content fields
+  - save/reset state transitions (`isDirty`, `lastSavedAt`, status text)
 
 ---
 
@@ -50,6 +55,10 @@ No automated tests exist yet. The sections below describe the first tests that s
 - Dock: dynamic rendering of open/minimized windows, click-to-minimize/restore/focus (`Dock`)
 - Mobile fallback rendering for the same content source (`MobileLanding`)
 - Resume window rendering for the primary hire-me flow (`PortfolioWindowContent`)
+- Inline editing affordances (`EditableText`, `ContentDevTool`):
+  - edit mode only activates on localhost
+  - blur commits edited text into draft state
+  - toolbar buttons reflect save-service availability and dirty state
 
 ---
 
@@ -62,6 +71,7 @@ No automated tests exist yet. The sections below describe the first tests that s
 - Resume window auto-opens on initial desktop mount (320ms delay)
 - Query-state hydration opens expected windows on page load (not yet implemented)
 - External contact actions route users to the correct destination
+- Localhost inline save round-trip updates `src/data/portfolio-content-source.ts` and survives a dev-server restart
 
 ---
 
@@ -70,3 +80,4 @@ No automated tests exist yet. The sections below describe the first tests that s
 - A recruiter can open the resume and reach contact details
 - A client can inspect businesses and projects from the desktop
 - A mobile visitor can understand the owner’s story without the desktop shell
+- A localhost author can enable edit mode, change visible text, save it, reload, and see the content persist

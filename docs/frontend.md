@@ -47,6 +47,21 @@ Instead:
 - Keep high-priority calls to action visible.
 - Preserve the same content model so desktop and mobile use the same source of truth.
 
+### Local Development Editing
+
+While developing on localhost, `npm run dev` now starts a tiny local save sidecar in front of Next.js.
+
+Current behavior:
+- The sidecar listens on `127.0.0.1:4010`.
+- The page receives `NEXT_PUBLIC_RESUME_SITE_EDITOR_URL` from the dev launcher.
+- A localhost-only toolbar lets the author enable inline edit mode, click visible content text, and save the updated content back to disk.
+- The editable source of truth lives in `src/data/portfolio-content-source.ts`.
+
+Guardrails:
+- This tool must never render outside localhost.
+- Production deploys should continue to treat content as static typed data.
+- The local save endpoint should remain tightly scoped to trusted localhost callers only.
+
 ---
 
 ## Architecture Shape
@@ -129,6 +144,10 @@ src/
   components/
     content/
       PortfolioWindowContent.tsx   # Renders section data inside windows
+    dev/
+      ContentDevContext.tsx # Localhost-only draft state and save workflow
+      ContentDevTool.tsx    # Floating toolbar for inline editing
+      EditableText.tsx      # ContentEditable wrapper for visible text fields
     desktop/
       Desktop.tsx          # Shell: wallpaper, menu bar, desktop files, windows, dock
       DesktopFiles.tsx     # Positioned desktop icons with glyph renderer registry
@@ -142,12 +161,15 @@ src/
       TrafficLights.tsx   # Close / minimize / fullscreen button row
       Window.tsx          # Draggable, resizable window with animations
   data/
-    portfolio-content.ts  # All section content, desktop items, and site profile
+    portfolio-content-source.ts # Editable site profile and portfolio section content
+    portfolio-content.ts        # Derived exports, registries, and desktop item mapping
   hooks/
     useWindowAnimations.ts # Window open/close/minimize/restore/fullscreen animation state
     useWindowDrag.ts       # Pointer-based window dragging
     useWindowManager.ts    # useReducer-based window state manager
     useWindowResize.ts     # Pointer-based edge/corner resizing
+  scripts/
+    dev-with-inline-editor.mjs # Starts the localhost save sidecar and Next dev server
   styles/
     STYLE_GUIDE.md        # macOS fidelity design tokens reference
   types/
