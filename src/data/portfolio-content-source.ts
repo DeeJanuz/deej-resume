@@ -399,67 +399,236 @@ export const contentSource = {
     },
     {
       "id": "skills",
-      "title": "Skills",
+      "title": "The Capability Mix That Makes Me Useful",
       "windowTitle": "Skills",
       "eyebrow": "Capability Map",
-      "intro": "This section should organize your skills in a way that feels credible and easy to scan, not like a keyword dump.",
-      "summary": "Group capabilities by how you actually use them: product building, architecture, leadership, operations, writing, or whatever reflects your real range.",
-      "sidebarNote": "The best skills section clarifies your shape, not just your tooling familiarity.",
+      "intro": "My value is not that I have touched a long list of tools. It is that I can combine product delivery, cloud and data systems, security, business-system administration, and cross-functional translation in the same role when a company has messy operational problems that need to become real software.",
+      "summary": "The point of this page is not to prove I know keywords. It is to show the combination that makes me useful: I can help define the problem, build the workflow or product, wire up the CRM, ERP, and data layer underneath it, shape the infrastructure it runs on, and still think seriously about permissions, compliance, AI workflow design, and long-term maintainability.",
+      "sidebarNote": "If the rest of the site explains the story, this page makes the shape of the builder legible.",
       "accent": "#8b6b2f",
       "heroGradient": "linear-gradient(135deg, rgba(139, 107, 47, 0.18) 0%, rgba(234, 215, 171, 0.85) 100%)",
       "metrics": [
         {
-          "value": "04",
-          "label": "Capability groups"
+          "value": "07",
+          "label": "Capability lanes I regularly combine"
         },
         {
-          "value": "0",
-          "label": "Fluff words needed"
+          "value": "SOC 2",
+          "label": "Security depth carried into product work"
         },
         {
-          "value": "1x",
-          "label": "Keywords with context"
+          "value": "AWS -> MCP",
+          "label": "Range from infrastructure through AI-native tooling"
         }
       ],
       "cards": [
         {
-          "title": "Product and software delivery",
-          "eyebrow": "Execution",
-          "description": "Group the tools and disciplines you use to ship real work, and keep them attached to the kinds of problems you solve.",
+          "title": "Product delivery, stack selection, and internal tooling",
+          "eyebrow": "Build and delivery",
+          "description": "Every new product delivery starts with understanding the actual use case, constraints, and users, then selecting the right language, framework, runtime, and interface for the job rather than forcing the same stack onto every problem.",
           "tags": [
             "TypeScript",
+            "JavaScript",
             "React",
             "Next.js",
-            "Systems thinking"
+            "Node.js",
+            "Python",
+            "Rust",
+            "Go",
+            "Java",
+            "C#",
+            "SQL",
+            "Swift / SwiftUI",
+            "Kotlin",
+            "React Native",
+            "Dart / Flutter"
           ]
         },
         {
-          "title": "Architecture and platform thinking",
-          "eyebrow": "Technical depth",
-          "description": "Use this card for the capabilities that help you shape systems, not just implement tickets.",
+          "title": "Data engineering and analytics systems",
+          "eyebrow": "Data layer",
+          "description": "I can move underneath the UI into the pipelines, warehouse models, and database design that make the product and the business actually useful.",
           "tags": [
-            "Architecture",
-            "APIs",
-            "Integrations",
-            "Testing strategy"
+            "SQL",
+            "PostgreSQL",
+            "MySQL",
+            "SQLite",
+            "MongoDB",
+            "Redis",
+            "DynamoDB",
+            "Snowflake",
+            "dbt",
+            "Vector databases",
+            "ETL / ELT"
           ]
         },
         {
-          "title": "Leadership and operations",
-          "eyebrow": "Leverage",
-          "description": "Show the non-code skills that make you effective beyond individual implementation.",
+          "title": "CRM, ERP, and product operations systems",
+          "eyebrow": "Business systems",
+          "description": "I am comfortable not just integrating business systems, but administering and operationalizing them so sales, support, and operations teams can actually work through them cleanly.",
           "tags": [
-            "Planning",
-            "Communication",
-            "Hiring",
-            "Cross-functional alignment"
+            "Salesforce",
+            "HubSpot",
+            "Odoo",
+            "GoHighLevel",
+            "Product ops"
+          ]
+        },
+        {
+          "title": "Cloud infrastructure and secure architecture",
+          "eyebrow": "Infrastructure",
+          "description": "I can work from the application layer down into deployment, networking, and cloud architecture so the system is not just built, but actually runnable and supportable.",
+          "tags": [
+            "AWS",
+            "Kubernetes",
+            "ALB / ELB",
+            "Security groups",
+            "Networking"
+          ]
+        },
+        {
+          "title": "Security, compliance, and trust architecture",
+          "eyebrow": "Trust layer",
+          "description": "Because I came up through security and IT architecture, I naturally think about permissions, controls, and operational risk while things are still being built.",
+          "tags": [
+            "SOC 2",
+            "RBAC",
+            "Vulnerability scanning",
+            "Secure delivery",
+            "IT"
+          ]
+        },
+        {
+          "title": "AI systems and agent tooling",
+          "eyebrow": "AI-native build layer",
+          "description": "I use AI as an execution layer, not a gimmick, and I am especially interested in systems where prompts, context, tools, and interfaces work together as a real product surface.",
+          "tags": [
+            "MCP",
+            "LangChain",
+            "LangGraph",
+            "Vector databases",
+            "Prompt engineering"
+          ]
+        },
+        {
+          "title": "Cross-functional leadership and founder range",
+          "eyebrow": "How I operate",
+          "description": "A lot of my leverage comes from translating between operators, subject matter experts, founders, and engineers so ambiguous work becomes something a team can actually ship and trust.",
+          "tags": [
+            "Requirements shaping",
+            "Documentation",
+            "Stakeholder alignment",
+            "Founder mindset"
+          ]
+        }
+      ],
+      "detailSections": [
+        {
+          "title": "Product building for messy real-world workflows",
+          "eyebrow": "Where I move fastest",
+          "paragraphs": [
+            "I am not a pure front-end specialist or a pure back-end operator. I am most effective when a workflow is messy, the requirements are incomplete, and the team needs someone who can talk to the people closest to the pain, define a useful first version, and ship it.",
+            "Part of that job is evaluating the actual use case and choosing the right language and tools for it. Some products want a web stack, some want a backend-heavy architecture, some want desktop or mobile surfaces, and some need a mix. I care about UI and UX because even strong internal software fails if people do not want to use it."
+          ],
+          "bullets": [
+            "Architecture, language, and tooling selection based on the real use case",
+            "Web, backend, desktop, and mobile product thinking in the same delivery loop",
+            "Internal tools and operator-facing software",
+            "UI / UX decisions that improve adoption instead of just aesthetics",
+            "AI-assisted workflows grounded in real system access and permissions",
+            "Fast first versions followed by architectural hardening for production use"
+          ]
+        },
+        {
+          "title": "Data engineering, AI context systems, and business-system fluency",
+          "eyebrow": "The systems underneath the product",
+          "paragraphs": [
+            "I am comfortable working below the product surface where the real operational complexity usually lives. That includes SQL, database work across relational, document, cache, warehouse, and vector systems, analytics plumbing, dbt-style transformation layers, system migrations, and the integrations that keep teams from re-entering the same information across five tools.",
+            "That has meant moving data from Postgres and internal systems into data lakes such as Snowflake, reshaping architecture to lower cost and improve maintainability, and building integrations across Salesforce, Zendesk, Slack, ClickUp, Odoo, and other core business systems. In my founder work, that systems thinking also extends into MCP-based context, AI retrieval, and vector-backed knowledge layers."
+          ],
+          "bullets": [
+            "Database migrations and architecture changes with operational constraints",
+            "SQL, warehouse modeling, and downstream reporting for real business use",
+            "Relational, document, cache, and vector database patterns",
+            "Snowflake and dbt-oriented analytics workflows",
+            "Vector databases and structured context layers for AI systems",
+            "API integrations and sync workflows across internal and vendor systems"
+          ]
+        },
+        {
+          "title": "CRM, ERP, and product operations administration",
+          "eyebrow": "Operational systems people actually rely on",
+          "paragraphs": [
+            "I am comfortable in the systems most companies actually run on: CRM platforms, support systems, ERP flows, and the operational glue between them. That matters because a lot of high-leverage software work starts with cleaning up the systems teams already live in every day.",
+            "That includes hands-on work in Salesforce, HubSpot, Odoo, GoHighLevel, Zendesk, Slack, ClickUp, and adjacent business tooling, both from an administration perspective and from the perspective of building automations and integrations around them."
+          ],
+          "bullets": [
+            "CRM and ERP administration tied to real process design",
+            "Product operations and revenue operations workflow support",
+            "Cross-system automations that reduce manual handoffs and duplicate work"
+          ]
+        },
+        {
+          "title": "Cloud infrastructure, networking, and full-stack deployment",
+          "eyebrow": "What makes the software actually run",
+          "paragraphs": [
+            "I can work through the deployment and infrastructure layer rather than handing it off conceptually. That includes AWS, GCP, or Azure architecture, full-stack deployment concerns, networking boundaries, and the operational details that make an environment maintainable.",
+            "I am comfortable with the cloud primitives and infrastructure patterns that sit underneath modern product delivery, including Kubernetes, load balancing, security groups, and the kind of environment-level decisions that affect scale, security, and reliability."
+          ],
+          "bullets": [
+            "AWS, GCP, Azure architectures and deployment workflows",
+            "Kubernetes-based application deployment",
+            "ALB / ELB, security groups, and networking fundamentals",
+            "Full-stack deployment thinking from app code to runtime environment"
+          ]
+        },
+        {
+          "title": "Security, compliance, and operational hardening",
+          "eyebrow": "Why I do not treat speed and safety as opposites",
+          "paragraphs": [
+            "Because I came up through security and operational systems work, I do not think of security as something you paste on after the product exists. I naturally think about permissions, auditability, control design, and how a team will safely live with a system after the first version ships.",
+            "That background is a big reason I am useful in AI-enabled internal tooling. I can help teams move quickly without ignoring the uncomfortable questions about access, data handling, deployment practices, and who is responsible when the workflow becomes business critical. As well as knowing when to ignore false positives."
+          ],
+          "bullets": [
+            "Built and maintained SOC 2 controls across departments for a maturing organization",
+            "RBAC, code review, vulnerability scanning, and policy-driven operational controls",
+            "Secure delivery patterns for internal tools that touch sensitive product and customer data"
+          ]
+        },
+        {
+          "title": "AI-native systems, agent workflows, and prompt design",
+          "eyebrow": "Using AI as a real software layer",
+          "paragraphs": [
+            "I do not think about AI as just calling a model and hoping for the best. The interesting work is designing how prompts, context, retrieval, tool use, human review, and interfaces fit together into something reliable enough to matter. As well as identifying when NOT to use LLM's.",
+            "That is where work around MCP, LangChain, LangGraph, vector databases, prompt engineering, and AI-assisted workflow design becomes useful. I care about grounded context, practical evaluation, and shipping AI systems that are actually helpful to the people using them."
+          ],
+          "bullets": [
+            "MCP-native interfaces and tool ecosystems",
+            "LangChain and LangGraph style orchestration patterns",
+            "Prompt engineering tied to workflow quality, not prompt theater",
+            "Human-in-the-loop review patterns for higher-trust AI systems"
+          ]
+        },
+        {
+          "title": "Communication, product shaping, and founder usefulness",
+          "eyebrow": "The non-code skills that multiply the technical ones",
+          "paragraphs": [
+            "A lot of my leverage comes from working well with people who are close to the problem but are not traditional software builders. I can pull requirements out of operational conversation, tighten the logic, and create something technical teams can implement without guessing.",
+            "That is also why founder and early-stage environments make sense for me. I like owning broad slices of work, writing clearly, shaping product direction, and staying close enough to the details that strategy still turns into shipped systems."
+          ],
+          "bullets": [
+            "Cross-functional communication with semi-technical and non-technical stakeholders",
+            "Documentation and system explanation that reduce ambiguity instead of adding more of it",
+            "Ownership across discovery, implementation, rollout, and ongoing improvement"
           ]
         }
       ],
       "quickFacts": [
-        "Avoid giant comma-separated tool lists.",
-        "Organize skills around outcomes and capability clusters.",
-        "If a skill matters, reflect it elsewhere in the site too."
+        "The mix matters more than any single tool: product, data, security, and communication in one builder.",
+        "Business systems fluency here means both administration and integration work, not just API familiarity.",
+        "Cloud, infrastructure, and AI skills are included because I use them as part of real delivery, not as side interests.",
+        "Most of the technologies listed here appear elsewhere in the site because I only surface skills I use in real systems.",
+        "I am strongest when the work crosses team boundaries and nobody else cleanly owns it."
       ],
       "defaultWindow": {
         "position": {
@@ -467,8 +636,8 @@ export const contentSource = {
           "y": 132
         },
         "size": {
-          "width": 700,
-          "height": 520
+          "width": 760,
+          "height": 560
         }
       }
     },
