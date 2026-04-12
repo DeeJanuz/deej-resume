@@ -4,7 +4,7 @@ export const contentSource = {
   "siteProfile": {
     "name": "Daenon Janis",
     "title": "AI product builder with secure systems depth",
-    "location": "Denver, Colorado",
+    "location": "Ogden, Utah",
     "summary": "I help teams turn messy operations, data movement, and AI ideas into secure software people can actually use."
   },
   "portfolioSections": [
@@ -115,7 +115,7 @@ export const contentSource = {
       "id": "about",
       "title": "About Me",
       "windowTitle": "About Me",
-      "eyebrow": "Operating Style",
+      "eyebrow": "ABOUT ME",
       "heroImage": {
         "src": "/images/personal-profile.webp",
         "alt": "Daenon Janis in a flight simulator setup"

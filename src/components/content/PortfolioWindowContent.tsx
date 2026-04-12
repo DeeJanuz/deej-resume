@@ -161,40 +161,12 @@ export function PortfolioWindowContent({
       </aside>
 
       <div className="flex min-h-0 flex-col bg-[rgba(255,255,255,0.95)]">
-        <div className="flex h-12 shrink-0 items-center justify-between border-b border-black/6 px-4">
-          <EditableText
-            as="span"
-            path={["portfolioSections", sectionIndex, "eyebrow"]}
-            text={section.eyebrow}
-            className="rounded-full bg-black/4 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.28em] text-stone-600"
-          />
-
-          <div className="flex items-center gap-2 text-xs text-stone-500">
-            <span
-              className="h-2 w-2 rounded-full"
-              style={{ backgroundColor: section.accent }}
-            />
-            <EditableText
-              as="span"
-              path={["portfolioSections", sectionIndex, "windowTitle"]}
-              text={section.windowTitle}
-            />
-          </div>
-        </div>
-
         <div className="min-h-0 overflow-y-auto">
           <div className="space-y-6 p-4 sm:p-6">
             <section
               className="overflow-hidden rounded-xl border border-white/60 shadow-[0_24px_44px_rgba(0,0,0,0.08)]"
               style={{ background: section.heroGradient }}
             >
-              <div className="border-b border-white/40 px-6 py-4 text-[11px] font-semibold uppercase tracking-[0.3em] text-stone-700">
-                <EditableText
-                  as="span"
-                  path={["portfolioSections", sectionIndex, "windowTitle"]}
-                  text={section.windowTitle}
-                />
-              </div>
               <div className="px-6 py-7 sm:px-8 sm:py-9">
                 <div
                   className={

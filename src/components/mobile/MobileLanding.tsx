@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useSyncExternalStore } from "react";
 import { PortfolioImageBlock } from "@/components/content/PortfolioImageBlock";
 import { EditableText } from "@/components/dev/EditableText";
 import {
@@ -9,6 +9,50 @@ import {
   type EditableContentPath,
 } from "@/components/dev/ContentDevContext";
 import type { PortfolioSectionId } from "@/types";
+
+const MOBILE_DESKTOP_BANNER_DISMISSED_KEY =
+  "resume-site-mobile-desktop-banner-dismissed";
+const MOBILE_DESKTOP_BANNER_EVENT =
+  "resume-site-mobile-desktop-banner-change";
+
+function subscribeToDesktopBannerDismissal(onStoreChange: () => void) {
+  if (typeof window === "undefined") {
+    return () => undefined;
+  }
+
+  function handleStorage(event: StorageEvent) {
+    if (event.key === MOBILE_DESKTOP_BANNER_DISMISSED_KEY) {
+      onStoreChange();
+    }
+  }
+
+  function handleBannerChange() {
+    onStoreChange();
+  }
+
+  window.addEventListener("storage", handleStorage);
+  window.addEventListener(MOBILE_DESKTOP_BANNER_EVENT, handleBannerChange);
+
+  return () => {
+    window.removeEventListener("storage", handleStorage);
+    window.removeEventListener(MOBILE_DESKTOP_BANNER_EVENT, handleBannerChange);
+  };
+}
+
+function getDesktopBannerDismissalSnapshot() {
+  if (typeof window === "undefined") {
+    return false;
+  }
+
+  try {
+    return (
+      window.localStorage.getItem(MOBILE_DESKTOP_BANNER_DISMISSED_KEY) ===
+      "true"
+    );
+  } catch {
+    return false;
+  }
+}
 
 function SectionLinks({
   accent,
@@ -58,6 +102,11 @@ export default function MobileLanding() {
   const { portfolioSections, siteProfile } = content;
   const [activeSectionId, setActiveSectionId] =
     useState<PortfolioSectionId>("about");
+  const isDesktopBannerDismissed = useSyncExternalStore(
+    subscribeToDesktopBannerDismissal,
+    getDesktopBannerDismissalSnapshot,
+    () => false,
+  );
   const activeSection = useMemo(
     () =>
       portfolioSections.find((section) => section.id === activeSectionId) ??
@@ -66,8 +115,45 @@ export default function MobileLanding() {
   );
   const activeSectionIndex = sectionIndexById[activeSection.id];
 
+  function dismissDesktopBanner() {
+    try {
+      window.localStorage.setItem(
+        MOBILE_DESKTOP_BANNER_DISMISSED_KEY,
+        "true",
+      );
+      window.dispatchEvent(new Event(MOBILE_DESKTOP_BANNER_EVENT));
+    } catch {
+      // Ignore storage failures and leave the banner visible.
+    }
+  }
+
   return (
     <div className="min-h-screen bg-[#f7f1e8] text-stone-900">
+      {!isDesktopBannerDismissed ? (
+        <div className="px-4 pt-4">
+          <div className="mx-auto flex max-w-2xl items-start justify-between gap-4 rounded-[24px] border border-black/8 bg-[rgba(255,255,255,0.82)] px-4 py-3 shadow-[0_14px_28px_rgba(34,22,12,0.08)] backdrop-blur-xl">
+            <div>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-stone-500">
+                Mobile View
+              </p>
+              <p className="mt-2 text-sm leading-6 text-stone-700">
+                This content is fully accessible on mobile, but the experience is
+                optimized for desktop viewing.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              onClick={dismissDesktopBanner}
+              aria-label="Dismiss mobile viewing notice"
+              className="shrink-0 rounded-full border border-black/10 px-3 py-1.5 text-xs font-medium text-stone-600 transition hover:bg-black/5"
+            >
+              Dismiss
+            </button>
+          </div>
+        </div>
+      ) : null}
+
       <section className="relative overflow-hidden px-4 pb-8 pt-12">
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.55)_0%,rgba(247,241,232,0)_100%)]" />
         <div className="relative mx-auto max-w-2xl">
@@ -81,7 +167,7 @@ export default function MobileLanding() {
             as="h1"
             path={["siteProfile", "name"]}
             text={siteProfile.name}
-            className="mt-4 font-display text-5xl leading-[0.9] text-stone-900"
+            className="mt-4 font-sans text-[clamp(3rem,12vw,4.75rem)] font-semibold leading-[0.92] tracking-[-0.045em] text-stone-900"
           />
           <EditableText
             as="p"
