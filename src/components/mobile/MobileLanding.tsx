@@ -1,6 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { useMemo, useState } from "react";
+import { PortfolioImageBlock } from "@/components/content/PortfolioImageBlock";
 import { EditableText } from "@/components/dev/EditableText";
 import {
   usePortfolioContent,
@@ -55,7 +57,7 @@ export default function MobileLanding() {
   const { content, sectionIndexById } = usePortfolioContent();
   const { portfolioSections, siteProfile } = content;
   const [activeSectionId, setActiveSectionId] =
-    useState<PortfolioSectionId>("resume");
+    useState<PortfolioSectionId>("about");
   const activeSection = useMemo(
     () =>
       portfolioSections.find((section) => section.id === activeSectionId) ??
@@ -86,12 +88,6 @@ export default function MobileLanding() {
             path={["siteProfile", "title"]}
             text={siteProfile.title}
             className="mt-4 text-base leading-7 text-stone-700"
-          />
-          <EditableText
-            as="p"
-            path={["siteProfile", "availability"]}
-            text={siteProfile.availability}
-            className="mt-3 text-sm leading-7 text-stone-600"
           />
           <EditableText
             as="p"
@@ -138,6 +134,20 @@ export default function MobileLanding() {
           className="rounded-[30px] border border-white/65 p-6 shadow-[0_22px_40px_rgba(38,22,12,0.08)]"
           style={{ background: activeSection.heroGradient }}
         >
+          {activeSection.heroImage ? (
+            <div className="mb-5">
+              <div className="relative h-28 w-28 overflow-hidden rounded-[24px] border border-white/65 bg-white/60 shadow-[0_16px_30px_rgba(34,22,12,0.12)]">
+                <Image
+                  src={activeSection.heroImage.src}
+                  alt={activeSection.heroImage.alt}
+                  fill
+                  sizes="112px"
+                  className="object-cover object-center"
+                />
+              </div>
+            </div>
+          ) : null}
+
           <EditableText
             as="p"
             path={["portfolioSections", activeSectionIndex, "eyebrow"]}
@@ -156,40 +166,6 @@ export default function MobileLanding() {
             text={activeSection.intro}
             className="mt-4 text-sm leading-7 text-stone-700"
           />
-        </section>
-
-        <section className="mt-4 grid gap-3 sm:grid-cols-3">
-          {activeSection.metrics.map((metric, metricIndex) => (
-            <div
-              key={`${metric.label}-${metricIndex}`}
-              className="rounded-[22px] border border-black/5 bg-white/78 p-4 shadow-[0_14px_30px_rgba(34,22,12,0.05)]"
-            >
-              <EditableText
-                as="div"
-                path={[
-                  "portfolioSections",
-                  activeSectionIndex,
-                  "metrics",
-                  metricIndex,
-                  "value",
-                ]}
-                text={metric.value}
-                className="font-display text-3xl text-stone-900"
-              />
-              <EditableText
-                as="div"
-                path={[
-                  "portfolioSections",
-                  activeSectionIndex,
-                  "metrics",
-                  metricIndex,
-                  "label",
-                ]}
-                text={metric.label}
-                className="mt-2 text-sm text-stone-600"
-              />
-            </div>
-          ))}
         </section>
 
         <section className="mt-5 space-y-4">
@@ -305,16 +281,6 @@ export default function MobileLanding() {
 
         {activeSection.detailSections?.length ? (
           <section className="mt-5 space-y-4">
-            <div className="rounded-[26px] border border-black/5 bg-white/82 p-5 shadow-[0_18px_36px_rgba(34,22,12,0.05)]">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-stone-500">
-                Extended Detail
-              </p>
-              <p className="mt-3 text-sm leading-7 text-stone-600">
-                The cards above are the fast skim. The sections below carry the
-                fuller narrative for visitors who want more context.
-              </p>
-            </div>
-
             {activeSection.detailSections.map((detail, detailIndex) => (
               <article
                 key={`${detail.title}-${detailIndex}`}
@@ -347,6 +313,23 @@ export default function MobileLanding() {
                   text={detail.title}
                   className="mt-3 text-xl font-semibold text-stone-900"
                 />
+
+                {detail.image ? (
+                  <div className="mt-4">
+                    <PortfolioImageBlock
+                      image={detail.image}
+                      captionPath={[
+                        "portfolioSections",
+                        activeSectionIndex,
+                        "detailSections",
+                        detailIndex,
+                        "image",
+                        "caption",
+                      ]}
+                      sizes="100vw"
+                    />
+                  </div>
+                ) : null}
 
                 {detail.paragraphs?.map((paragraph, paragraphIndex) => (
                   <EditableText

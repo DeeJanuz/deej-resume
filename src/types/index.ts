@@ -1,9 +1,9 @@
 export type PortfolioSectionId =
-  | "resume"
   | "experience"
   | "projects"
   | "skills"
   | "about"
+  | "personal"
   | "businesses"
   | "contact";
 
@@ -74,11 +74,6 @@ export interface DesktopItemDefinition {
   iconLabel: string;
   kind: DesktopItemKind;
   accent: string;
-  position: {
-    top: string;
-    left?: string;
-    right?: string;
-  };
 }
 
 export interface PortfolioMetric {
@@ -89,6 +84,12 @@ export interface PortfolioMetric {
 export interface PortfolioLink {
   label: string;
   href: string;
+}
+
+export interface PortfolioImage {
+  src: string;
+  alt: string;
+  caption?: string;
 }
 
 export interface PortfolioCard {
@@ -103,6 +104,7 @@ export interface PortfolioCard {
 export interface PortfolioDetailSection {
   title: string;
   eyebrow?: string;
+  image?: PortfolioImage;
   paragraphs?: readonly string[];
   bullets?: readonly string[];
   links?: readonly PortfolioLink[];
@@ -113,6 +115,7 @@ export interface PortfolioSection {
   title: string;
   windowTitle: string;
   eyebrow: string;
+  heroImage?: PortfolioImage;
   intro: string;
   summary: string;
   sidebarNote: string;
@@ -132,7 +135,6 @@ export interface SiteProfile {
   name: string;
   title: string;
   location: string;
-  availability: string;
   summary: string;
 }
 

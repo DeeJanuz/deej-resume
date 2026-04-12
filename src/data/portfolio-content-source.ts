@@ -5,20 +5,19 @@ export const contentSource = {
     "name": "Daenon Janis",
     "title": "AI product builder with secure systems depth",
     "location": "Denver, Colorado",
-    "availability": "Open to hands-on CTO, founding CTO, founding engineer, early product engineering, and fractional product build work",
     "summary": "I help teams turn messy operations, data movement, and AI ideas into secure software people can actually use."
   },
   "portfolioSections": [
     {
-      "id": "resume",
-      "title": "AI Product Builder With Secure Systems Depth",
-      "windowTitle": "Resume.pdf",
-      "eyebrow": "Core Story",
-      "intro": "I work in the overlap between product velocity, data infrastructure, and security. At Ivy Energy I own cross-functional systems that keep the company compliant, modernize the data stack, and help non-engineering teams ship software that materially improves how they work.",
-      "summary": "This is the fastest path to understanding why I am a strong founding engineer or early product hire. I can move from compliance and data architecture into internal product delivery, automation, and AI-enabled tooling without losing operational discipline.",
-      "sidebarNote": "Read this like the condensed founder version: scope, outcomes, and the kind of problems I reliably turn into shipped systems.",
-      "accent": "#2f6b73",
-      "heroGradient": "linear-gradient(135deg, rgba(47, 107, 115, 0.20) 0%, rgba(173, 217, 216, 0.82) 100%)",
+      "id": "experience",
+      "title": "Past Work",
+      "windowTitle": "Past Work",
+      "eyebrow": "Past Work",
+      "intro": "My past work has centered on security, data engineering, systems integration, and internal product delivery. At Ivy Energy I have spent the last several years owning the kinds of cross-functional systems work that keeps a company compliant, modernizes its data layer, and helps teams turn operational pain into working software.",
+      "summary": "The background is broad, but the pattern is consistent: I take on important systems problems that sit between departments, carry them through implementation, and make sure the result is something people can actually use and trust.",
+      "sidebarNote": "This page should read like the practical work-history version first, with a lighter explanation of where I want that experience to lead next.",
+      "accent": "#3f5f48",
+      "heroGradient": "linear-gradient(135deg, rgba(63, 95, 72, 0.18) 0%, rgba(196, 223, 195, 0.85) 100%)",
       "metrics": [
         {
           "value": "SOC 2",
@@ -35,72 +34,71 @@ export const contentSource = {
       ],
       "cards": [
         {
-          "title": "What I do",
-          "eyebrow": "Positioning",
-          "description": "I am most useful when a team needs someone who can own the messy overlap between architecture, operations, and software delivery. I build secure systems, modern data pipelines, and fast internal products that help teams move sooner instead of waiting on a perfect roadmap.",
+          "title": "Current role",
+          "eyebrow": "Ivy Energy",
+          "description": "I currently work as a Data Engineer and Senior IT Security Solutions Architect. In practice, that means security and compliance ownership, data platform work, systems integrations, and building internal tools that help teams work faster.",
           "tags": [
-            "Secure systems",
+            "Security",
             "Data engineering",
-            "Internal product",
-            "AI workflows"
+            "Systems integration",
+            "Internal tools"
           ]
         },
         {
           "title": "Selected outcomes",
           "eyebrow": "Impact",
-          "description": "The common pattern across my work is reducing organizational drag while making the resulting systems safer and durable.",
+          "description": "At Ivy I manage difficult infrastructure and operations problems while still shipping things that improve how people work.",
           "bullets": [
-            "Built Ivy Energy's SOC 2 program from scratch and maintained it through year two by working cross functionally with all departments, implementing RBAC, code reviews, vulnerability scanning, security policies, and all other necessary controls required for modern SOC 2 compliance.",
-            "Reduced database costs by about one third by migrating databases and systems architecture to a new provider and reshaping the downstream pipelines with minimal downtime.",
-            "Enabled non-engineering teams to ship secure AI-developed tooling that automated support workflows, customer communication, internal operations, post-lead conversion steps, and cross-system sync."
+            "Built Ivy Energy's SOC 2 program from scratch and carried it through year two by putting real controls in place across engineering, operations, and access management.",
+            "Optimized costs by migrating core systems and reshaping the surrounding data architecture with minimal downtime.",
+            "Help non-engineering teams ship secure AI-assisted tools that automated support, communications, operations, and cross-system workflows."
           ]
         },
         {
-          "title": "What I'm looking for",
-          "eyebrow": "Next chapter",
-          "description": "I am looking for hands-on CTO, founding CTO, founding engineer, or early product engineering work where range matters and where building fast still has to result in trustworthy systems.",
+          "title": "How it connects to my goals",
+          "eyebrow": "Direction",
+          "description": "This experience has pushed me toward roles where I can keep combining secure systems thinking with product building. I want to keep moving deeper into AI-native products, internal platforms, and workflow software where range is an advantage.",
           "tags": [
-            "Hands-on CTO",
-            "Founding CTO",
-            "Founding engineer",
-            "Early product",
-            "Fractional consulting"
+            "AI-native product",
+            "Internal platforms",
+            "Workflow software",
+            "Cross-functional ownership"
           ]
         }
       ],
       "detailSections": [
         {
-          "title": "Current role at Ivy Energy",
+          "title": "Current work at Ivy Energy",
           "eyebrow": "Data Engineer & Senior IT Security Solutions Architect | 2020 - Present",
           "paragraphs": [
             "My role at Ivy Energy sits at the intersection of data engineering, security architecture, and internal product delivery. I get pulled into the work that spans departments, touches critical systems, and cannot be cleanly owned by a single specialty.",
-            "That has meant maintaining security and compliance obligations, modernizing database and analytics infrastructure, building integrations across operational systems, and helping teams outside core engineering ship software that materially improves how they work."
+            "That has meant maintaining compliance and security obligations, modernizing database and analytics infrastructure, building integrations across operational systems, and helping teams outside core engineering ship software that materially improves how they work."
           ]
         },
         {
-          "title": "Selected scope and responsibility",
+          "title": "Scope and responsibility",
           "eyebrow": "What I actually own",
           "bullets": [
-            "Built Ivy Energy's security posture from the ground up through SOC 2 readiness and then maintained that program through year two with all necessary controls required for modern SOC 2 compliance.",
-            "Migrated core workloads off old systems, then modernized the data stack so information from Postgres and business systems could be loaded into Snowflake for reporting, automation, and downstream operational use.",
-            "Built and maintained integrations spanning Salesforce, Zendesk, Slack, ClickUp, Odoo, Snowflake, and other internal systems.",
-            "Created secure internal tools and AI-assisted workflows for operations teams that needed working software quickly, being able to securely access core product data without compromising the core product's security or deployment operations.",
-            "Acted as a translator between technical and non-technical stakeholders so semi-technical teams could turn process problems into deployable tools."
+            "Built Ivy Energy's security posture from the ground up through SOC 2 readiness and then maintained that program through year two with the controls required for a modern software company.",
+            "Migrated core workloads off older systems and modernized the data layer so operational and product data could move cleanly into Snowflake for reporting, automation, and downstream use.",
+            "Built and maintained integrations across Salesforce, Zendesk, Slack, ClickUp, Odoo, Snowflake, and other business-critical internal systems.",
+            "Created secure internal tools and AI-assisted workflows for operations teams that needed working software quickly without creating risk for the core product or deployment environment.",
+            "Acted as the translator between technical and non-technical teams so process pain could become deployable software instead of getting stuck as a vague internal request."
           ]
         },
         {
-          "title": "Target opportunities",
-          "eyebrow": "What I want next",
+          "title": "How this background connects to where I want to go",
+          "eyebrow": "Role direction",
           "paragraphs": [
-            "I am looking for hands-on CTO, founding CTO, founding engineer, or early product engineering roles where range matters: teams that need someone who can move from architecture to implementation to operational hardening without losing the plot.",
-            "I am also open to fractional consulting and product build work, especially where internal platforms, AI-enabled workflows, secure delivery, or messy cross-system operations need a strong first builder."
+            "The part of this background I want to keep compounding is the combination of systems depth and product usefulness. I like roles where internal tools matter, where AI can improve how teams actually operate, and where the builder is close enough to the real problem to shape the outcome.",
+            "That is why the next step I am most interested in is not a narrower specialty. It is work that lets me keep combining secure architecture, data systems, and practical product delivery in one role."
           ]
         }
       ],
       "quickFacts": [
-        "This is the fastest founder-facing version of the resume.",
-        "Sensitive vendors and private stack details stay abstracted on purpose.",
-        "The Projects window shows the public proof that matches this positioning."
+        "This is the most traditional work-history page on the site.",
+        "The emphasis is on real scope, outcomes, and ownership.",
+        "The direction section is there to connect the work to where I want to keep growing."
       ],
       "defaultWindow": {
         "position": {
@@ -118,8 +116,12 @@ export const contentSource = {
       "title": "About Me",
       "windowTitle": "About Me",
       "eyebrow": "Operating Style",
+      "heroImage": {
+        "src": "/images/personal-profile.webp",
+        "alt": "Daenon Janis in a flight simulator setup"
+      },
       "intro": "I am most useful when a team has a messy operational problem, partial requirements, and no patience for a long handoff chain. I like turning that ambiguity into secure, usable software that people actually adopt.",
-      "summary": "This is the more personal version of the resume: how I think, how I work with semi-technical teams, and why my background in security and data makes me unusually effective in fast product environments.",
+      "summary": "This is the more personal version of the work story: how I think, how I work with semi-technical teams, and why my background in security and data makes me unusually effective in fast product environments.",
       "sidebarNote": "The through-line is leverage. I like helping people who are close to the problem get better tools without making the underlying systems harder to trust.",
       "accent": "#9d6335",
       "heroGradient": "linear-gradient(135deg, rgba(157, 99, 53, 0.18) 0%, rgba(235, 203, 171, 0.86) 100%)",
@@ -160,9 +162,9 @@ export const contentSource = {
           ]
         },
         {
-          "title": "What I want next",
+          "title": "Best-fit environments",
           "eyebrow": "Direction",
-          "description": "I am optimizing for hands-on CTO, founding CTO, founding engineer, or early product roles, plus selective fractional consulting where a team needs a strong first builder for AI-enabled internal software."
+          "description": "I tend to be most useful in hands-on, early, or cross-functional environments where a team needs someone who can bridge product thinking, technical execution, and operational reality."
         }
       ],
       "detailSections": [
@@ -183,17 +185,17 @@ export const contentSource = {
           ]
         },
         {
-          "title": "What I am optimizing for",
-          "eyebrow": "Next chapter",
+          "title": "Where I create the most leverage",
+          "eyebrow": "Best-fit environments",
           "paragraphs": [
             "I click best with teams that want someone hands-on, product-minded, and comfortable moving across boundaries. I like early environments where the right builder can still change how a company operates.",
-            "That can look like a hands-on CTO seat, a founding CTO or founding engineer role, an early product engineering role, or fractional build work where a company needs help translating real operational pain into secure, usable software."
+            "In practice, that usually means work where a company needs help translating real operational pain into secure, usable software instead of over-specialized handoffs."
           ]
         }
       ],
       "quickFacts": [
         "This section is intentionally first-person.",
-        "It should feel more human than the resume, not softer.",
+        "It should feel more human than the main work page, not softer.",
         "The point is to explain how I create leverage, not to retell a chronology."
       ],
       "defaultWindow": {
@@ -208,64 +210,124 @@ export const contentSource = {
       }
     },
     {
-      "id": "experience",
-      "title": "Past Work Experience",
-      "windowTitle": "Past Work Experience",
-      "eyebrow": "Employment Timeline",
-      "intro": "This window should tell the story of where you've worked, what scope you carried, and how your responsibilities expanded over time.",
-      "summary": "Make each role legible at a glance: company, period, scope, and one clear achievement or responsibility arc.",
-      "sidebarNote": "Think of this as your proof of sustained execution over time rather than a dump of job descriptions.",
-      "accent": "#3f5f48",
-      "heroGradient": "linear-gradient(135deg, rgba(63, 95, 72, 0.18) 0%, rgba(196, 223, 195, 0.85) 100%)",
+      "id": "personal",
+      "title": "Personal Details",
+      "windowTitle": "Personal Details",
+      "eyebrow": "Who I Am",
+      "heroImage": {
+        "src": "/images/personal-profile.webp",
+        "alt": "Daenon Janis in a flight simulator setup"
+      },
+      "intro": "I was born in Provo, Utah and grew up across multiple states in the western half of the United States. Long before technology became my career, it was already the thing I gravitated toward: building computers, repairing phones, chasing new gadgets, and trying to understand how the tools around me actually worked.",
+      "summary": "This window is the more personal side of the site. It is less about professional positioning and more about the background, instincts, and family life behind the way I build.",
+      "sidebarNote": "The goal here is not to sound polished. It is to show the person behind the systems work.",
+      "accent": "#8e5f52",
+      "heroGradient": "linear-gradient(135deg, rgba(142, 95, 82, 0.18) 0%, rgba(236, 213, 206, 0.86) 100%)",
       "metrics": [
         {
-          "value": "03+",
-          "label": "Roles to feature"
+          "value": "Provo",
+          "label": "Born in Utah"
         },
         {
-          "value": "01",
-          "label": "Sentence per role that matters"
+          "value": "West",
+          "label": "Raised across multiple western states"
         },
         {
-          "value": "100%",
-          "label": "Focus on outcomes over duties"
+          "value": "Ogden",
+          "label": "Home now with my growing family"
         }
       ],
       "cards": [
         {
-          "title": "Current or most recent role",
-          "eyebrow": "YYYY - Now",
-          "description": "Summarize the highest-leverage ownership area, the team or product scope, and the results that are most relevant for future opportunities.",
+          "title": "From Provo to the mountain west",
+          "eyebrow": "Background",
+          "description": "I was born in Provo, Utah and grew up moving through multiple states across the western half of the country. That background gave me a mix of independence, adaptability, and curiosity that has stayed with me into adulthood.",
           "tags": [
-            "Team scope",
-            "System ownership",
-            "Business impact"
+            "Utah roots",
+            "Western U.S.",
+            "Adaptable",
+            "Curious by default"
           ]
         },
         {
-          "title": "Previous role",
-          "eyebrow": "YYYY - YYYY",
-          "description": "Capture the inflection point from this chapter: maybe deeper architecture, product influence, leadership, or shipping under ambiguity."
+          "title": "Technology was the hobby before it was the career",
+          "eyebrow": "Early instincts",
+          "description": "I have always been an early adopter and a builder by temperament. As a teenager I was the kind of person who wanted to understand the hardware, fix the broken thing, and figure out how to make enough money to afford the next gadget I wanted to get my hands on.",
+          "bullets": [
+            "Built my own computers",
+            "Did phone repairs",
+            "Chased new gadgets early",
+            "Found ways to fund the obsession as a teenager"
+          ]
         },
         {
-          "title": "Earlier foundation role",
-          "eyebrow": "YYYY - YYYY",
-          "description": "Use this slot for the role that explains where your fundamentals, instincts, or early wins came from."
+          "title": "Home life now",
+          "eyebrow": "Family",
+          "description": "I currently live in Ogden, Utah with my wife Julie, who is a YA fantasy author, and our son Orion. We also have one more child on the way, so this chapter of life feels full in the best possible way.",
+          "tags": [
+            "Ogden, Utah",
+            "Family life",
+            "Julie Janis",
+            "Orion"
+          ]
+        }
+      ],
+      "detailSections": [
+        {
+          "title": "Who I am",
+          "eyebrow": "Biography",
+          "paragraphs": [
+            "I was born in Provo, Utah and grew up across multiple states in the western half of the United States. That kind of upbringing leaves you with a strong sense that identity is something you build as much as inherit, and I think that has shaped a lot of how I approach work and life.",
+            "Even early on, I was drawn toward technology with the kind of curiosity that went beyond just liking new devices. I wanted to know how the thing worked, how to fix it, and how to make it better or make it mine."
+          ]
+        },
+        {
+          "title": "How technology became part of my identity",
+          "eyebrow": "Before it was a job",
+          "paragraphs": [
+            "Growing up, I was always drawn to the newest technology. I was an early adopter by instinct, but I was never satisfied just being a consumer. I liked building my own computer, doing phone repairs, and learning enough about the hardware and software around me to feel like I could actually shape it.",
+            "As a teenager, that interest pushed me toward the kind of hustle that will probably feel familiar to anyone who has ever been obsessed with gear: figuring out ways to make money so I could afford the next gadget, the next upgrade, or the next thing I wanted to take apart and understand."
+          ],
+          "bullets": [
+            "DIY computers and hands-on hardware curiosity",
+            "Phone repair and practical troubleshooting",
+            "Early adopter instinct paired with technical curiosity",
+            "Entrepreneurial streak that started with funding new gadgets"
+          ]
+        },
+        {
+          "title": "Family and home life",
+          "eyebrow": "The chapter I am in now",
+          "image": {
+            "src": "/images/family-photo.webp",
+            "alt": "Family photo of Daenon Janis, Julie Janis, and their child outdoors",
+            "caption": "Family photo from life in Ogden, Utah."
+          },
+          "paragraphs": [
+            "I currently live in Ogden, Utah with my wife Julie and our son Orion, with one more child on the way. Family life matters a lot to me, and it has added a different kind of perspective to ambition, work, and how I think about the future.",
+            "Julie is a YA fantasy author, which means our home has a fun mix of technology, storytelling, product ideas, and creative work happening under the same roof. It is a good reminder that building things can take a lot of forms, not all of them technical."
+          ],
+          "links": [
+            {
+              "label": "Julie Janis Books",
+              "href": "https://www.juliejanisbooks.com/"
+            }
+          ]
         }
       ],
       "quickFacts": [
-        "Recruiters should be able to skim this in one pass.",
-        "Use measurable results where possible.",
-        "Cut anything that sounds like internal performance review language."
+        "This section is intentionally more biographical than the rest of the site.",
+        "Two placeholder images live here for now: one portrait and one family image.",
+        "The goal is to show the person behind the work without making the page feel detached from the rest of the site."
       ],
       "defaultWindow": {
         "position": {
-          "x": 180,
-          "y": 94
+          "x": 280,
+          "y": 148
         },
         "size": {
-          "width": 820,
-          "height": 600
+          "width": 740,
+          "height": 560
         }
       }
     },
@@ -276,7 +338,7 @@ export const contentSource = {
       "eyebrow": "Proof of Build",
       "intro": "These are the public proofs that best match how I work professionally. They show the kinds of problems I like to attack: ambiguous workflows, AI-enabled interfaces, documentation, and systems that bridge humans and software.",
       "summary": "I care less about novelty for its own sake and more about building tools that make collaboration clearer, faster, and more durable.",
-      "sidebarNote": "If the resume explains why I am useful, these projects show how that thinking translates into shipped product.",
+      "sidebarNote": "If Past Work explains why I am useful, these projects show how that thinking translates into shipped product.",
       "accent": "#2d5f93",
       "heroGradient": "linear-gradient(135deg, rgba(45, 95, 147, 0.18) 0%, rgba(183, 213, 239, 0.84) 100%)",
       "metrics": [
@@ -383,7 +445,7 @@ export const contentSource = {
       ],
       "quickFacts": [
         "These two projects are the strongest public proof of how I think and build.",
-        "Each one is here because it maps directly to the story told in the resume window.",
+        "Each one is here because it maps directly to the story told in the Past Work window.",
         "DecidR is intentionally presented as a companion to Ludflow, not a separate third feature."
       ],
       "defaultWindow": {
@@ -788,51 +850,47 @@ export const contentSource = {
       "title": "Contact",
       "windowTitle": "Contact",
       "eyebrow": "Start A Conversation",
-      "intro": "This window should make it obvious how to reach you for hiring, projects, partnerships, or exploratory conversations.",
-      "summary": "Do not make people hunt for a next step. One clean set of contact routes is enough.",
-      "sidebarNote": "Use this window to convert interest into a real next action with the least possible friction.",
+      "intro": "If you want to reach me for a role, a project, or a conversation about something I am building, email is the best place to start.",
+      "summary": "I do not need a complicated contact page. One clear route is enough.",
+      "sidebarNote": "A simple email beats a cluttered contact stack.",
       "accent": "#4b5563",
       "heroGradient": "linear-gradient(135deg, rgba(75, 85, 99, 0.18) 0%, rgba(211, 219, 228, 0.84) 100%)",
       "metrics": [
         {
-          "value": "03",
-          "label": "Preferred contact routes"
+          "value": "01",
+          "label": "Primary contact route"
         },
         {
           "value": "01",
           "label": "Clear call to action"
         },
         {
-          "value": "<24h",
-          "label": "Suggested response expectation"
+          "value": "Email",
+          "label": "Best way to reach me"
         }
       ],
       "cards": [
         {
           "title": "Email",
           "eyebrow": "Primary route",
-          "description": "Replace this with your real professional inbox and a short note about what kinds of outreach belong there.",
+          "description": "For projects, partnerships, founder work, consulting, or general outreach, email me directly here.",
+          "links": [
+            {
+              "label": "deej@ludflow.com",
+              "href": "mailto:deej@ludflow.com"
+            }
+          ],
           "tags": [
-            "hello@yourdomain.com",
-            "Hiring",
-            "Advising"
+            "Projects",
+            "Consulting",
+            "Founder conversations"
           ]
-        },
-        {
-          "title": "LinkedIn or social proof",
-          "eyebrow": "Secondary route",
-          "description": "Include the profile that best reinforces your credibility if someone wants to verify background quickly."
-        },
-        {
-          "title": "Project and partnership inquiries",
-          "eyebrow": "Business route",
-          "description": "If you want consulting, contracting, or founder conversations, spell that out directly so the right people know they should reach out."
         }
       ],
       "quickFacts": [
-        "Make contact feel easy and intentional.",
-        "Distinguish employment outreach from business outreach if needed.",
-        "Add calendar links only if they improve quality, not volume."
+        "Email is the only contact route surfaced here on purpose.",
+        "This page is intentionally simple.",
+        "If someone wants to talk, they should know exactly where to start."
       ],
       "defaultWindow": {
         "position": {

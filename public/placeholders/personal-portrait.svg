@@ -1,0 +1,20 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="900" fill="#EFD7C5"/>
+  <rect width="1200" height="900" fill="url(#paint0_linear)"/>
+  <circle cx="922" cy="144" r="112" fill="#F7E8DD" fill-opacity="0.7"/>
+  <circle cx="220" cy="760" r="170" fill="#C88C66" fill-opacity="0.3"/>
+  <rect x="112" y="112" width="976" height="676" rx="42" fill="#FAF4EE" fill-opacity="0.72" stroke="#A86748" stroke-opacity="0.22" stroke-width="4"/>
+  <circle cx="600" cy="346" r="132" fill="#C9835C"/>
+  <path d="M370 736C392 564 487 478 600 478C713 478 808 564 830 736H370Z" fill="#9A5B42"/>
+  <path d="M492 364C515 329 553 306 600 306C647 306 685 329 708 364C685 306 647 250 600 250C553 250 515 306 492 364Z" fill="#7B432D"/>
+  <rect x="168" y="640" width="270" height="36" rx="18" fill="#9A5B42" fill-opacity="0.18"/>
+  <rect x="168" y="694" width="404" height="24" rx="12" fill="#9A5B42" fill-opacity="0.1"/>
+  <text x="168" y="612" fill="#6F3D29" font-family="Arial, sans-serif" font-size="52" font-weight="700">Portrait Placeholder</text>
+  <text x="168" y="768" fill="#8A5A45" font-family="Arial, sans-serif" font-size="28">Replace with a personal photo later</text>
+  <defs>
+    <linearGradient id="paint0_linear" x1="120" y1="74" x2="1036" y2="842" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8ECE1"/>
+      <stop offset="1" stop-color="#D9A783"/>
+    </linearGradient>
+  </defs>
+</svg>

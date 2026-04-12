@@ -7,6 +7,9 @@ const configDirectory = path.dirname(fileURLToPath(import.meta.url));
 const nextConfig: NextConfig = {
   output: "export",
   reactStrictMode: true,
+  images: {
+    unoptimized: true,
+  },
   turbopack: {
     root: configDirectory,
   },

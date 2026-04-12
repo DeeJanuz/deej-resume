@@ -1,10 +1,12 @@
 "use client";
 
+import Image from "next/image";
 import { EditableText } from "@/components/dev/EditableText";
 import {
   usePortfolioContent,
   type EditableContentPath,
 } from "@/components/dev/ContentDevContext";
+import { PortfolioImageBlock } from "@/components/content/PortfolioImageBlock";
 import type { PortfolioSection } from "@/types";
 
 interface PortfolioWindowContentProps {
@@ -81,11 +83,6 @@ export function PortfolioWindowContent({
       ] as const,
     })) ?? []),
   ];
-  const hasDetailedContent = Boolean(
-    section.detailSections?.length ||
-      section.cards.some((card) => card.links?.length),
-  );
-
   return (
     <div className="grid h-full min-h-0 md:grid-cols-[240px_1fr]">
       <aside className="hidden min-h-0 border-r border-black/6 bg-[rgba(246,246,246,0.95)] md:flex md:flex-col">
@@ -165,26 +162,23 @@ export function PortfolioWindowContent({
 
       <div className="flex min-h-0 flex-col bg-[rgba(255,255,255,0.95)]">
         <div className="flex h-12 shrink-0 items-center justify-between border-b border-black/6 px-4">
-          <div className="flex items-center gap-3">
-            <EditableText
-              as="span"
-              path={["portfolioSections", sectionIndex, "eyebrow"]}
-              text={section.eyebrow}
-              className="rounded-full bg-black/4 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.28em] text-stone-600"
-            />
-            <span className="hidden text-xs text-stone-500 md:inline">
-              Portfolio Preview
-            </span>
-          </div>
+          <EditableText
+            as="span"
+            path={["portfolioSections", sectionIndex, "eyebrow"]}
+            text={section.eyebrow}
+            className="rounded-full bg-black/4 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.28em] text-stone-600"
+          />
 
-          <div className="flex items-center gap-2 rounded-full border border-black/6 bg-white/75 px-3 py-1.5 text-xs text-stone-500 shadow-[0_10px_22px_rgba(0,0,0,0.05)]">
+          <div className="flex items-center gap-2 text-xs text-stone-500">
             <span
               className="h-2 w-2 rounded-full"
               style={{ backgroundColor: section.accent }}
             />
-            {hasDetailedContent
-              ? "Detailed content ready"
-              : "Stub content ready for real details"}
+            <EditableText
+              as="span"
+              path={["portfolioSections", sectionIndex, "windowTitle"]}
+              text={section.windowTitle}
+            />
           </div>
         </div>
 
@@ -202,71 +196,49 @@ export function PortfolioWindowContent({
                 />
               </div>
               <div className="px-6 py-7 sm:px-8 sm:py-9">
-                <EditableText
-                  as="p"
-                  path={["portfolioSections", sectionIndex, "eyebrow"]}
-                  text={section.eyebrow}
-                  className="text-[11px] font-semibold uppercase tracking-[0.32em] text-stone-700"
-                />
-                <EditableText
-                  as="h1"
-                  path={["portfolioSections", sectionIndex, "title"]}
-                  text={section.title}
-                  className="mt-3 max-w-3xl font-display text-4xl leading-[0.95] text-stone-900 sm:text-5xl"
-                />
-                <EditableText
-                  as="p"
-                  path={["portfolioSections", sectionIndex, "intro"]}
-                  text={section.intro}
-                  className="mt-4 max-w-3xl text-base leading-7 text-stone-700 sm:text-lg"
-                />
-              </div>
-            </section>
-
-            <section className="grid gap-3 sm:grid-cols-3">
-              {section.metrics.map((metric, metricIndex) => (
                 <div
-                  key={`${metric.label}-${metricIndex}`}
-                  className="rounded-xl border border-black/5 bg-white/80 p-5 shadow-[0_16px_30px_rgba(0,0,0,0.05)]"
+                  className={
+                    section.heroImage
+                      ? "grid gap-7 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:items-start"
+                      : undefined
+                  }
                 >
-                  <EditableText
-                    as="div"
-                    path={[
-                      "portfolioSections",
-                      sectionIndex,
-                      "metrics",
-                      metricIndex,
-                      "value",
-                    ]}
-                    text={metric.value}
-                    className="text-3xl font-display text-stone-900"
-                  />
-                  <EditableText
-                    as="div"
-                    path={[
-                      "portfolioSections",
-                      sectionIndex,
-                      "metrics",
-                      metricIndex,
-                      "label",
-                    ]}
-                    text={metric.label}
-                    className="mt-2 text-sm leading-6 text-stone-600"
-                  />
-                </div>
-              ))}
-            </section>
+                  {section.heroImage ? (
+                    <div className="mx-auto w-full max-w-[360px] md:mx-0 md:max-w-none">
+                      <div className="relative aspect-square w-full overflow-hidden rounded-[24px] border border-white/60 bg-white/60 shadow-[0_18px_32px_rgba(0,0,0,0.12)]">
+                        <Image
+                          src={section.heroImage.src}
+                          alt={section.heroImage.alt}
+                          fill
+                          sizes="(max-width: 768px) 280px, 50vw"
+                          className="object-cover object-center"
+                        />
+                      </div>
+                    </div>
+                  ) : null}
 
-            <section className="rounded-xl border border-black/5 bg-white/70 p-6 shadow-[0_20px_44px_rgba(0,0,0,0.05)]">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-stone-500">
-                Why this window matters
-              </p>
-              <EditableText
-                as="p"
-                path={["portfolioSections", sectionIndex, "summary"]}
-                text={section.summary}
-                className="mt-4 max-w-3xl text-base leading-7 text-stone-700"
-              />
+                  <div className={section.heroImage ? "md:self-center" : undefined}>
+                    <EditableText
+                      as="p"
+                      path={["portfolioSections", sectionIndex, "eyebrow"]}
+                      text={section.eyebrow}
+                      className="text-[11px] font-semibold uppercase tracking-[0.32em] text-stone-700"
+                    />
+                    <EditableText
+                      as="h1"
+                      path={["portfolioSections", sectionIndex, "title"]}
+                      text={section.title}
+                      className="mt-3 max-w-3xl font-display text-4xl leading-[0.95] text-stone-900 sm:text-5xl"
+                    />
+                    <EditableText
+                      as="p"
+                      path={["portfolioSections", sectionIndex, "intro"]}
+                      text={section.intro}
+                      className="mt-4 max-w-3xl text-base leading-7 text-stone-700 sm:text-lg"
+                    />
+                  </div>
+                </div>
+              </div>
             </section>
 
             <section className="grid gap-4 lg:grid-cols-2">
@@ -384,17 +356,6 @@ export function PortfolioWindowContent({
 
             {section.detailSections?.length ? (
               <section className="space-y-4">
-                <div className="rounded-xl border border-black/5 bg-white/72 p-6 shadow-[0_20px_44px_rgba(0,0,0,0.05)]">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-stone-500">
-                    Extended Detail
-                  </p>
-                  <p className="mt-4 max-w-3xl text-base leading-7 text-stone-700">
-                    The shorter cards above are the skim-friendly version. This
-                    section carries the fuller context for visitors who want the
-                    actual story.
-                  </p>
-                </div>
-
                 {section.detailSections.map((detail, detailIndex) => (
                   <article
                     key={`${detail.title}-${detailIndex}`}
@@ -427,6 +388,23 @@ export function PortfolioWindowContent({
                       text={detail.title}
                       className="mt-3 text-2xl font-semibold text-stone-900"
                     />
+
+                    {detail.image ? (
+                      <div className="mt-5 max-w-3xl">
+                        <PortfolioImageBlock
+                          image={detail.image}
+                          captionPath={[
+                            "portfolioSections",
+                            sectionIndex,
+                            "detailSections",
+                            detailIndex,
+                            "image",
+                            "caption",
+                          ]}
+                          sizes="(max-width: 768px) 100vw, 880px"
+                        />
+                      </div>
+                    ) : null}
 
                     {detail.paragraphs?.map((paragraph, paragraphIndex) => (
                       <EditableText

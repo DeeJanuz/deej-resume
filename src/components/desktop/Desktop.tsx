@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useLayoutEffect, useRef, useState } from "react";
 import { usePortfolioContent } from "@/components/dev/ContentDevContext";
 import { desktopItems } from "@/data/portfolio-content";
 import { useWindowManager } from "@/hooks/useWindowManager";
@@ -12,10 +12,11 @@ import { Wallpaper } from "./Wallpaper";
 import { WindowContainer } from "./WindowContainer";
 
 const DEFAULT_WINDOW_WIDTH_RATIO = 0.8;
-const DEFAULT_WINDOW_HEIGHT_RATIO = 0.9;
+const DEFAULT_WINDOW_HEIGHT_RATIO = 0.8;
 const WINDOW_HORIZONTAL_MARGIN = 24;
 const WINDOW_TOP_MARGIN = 40;
 const WINDOW_BOTTOM_MARGIN = 32;
+const INITIAL_WINDOW_IDS: readonly PortfolioSectionId[] = ["experience", "about"];
 
 const iconData = Object.fromEntries(
   desktopItems.map((item) => [item.id, { label: item.label, iconLabel: item.iconLabel, accent: item.accent }])
@@ -69,22 +70,18 @@ export function Desktop() {
     [portfolioSectionsById],
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (hasOpenedInitialWindow.current) {
       return;
     }
 
     hasOpenedInitialWindow.current = true;
-    const timerId = window.setTimeout(() => {
+    INITIAL_WINDOW_IDS.forEach((sectionId) => {
       dispatch({
         type: "OPEN_WINDOW",
-        payload: createWindowPayload("resume"),
+        payload: createWindowPayload(sectionId),
       });
-    }, 320);
-
-    return () => {
-      window.clearTimeout(timerId);
-    };
+    });
   }, [createWindowPayload, dispatch]);
 
   function openSection(sectionId: PortfolioSectionId) {
@@ -111,7 +108,7 @@ export function Desktop() {
   return (
     <div className="relative h-screen overflow-hidden" aria-label="Interactive portfolio desktop">
       <Wallpaper />
-      <MenuBar onOpenPrimary={() => openSection("resume")} />
+      <MenuBar onOpenPrimary={() => openSection("experience")} />
 
       <main className="relative h-full pt-10">
         <DesktopFiles items={desktopItems} openIds={openIds} onOpen={openSection} />

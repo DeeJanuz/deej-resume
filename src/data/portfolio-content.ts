@@ -17,20 +17,11 @@ export const portfolioSectionsById = Object.fromEntries(
 
 export const desktopItems: readonly DesktopItemDefinition[] = [
   {
-    id: "resume",
-    label: "Resume.pdf",
-    iconLabel: "PDF",
-    kind: "document",
-    accent: "#2f6b73",
-    position: { top: "56px", right: "48px" },
-  },
-  {
     id: "experience",
     label: "Past Work",
     iconLabel: "EXP",
-    kind: "folder",
+    kind: "document",
     accent: "#3f5f48",
-    position: { top: "166px", right: "36px" },
   },
   {
     id: "projects",
@@ -38,7 +29,6 @@ export const desktopItems: readonly DesktopItemDefinition[] = [
     iconLabel: "PRJ",
     kind: "stack",
     accent: "#2d5f93",
-    position: { top: "276px", right: "56px" },
   },
   {
     id: "skills",
@@ -46,7 +36,6 @@ export const desktopItems: readonly DesktopItemDefinition[] = [
     iconLabel: "SKL",
     kind: "document",
     accent: "#8b6b2f",
-    position: { top: "102px", left: "38px" },
   },
   {
     id: "about",
@@ -54,7 +43,13 @@ export const desktopItems: readonly DesktopItemDefinition[] = [
     iconLabel: "ME",
     kind: "document",
     accent: "#9d6335",
-    position: { top: "214px", left: "28px" },
+  },
+  {
+    id: "personal",
+    label: "Personal Details",
+    iconLabel: "BIO",
+    kind: "document",
+    accent: "#8e5f52",
   },
   {
     id: "businesses",
@@ -62,7 +57,6 @@ export const desktopItems: readonly DesktopItemDefinition[] = [
     iconLabel: "BIZ",
     kind: "folder",
     accent: "#7b4b45",
-    position: { top: "330px", left: "44px" },
   },
   {
     id: "contact",
@@ -70,6 +64,5 @@ export const desktopItems: readonly DesktopItemDefinition[] = [
     iconLabel: "CTA",
     kind: "contact",
     accent: "#4b5563",
-    position: { top: "434px", right: "62px" },
   },
 ] as const;

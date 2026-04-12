@@ -45,7 +45,7 @@ export function MenuBar({ onOpenPrimary }: MenuBarProps) {
         <div className="flex items-center gap-4 font-[system-ui]">
           <button
             type="button"
-            aria-label="Open primary resume window"
+            aria-label="Open primary past work window"
             onClick={onOpenPrimary}
             className="text-[14px] leading-none text-neutral-800 transition hover:text-neutral-950"
           >
