@@ -7,6 +7,12 @@ export const contentSource = {
     "location": "Ogden, Utah",
     "summary": "I help teams turn messy operations, data movement, and AI ideas into secure software people can actually use."
   },
+  "ambientTrack": {
+    "title": "Happy Clappy Loop",
+    "artist": "OwlishMedia",
+    "src": "/audio/happy-clappy-loop.m4a",
+    "artworkAlt": "Abstract album art for the upbeat ambient site soundtrack"
+  },
   "portfolioSections": [
     {
       "id": "experience",
@@ -909,4 +915,5 @@ export const contentSource = {
 } satisfies PortfolioContentSource;
 
 export const siteProfile = contentSource.siteProfile;
+export const ambientTrack = contentSource.ambientTrack;
 export const portfolioSections = contentSource.portfolioSections;

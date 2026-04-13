@@ -106,12 +106,97 @@ button {
   animation: windowRestore 400ms cubic-bezier(0, 0.2, 0.2, 1) forwards;
 }
 
+@keyframes wallpaperDrift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(18px, -14px, 0) scale(1.04);
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes wallpaperBloom {
+  0% {
+    opacity: 0.82;
+    transform: scale(1.06);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes quickLookIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes equalizerPulse {
+  0%,
+  100% {
+    transform: scaleY(0.45);
+    opacity: 0.42;
+  }
+
+  50% {
+    transform: scaleY(1);
+    opacity: 0.95;
+  }
+}
+
 .glass-panel {
   border: 1px solid rgba(255, 255, 255, 0.4);
   background: rgba(255, 255, 255, 0.72);
   -webkit-backdrop-filter: blur(22px);
   backdrop-filter: blur(22px);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
+}
+
+.wallpaper-orb {
+  animation: wallpaperDrift 24s ease-in-out infinite;
+  will-change: transform;
+}
+
+.wallpaper-bloom {
+  animation: wallpaperBloom 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.wallpaper-grain {
+  background-image:
+    radial-gradient(rgba(255, 255, 255, 0.22) 0.6px, transparent 0.8px),
+    radial-gradient(rgba(10, 10, 20, 0.12) 0.4px, transparent 0.7px);
+  background-position: 0 0, 12px 10px;
+  background-size: 18px 18px;
+  mix-blend-mode: soft-light;
+}
+
+.quick-look-panel {
+  animation: quickLookIn 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.equalizer-bar {
+  width: 3px;
+  height: 14px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(46, 84, 129, 0.86) 0%, rgba(46, 84, 129, 0.26) 100%);
+  transform-origin: center bottom;
+}
+
+.equalizer-bar.is-playing {
+  animation: equalizerPulse 900ms ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {

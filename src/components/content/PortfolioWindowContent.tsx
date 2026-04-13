@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useRef } from "react";
 import { EditableText } from "@/components/dev/EditableText";
 import {
@@ -8,6 +7,8 @@ import {
   type EditableContentPath,
 } from "@/components/dev/ContentDevContext";
 import { PortfolioImageBlock } from "@/components/content/PortfolioImageBlock";
+import { SectionMetricStrip } from "@/components/content/SectionMetricStrip";
+import { SectionPoster } from "@/components/content/SectionPoster";
 import type { PortfolioSection } from "@/types";
 
 interface PortfolioWindowContentProps {
@@ -62,6 +63,10 @@ export function PortfolioWindowContent({
   section,
   sectionIndex,
 }: PortfolioWindowContentProps) {
+  const heroCallout = section.summary || section.sidebarNote;
+  const heroCalloutPath = section.summary
+    ? (["portfolioSections", sectionIndex, "summary"] as const)
+    : (["portfolioSections", sectionIndex, "sidebarNote"] as const);
   const sectionTargetsRef = useRef<Record<string, HTMLElement | null>>({});
   const setSectionTarget =
     (targetId: string) => (element: HTMLElement | null) => {
@@ -162,28 +167,19 @@ export function PortfolioWindowContent({
               style={{ background: section.heroGradient }}
             >
               <div className="px-6 py-7 sm:px-8 sm:py-9">
-                <div
-                  className={
-                    section.heroImage
-                      ? "grid gap-7 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:items-start"
-                      : undefined
-                  }
-                >
-                  {section.heroImage ? (
-                    <div className="mx-auto w-full max-w-[360px] md:mx-0 md:max-w-none">
-                      <div className="relative aspect-square w-full overflow-hidden rounded-[24px] border border-white/60 bg-white/60 shadow-[0_18px_32px_rgba(0,0,0,0.12)]">
-                        <Image
-                          src={section.heroImage.src}
-                          alt={section.heroImage.alt}
-                          fill
-                          sizes="(max-width: 768px) 280px, 50vw"
-                          className="object-cover object-center"
-                        />
-                      </div>
-                    </div>
-                  ) : null}
+                <div className="grid gap-7 md:grid-cols-[280px_minmax(0,1fr)] md:items-start">
+                  <div className="mx-auto w-full max-w-[320px] md:mx-0 md:max-w-none">
+                    <SectionPoster
+                      accent={section.accent}
+                      title={section.title}
+                      image={section.heroImage}
+                      metric={section.metrics[0]}
+                      sizes="(max-width: 768px) 280px, 320px"
+                      className="aspect-square w-full"
+                    />
+                  </div>
 
-                  <div className={section.heroImage ? "md:self-center" : undefined}>
+                  <div className="md:self-center">
                     <EditableText
                       as="h1"
                       path={["portfolioSections", sectionIndex, "title"]}
@@ -195,6 +191,26 @@ export function PortfolioWindowContent({
                       path={["portfolioSections", sectionIndex, "intro"]}
                       text={section.intro}
                       className="mt-4 max-w-3xl text-base leading-7 text-stone-700 sm:text-lg"
+                    />
+
+                    {heroCallout ? (
+                      <div className="mt-5 max-w-3xl rounded-[22px] border border-white/55 bg-[rgba(255,255,255,0.5)] px-4 py-4 shadow-[0_16px_30px_rgba(0,0,0,0.06)]">
+                        <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-stone-500">
+                          Why It Matters
+                        </p>
+                        <EditableText
+                          as="p"
+                          path={heroCalloutPath}
+                          text={heroCallout}
+                          className="mt-2 text-sm leading-7 text-stone-700"
+                        />
+                      </div>
+                    ) : null}
+
+                    <SectionMetricStrip
+                      accent={section.accent}
+                      metrics={section.metrics}
+                      pathPrefix={["portfolioSections", sectionIndex, "metrics"]}
                     />
                   </div>
                 </div>

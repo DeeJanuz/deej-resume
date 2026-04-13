@@ -1,11 +1,18 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import type { DesktopItemDefinition, DesktopItemKind, PortfolioSectionId } from "@/types";
+import { DesktopQuickLook } from "@/components/desktop/DesktopQuickLook";
+import type {
+  DesktopItemDefinition,
+  DesktopItemKind,
+  PortfolioSection,
+  PortfolioSectionId,
+} from "@/types";
 
 interface DesktopFilesProps {
   items: readonly DesktopItemDefinition[];
   openIds: ReadonlySet<PortfolioSectionId>;
+  portfolioSectionsById: Record<PortfolioSectionId, PortfolioSection>;
   onOpen: (id: PortfolioSectionId) => void;
 }
 
@@ -87,6 +94,7 @@ const DESKTOP_ICON_COLUMN_STEP = 92;
 const DESKTOP_ICON_BUTTON_HEIGHT = 104;
 const DESKTOP_ICON_ROW_STEP = 112;
 const DESKTOP_ICON_BOTTOM_PADDING = 96;
+const DESKTOP_PREVIEW_TOP_MARGIN = 40;
 
 function getMaxRowsPerColumn(viewportHeight: number) {
   const usableHeight =
@@ -111,25 +119,27 @@ function DesktopGlyph({
 export function DesktopFiles({
   items,
   openIds,
+  portfolioSectionsById,
   onOpen,
 }: DesktopFilesProps) {
-  const [viewportHeight, setViewportHeight] = useState(900);
+  const [viewportSize, setViewportSize] = useState({ width: 1440, height: 900 });
+  const [previewId, setPreviewId] = useState<PortfolioSectionId | null>(null);
 
   useEffect(() => {
-    function updateViewportHeight() {
-      setViewportHeight(window.innerHeight);
+    function updateViewportSize() {
+      setViewportSize({ width: window.innerWidth, height: window.innerHeight });
     }
 
-    updateViewportHeight();
-    window.addEventListener("resize", updateViewportHeight);
+    updateViewportSize();
+    window.addEventListener("resize", updateViewportSize);
 
     return () => {
-      window.removeEventListener("resize", updateViewportHeight);
+      window.removeEventListener("resize", updateViewportSize);
     };
   }, []);
 
   const itemPositions = useMemo(() => {
-    const maxRowsPerColumn = getMaxRowsPerColumn(viewportHeight);
+    const maxRowsPerColumn = getMaxRowsPerColumn(viewportSize.height);
 
     return items.map((item, index) => {
       const column = Math.floor(index / maxRowsPerColumn);
@@ -137,11 +147,30 @@ export function DesktopFiles({
 
       return {
         id: item.id,
-        top: `${DESKTOP_ICON_TOP_START + row * DESKTOP_ICON_ROW_STEP}px`,
-        left: `${DESKTOP_ICON_LEFT_START + column * DESKTOP_ICON_COLUMN_STEP}px`,
+        top: DESKTOP_ICON_TOP_START + row * DESKTOP_ICON_ROW_STEP,
+        left: DESKTOP_ICON_LEFT_START + column * DESKTOP_ICON_COLUMN_STEP,
       };
     });
-  }, [items, viewportHeight]);
+  }, [items, viewportSize.height]);
+
+  const previewPosition = useMemo(() => {
+    if (!previewId) {
+      return null;
+    }
+
+    const iconPosition = itemPositions.find((position) => position.id === previewId);
+    if (!iconPosition) {
+      return null;
+    }
+
+    return {
+      top: Math.min(
+        Math.max(DESKTOP_PREVIEW_TOP_MARGIN, iconPosition.top - 8),
+        viewportSize.height - 264,
+      ),
+      left: Math.min(iconPosition.left + 98, viewportSize.width - 320),
+    };
+  }, [itemPositions, previewId, viewportSize.height, viewportSize.width]);
 
   return (
     <>
@@ -155,11 +184,15 @@ export function DesktopFiles({
             type="button"
             className="group absolute flex min-h-[104px] w-20 flex-col items-center justify-start gap-2 rounded-2xl p-2 text-center transition duration-200 hover:scale-[1.02] hover:bg-white/18 focus:outline-none focus:ring-2 focus:ring-white/70"
             style={{
-              top: position?.top ?? `${DESKTOP_ICON_TOP_START}px`,
-              left: position?.left ?? `${DESKTOP_ICON_LEFT_START}px`,
+              top: position?.top ?? DESKTOP_ICON_TOP_START,
+              left: position?.left ?? DESKTOP_ICON_LEFT_START,
               backgroundColor: isOpen ? "rgba(255,255,255,0.18)" : "transparent",
             }}
             onClick={() => onOpen(item.id)}
+            onMouseEnter={() => setPreviewId(item.id)}
+            onMouseLeave={() => setPreviewId((current) => (current === item.id ? null : current))}
+            onFocus={() => setPreviewId(item.id)}
+            onBlur={() => setPreviewId((current) => (current === item.id ? null : current))}
           >
             <DesktopGlyph item={item} isOpen={isOpen} />
             <span className="min-h-[28px] text-[11px] font-medium leading-tight text-white" style={{ textShadow: "0 1px 3px rgba(0,0,0,0.4)" }}>
@@ -168,6 +201,14 @@ export function DesktopFiles({
           </button>
         );
       })}
+
+      {previewId && previewPosition ? (
+        <DesktopQuickLook
+          section={portfolioSectionsById[previewId]}
+          top={previewPosition.top}
+          left={previewPosition.left}
+        />
+      ) : null}
     </>
   );
 }

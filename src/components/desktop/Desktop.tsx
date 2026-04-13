@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useLayoutEffect, useRef, useState } from "react";
+import { AmbientPlayer } from "@/components/desktop/AmbientPlayer";
 import { usePortfolioContent } from "@/components/dev/ContentDevContext";
 import { desktopItems } from "@/data/portfolio-content";
 import { useWindowManager } from "@/hooks/useWindowManager";
@@ -23,7 +24,7 @@ const iconData = Object.fromEntries(
 ) as Record<PortfolioSectionId, { label: string; iconLabel: string; accent: string }>;
 
 export function Desktop() {
-  const { portfolioSectionsById, sectionIndexById } = usePortfolioContent();
+  const { content, portfolioSectionsById, sectionIndexById } = usePortfolioContent();
   const { windows, dispatch } = useWindowManager();
   const [dockMinimizingId, setDockMinimizingId] = useState<PortfolioSectionId | null>(null);
   const hasOpenedInitialWindow = useRef(false);
@@ -109,9 +110,15 @@ export function Desktop() {
     <div className="relative h-screen overflow-hidden" aria-label="Interactive portfolio desktop">
       <Wallpaper />
       <MenuBar onOpenPrimary={() => openSection("experience")} />
+      {content.ambientTrack ? <AmbientPlayer track={content.ambientTrack} /> : null}
 
       <main className="relative h-full pt-10">
-        <DesktopFiles items={desktopItems} openIds={openIds} onOpen={openSection} />
+        <DesktopFiles
+          items={desktopItems}
+          openIds={openIds}
+          portfolioSectionsById={portfolioSectionsById}
+          onOpen={openSection}
+        />
 
         {orderedWindows.map((windowState) => (
           <WindowContainer

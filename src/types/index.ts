@@ -138,7 +138,15 @@ export interface SiteProfile {
   summary: string;
 }
 
+export interface AmbientTrack {
+  title: string;
+  artist: string;
+  src: string;
+  artworkAlt: string;
+}
+
 export interface PortfolioContentSource {
   siteProfile: SiteProfile;
+  ambientTrack?: AmbientTrack;
   portfolioSections: readonly PortfolioSection[];
 }

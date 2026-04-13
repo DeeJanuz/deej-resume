@@ -192,6 +192,7 @@ function toSourceFile(content: PortfolioContentSource) {
 export const contentSource = ${JSON.stringify(content, null, 2)} satisfies PortfolioContentSource;
 
 export const siteProfile = contentSource.siteProfile;
+export const ambientTrack = contentSource.ambientTrack;
 export const portfolioSections = contentSource.portfolioSections;
 `;
 }

@@ -1,8 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { useMemo, useState, useSyncExternalStore } from "react";
 import { PortfolioImageBlock } from "@/components/content/PortfolioImageBlock";
+import { SectionMetricStrip } from "@/components/content/SectionMetricStrip";
+import { SectionPoster } from "@/components/content/SectionPoster";
 import { EditableText } from "@/components/dev/EditableText";
 import {
   usePortfolioContent,
@@ -114,6 +115,10 @@ export default function MobileLanding() {
     [activeSectionId, portfolioSections],
   );
   const activeSectionIndex = sectionIndexById[activeSection.id];
+  const heroCallout = activeSection.summary || activeSection.sidebarNote;
+  const heroCalloutPath = activeSection.summary
+    ? (["portfolioSections", activeSectionIndex, "summary"] as const)
+    : (["portfolioSections", activeSectionIndex, "sidebarNote"] as const);
 
   function dismissDesktopBanner() {
     try {
@@ -220,19 +225,16 @@ export default function MobileLanding() {
           className="rounded-[30px] border border-white/65 p-6 shadow-[0_22px_40px_rgba(38,22,12,0.08)]"
           style={{ background: activeSection.heroGradient }}
         >
-          {activeSection.heroImage ? (
-            <div className="mb-5">
-              <div className="relative h-28 w-28 overflow-hidden rounded-[24px] border border-white/65 bg-white/60 shadow-[0_16px_30px_rgba(34,22,12,0.12)]">
-                <Image
-                  src={activeSection.heroImage.src}
-                  alt={activeSection.heroImage.alt}
-                  fill
-                  sizes="112px"
-                  className="object-cover object-center"
-                />
-              </div>
-            </div>
-          ) : null}
+          <div className="mb-5 max-w-[160px]">
+            <SectionPoster
+              accent={activeSection.accent}
+              title={activeSection.title}
+              image={activeSection.heroImage}
+              metric={activeSection.metrics[0]}
+              sizes="160px"
+              className="aspect-square"
+            />
+          </div>
 
           <EditableText
             as="h2"
@@ -245,6 +247,26 @@ export default function MobileLanding() {
             path={["portfolioSections", activeSectionIndex, "intro"]}
             text={activeSection.intro}
             className="mt-4 text-sm leading-7 text-stone-700"
+          />
+
+          {heroCallout ? (
+            <div className="mt-5 rounded-[22px] border border-white/60 bg-[rgba(255,255,255,0.52)] px-4 py-4 shadow-[0_16px_30px_rgba(34,22,12,0.06)]">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-stone-500">
+                Why It Matters
+              </p>
+              <EditableText
+                as="p"
+                path={heroCalloutPath}
+                text={heroCallout}
+                className="mt-2 text-sm leading-7 text-stone-700"
+              />
+            </div>
+          ) : null}
+
+          <SectionMetricStrip
+            accent={activeSection.accent}
+            metrics={activeSection.metrics}
+            pathPrefix={["portfolioSections", activeSectionIndex, "metrics"]}
           />
         </section>
 

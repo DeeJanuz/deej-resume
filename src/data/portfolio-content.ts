@@ -4,12 +4,13 @@ import type {
   PortfolioSectionId,
 } from "@/types";
 import {
+  ambientTrack,
   contentSource,
   portfolioSections,
   siteProfile,
 } from "./portfolio-content-source";
 
-export { contentSource, portfolioSections, siteProfile };
+export { ambientTrack, contentSource, portfolioSections, siteProfile };
 
 export const portfolioSectionsById = Object.fromEntries(
   portfolioSections.map((section) => [section.id, section]),
