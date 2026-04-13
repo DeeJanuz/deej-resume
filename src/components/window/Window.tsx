@@ -101,7 +101,7 @@ export function Window({
         width: size.width,
         height: size.height,
         zIndex,
-        filter: isFocused ? "none" : "brightness(0.97)",
+        filter: isFullScreen || isFocused ? "none" : "brightness(0.97)",
         ...transitionStyle,
       }}
       onPointerDown={onFocus}
