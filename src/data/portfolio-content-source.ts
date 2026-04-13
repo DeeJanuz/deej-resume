@@ -120,8 +120,8 @@ export const contentSource = {
         "src": "/images/personal-profile.webp",
         "alt": "Daenon Janis in a flight simulator setup"
       },
-      "intro": "I am most useful when a team has a messy operational problem, partial requirements, and no patience for a long handoff chain. I like turning that ambiguity into secure, usable software that people actually adopt.",
-      "summary": "This is the more personal version of the work story: how I think, how I work with semi-technical teams, and why my background in security and data makes me unusually effective in fast product environments.",
+      "intro": "I'm a hardware hacker, security-minded builder, data dog, and 0-to-1 operator. I turn ambiguity into secure, usable software that people actually adopt.",
+      "summary": "This is the more personal version of the work story: the mix of hardware curiosity, security rigor, and data instincts I bring to fast product environments, and how that helps teams turn rough ideas into tools people trust.",
       "sidebarNote": "The through-line is leverage. I like helping people who are close to the problem get better tools without making the underlying systems harder to trust.",
       "accent": "#9d6335",
       "heroGradient": "linear-gradient(135deg, rgba(157, 99, 53, 0.18) 0%, rgba(235, 203, 171, 0.86) 100%)",
@@ -141,13 +141,15 @@ export const contentSource = {
       ],
       "cards": [
         {
-          "title": "How I help teams move faster",
-          "eyebrow": "Narrative",
-          "description": "A lot of my work is translating between subject matter experts, operators, and engineers. I take vague workflow pain, tighten the logic, and turn it into software or automation that saves people real time.",
+          "title": "Selected accomplishments",
+          "eyebrow": "Snapshot",
+          "description": "A short list of outcomes and ownership.",
           "bullets": [
-            "I am comfortable working with people who do not think of themselves as builders.",
-            "I like moving from messy conversation to a first working version quickly.",
-            "I care about adoption, not just technical correctness."
+            "Built Ivy Energy's SOC 2 program from scratch and maintained it through year two.",
+            "Modernized the data layer and moved core operational data into Snowflake.",
+            "Built integrations across Salesforce, Zendesk, Slack, ClickUp, Odoo, and Snowflake.",
+            "Shipped secure internal tools and AI-assisted workflows for operations teams.",
+            "Built Ludflow and DecidR as public proof of product and systems thinking."
           ]
         },
         {
@@ -172,7 +174,7 @@ export const contentSource = {
           "title": "I bridge product speed and operational reality",
           "eyebrow": "Working style",
           "paragraphs": [
-            "A lot of my work lives in spaces where traditional teams stall out. Non-technical people know something is broken, engineering does not want vague requirements, and nobody has time for a long discovery cycle. I enjoy stepping into that gap.",
+            "A lot of my work lives in spaces where subject matter experts know something is broken, engineering needs clearer requirements, and the team still needs to make progress. I enjoy stepping into that gap.",
             "I can work closely with people who do not think of themselves as builders, help them articulate what they need, and shape a first version quickly. Then I can help turn that prototype into something with cleaner architecture, better security, and a real path to production."
           ]
         },
@@ -189,7 +191,7 @@ export const contentSource = {
           "eyebrow": "Best-fit environments",
           "paragraphs": [
             "I click best with teams that want someone hands-on, product-minded, and comfortable moving across boundaries. I like early environments where the right builder can still change how a company operates.",
-            "In practice, that usually means work where a company needs help translating real operational pain into secure, usable software instead of over-specialized handoffs."
+            "In practice, that usually means work where a company needs help translating real operational pain into secure, usable software without losing momentum in the handoff between teams."
           ]
         }
       ],
@@ -461,7 +463,7 @@ export const contentSource = {
     },
     {
       "id": "skills",
-      "title": "The Capability Mix That Makes Me Useful",
+      "title": "My Capability Mix",
       "windowTitle": "Skills",
       "eyebrow": "Capability Map",
       "intro": "My value is not that I have touched a long list of tools. It is that I can combine product delivery, cloud and data systems, security, business-system administration, and cross-functional translation in the same role when a company has messy operational problems that need to become real software.",

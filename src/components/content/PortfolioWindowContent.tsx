@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useRef } from "react";
 import { EditableText } from "@/components/dev/EditableText";
 import {
   usePortfolioContent,
@@ -61,8 +62,20 @@ export function PortfolioWindowContent({
   section,
   sectionIndex,
 }: PortfolioWindowContentProps) {
+  const sectionTargetsRef = useRef<Record<string, HTMLElement | null>>({});
+  const setSectionTarget =
+    (targetId: string) => (element: HTMLElement | null) => {
+      sectionTargetsRef.current[targetId] = element;
+    };
+  const scrollToTarget = (targetId: string) => {
+    sectionTargetsRef.current[targetId]?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
   const outlineItems = [
     ...section.cards.map((card, cardIndex) => ({
+      targetId: `card-${cardIndex}`,
       text: card.title,
       path: [
         "portfolioSections",
@@ -73,6 +86,7 @@ export function PortfolioWindowContent({
       ] as const,
     })),
     ...(section.detailSections?.map((detail, detailIndex) => ({
+      targetId: `detail-${detailIndex}`,
       text: detail.title,
       path: [
         "portfolioSections",
@@ -86,32 +100,6 @@ export function PortfolioWindowContent({
   return (
     <div className="grid h-full min-h-0 md:grid-cols-[240px_1fr]">
       <aside className="hidden min-h-0 border-r border-black/6 bg-[rgba(246,246,246,0.95)] md:flex md:flex-col">
-        <div className="border-b border-black/6 p-5">
-          <div
-            className="rounded-xl p-5 text-stone-900 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]"
-            style={{ background: section.heroGradient }}
-          >
-            <EditableText
-              as="p"
-              path={["portfolioSections", sectionIndex, "eyebrow"]}
-              text={section.eyebrow}
-              className="text-[10px] font-semibold uppercase tracking-[0.28em] text-stone-700"
-            />
-            <EditableText
-              as="h2"
-              path={["portfolioSections", sectionIndex, "title"]}
-              text={section.title}
-              className="mt-3 font-display text-3xl leading-none text-stone-900"
-            />
-            <EditableText
-              as="p"
-              path={["portfolioSections", sectionIndex, "sidebarNote"]}
-              text={section.sidebarNote}
-              className="mt-4 text-sm leading-6 text-stone-700"
-            />
-          </div>
-        </div>
-
         <div className="min-h-0 flex-1 overflow-y-auto p-5">
           <div>
             <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-stone-500">
@@ -121,13 +109,19 @@ export function PortfolioWindowContent({
               {outlineItems.map((item, index) => (
                 <li
                   key={`${item.text}-${index}`}
-                  className="rounded-2xl border border-black/5 bg-white/70 px-3 py-2 text-sm font-medium text-stone-700 shadow-[0_8px_18px_rgba(0,0,0,0.04)]"
+                  className="overflow-hidden rounded-2xl border border-black/5 bg-white/70 shadow-[0_8px_18px_rgba(0,0,0,0.04)]"
                 >
-                  <EditableText
-                    as="span"
-                    path={item.path}
-                    text={item.text}
-                  />
+                  <button
+                    type="button"
+                    onClick={() => scrollToTarget(item.targetId)}
+                    className="w-full cursor-pointer px-3 py-2 text-left text-sm font-medium text-stone-700 transition hover:bg-black/[0.03] hover:text-stone-900 focus-visible:bg-black/[0.04] focus-visible:text-stone-900 focus-visible:outline-none"
+                  >
+                    <EditableText
+                      as="span"
+                      path={item.path}
+                      text={item.text}
+                    />
+                  </button>
                 </li>
               ))}
             </ul>
@@ -191,16 +185,10 @@ export function PortfolioWindowContent({
 
                   <div className={section.heroImage ? "md:self-center" : undefined}>
                     <EditableText
-                      as="p"
-                      path={["portfolioSections", sectionIndex, "eyebrow"]}
-                      text={section.eyebrow}
-                      className="text-[11px] font-semibold uppercase tracking-[0.32em] text-stone-700"
-                    />
-                    <EditableText
                       as="h1"
                       path={["portfolioSections", sectionIndex, "title"]}
                       text={section.title}
-                      className="mt-3 max-w-3xl font-display text-4xl leading-[0.95] text-stone-900 sm:text-5xl"
+                      className="max-w-3xl font-display text-4xl leading-[0.95] text-stone-900 sm:text-5xl"
                     />
                     <EditableText
                       as="p"
@@ -217,7 +205,8 @@ export function PortfolioWindowContent({
               {section.cards.map((card, cardIndex) => (
                 <article
                   key={`${card.title}-${cardIndex}`}
-                  className="rounded-xl border border-black/5 bg-white/80 p-6 shadow-[0_18px_36px_rgba(0,0,0,0.05)]"
+                  ref={setSectionTarget(`card-${cardIndex}`)}
+                  className="scroll-mt-4 rounded-xl border border-black/5 bg-white/80 p-6 shadow-[0_18px_36px_rgba(0,0,0,0.05)]"
                 >
                   {card.eyebrow ? (
                     <EditableText
@@ -331,7 +320,8 @@ export function PortfolioWindowContent({
                 {section.detailSections.map((detail, detailIndex) => (
                   <article
                     key={`${detail.title}-${detailIndex}`}
-                    className="rounded-xl border border-black/5 bg-white/80 p-6 shadow-[0_18px_36px_rgba(0,0,0,0.05)]"
+                    ref={setSectionTarget(`detail-${detailIndex}`)}
+                    className="scroll-mt-4 rounded-xl border border-black/5 bg-white/80 p-6 shadow-[0_18px_36px_rgba(0,0,0,0.05)]"
                   >
                     {detail.eyebrow ? (
                       <EditableText

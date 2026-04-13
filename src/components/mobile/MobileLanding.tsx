@@ -235,16 +235,10 @@ export default function MobileLanding() {
           ) : null}
 
           <EditableText
-            as="p"
-            path={["portfolioSections", activeSectionIndex, "eyebrow"]}
-            text={activeSection.eyebrow}
-            className="text-[10px] font-semibold uppercase tracking-[0.28em] text-stone-600"
-          />
-          <EditableText
             as="h2"
             path={["portfolioSections", activeSectionIndex, "title"]}
             text={activeSection.title}
-            className="mt-3 font-display text-4xl leading-[0.95] text-stone-900"
+            className="font-display text-4xl leading-[0.95] text-stone-900"
           />
           <EditableText
             as="p"
