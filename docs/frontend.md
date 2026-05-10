@@ -13,7 +13,9 @@ The site should present the owner as:
 
 The UI should feel like a modern macOS-inspired desktop:
 - Visitors click files, folders, and shortcuts.
+- Hovering or focusing a desktop item can reveal a quick-look preview before opening it.
 - Windows open focused content instead of sending users into long scrolling sections.
+- Optional media surfaces must stay opt-in, compact, and easy to dismiss.
 - The experience feels polished and memorable, but the content stays easy to understand.
 
 ---
@@ -24,19 +26,16 @@ The UI should feel like a modern macOS-inspired desktop:
 
 On medium and larger screens, the home page acts like a workspace:
 - Desktop icons represent primary content entry points.
+- Desktop icons can expose non-interactive quick-look previews on hover and keyboard focus.
 - Windows can be opened, focused, moved, and closed.
 - A dynamic dock shows only open and minimized windows (no static shortcuts).
 - Clicking a focused dock icon minimizes that window; clicking a minimized icon restores it.
+- The iPod desktop app opens as a floating media surface instead of a standard browser-like window.
 - The chrome should feel modern and clean rather than skeuomorphic or novelty-heavy.
 
 Current desktop items (defined in `src/data/portfolio-content.ts`):
-- `Resume.pdf` (document)
-- `Experience` (folder)
-- `Projects` (folder)
-- `Skills` (document)
-- `About Me` (document)
-- `Businesses` (folder)
-- `Contact` (contact)
+- `Resume` (document)
+- `iPod` (media)
 
 ### Mobile Breakpoint
 
@@ -111,6 +110,9 @@ Purpose:
 Responsibilities:
 - Desktop background and menu bar.
 - Desktop icons and folders.
+- Quick-look preview cards and generated visual posters.
+- Metric strips and content artwork inside windows.
+- Optional floating media app surfaces.
 - Window chrome.
 - Document views, profile views, project explorer views, and contact views.
 - Mobile fallback layouts.
@@ -144,16 +146,21 @@ src/
   components/
     content/
       PortfolioWindowContent.tsx   # Renders section data inside windows
+      SectionMetricStrip.tsx       # Compact metric highlights for section heroes
+      SectionPoster.tsx            # Image-backed or generated section artwork
+      sectionVisualUtils.ts        # Pure color and generated-art helpers
     dev/
       ContentDevContext.tsx # Localhost-only draft state and save workflow
       ContentDevTool.tsx    # Floating toolbar for inline editing
       EditableText.tsx      # ContentEditable wrapper for visible text fields
     desktop/
+      IpodApp.tsx          # Floating iPod-style media app
       Desktop.tsx          # Shell: wallpaper, menu bar, desktop files, windows, dock
       DesktopFiles.tsx     # Positioned desktop icons with glyph renderer registry
+      DesktopQuickLook.tsx  # Non-interactive hover/focus previews for desktop items
       Dock.tsx             # Dynamic dock showing open/minimized windows (props-based)
       MenuBar.tsx          # Top menu bar chrome
-      Wallpaper.tsx        # Background gradient
+      Wallpaper.tsx        # Animated atmospheric background
       WindowContainer.tsx  # Per-window wrapper with memoized dispatch callbacks
     mobile/
       MobileLanding.tsx   # Stacked card layout for small screens
@@ -186,11 +193,29 @@ Owns:
 - Wallpaper or atmospheric background.
 - Menu bar or top chrome.
 - Desktop icon layout.
+- Desktop quick-look preview state and placement.
 - Dock or quick-launch actions.
+- Optional floating media surface mounting.
 
 Should not own:
 - Resume content itself.
 - Ad hoc content formatting logic.
+- Bundled third-party audio assets without tracked source and license terms.
+
+### Media App Surface
+
+Rules:
+- Playback must be opt-in, with no autoplay.
+- The media surface should open and close through the desktop icon like an app.
+- If audio is bundled into `public/`, source and license metadata must be tracked before launch.
+- Prefer externally hosted or user-provided media when redistribution rights are unclear.
+
+### Quick-Look and Poster System
+
+Rules:
+- Quick-look previews are informational and should not trap pointer or keyboard focus.
+- Generated posters should be pure functions of section content and visual metadata.
+- Preview placement should stay clamped inside the visible desktop viewport.
 
 ### Window Manager
 

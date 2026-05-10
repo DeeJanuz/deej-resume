@@ -53,6 +53,9 @@ No automated tests exist yet. The sections below describe the first tests that s
 - Window animations: open, close, minimize-to-dock, restore-from-dock (`Window`, `useWindowAnimations`)
 - WindowContainer: memoized callback props, correct dispatch forwarding (`WindowContainer`)
 - Dock: dynamic rendering of open/minimized windows, click-to-minimize/restore/focus (`Dock`)
+- Desktop quick-look previews: hover/focus visibility, hidden state on blur/leave, and viewport-safe placement (`DesktopFiles`, `DesktopQuickLook`)
+- Generated section artwork and metric strips render image-backed and generated states (`SectionPoster`, `SectionMetricStrip`)
+- iPod app controls: play/pause, previous/next, progress display, click-wheel seek gestures, drag handle, and glass close affordance (`IpodApp`)
 - Mobile fallback rendering for the same content source (`MobileLanding`)
 - Resume window rendering for the primary hire-me flow (`PortfolioWindowContent`)
 - Inline editing affordances (`EditableText`, `ContentDevTool`):
@@ -69,6 +72,8 @@ No automated tests exist yet. The sections below describe the first tests that s
 - Minimize animation targets dock icon position; restore animation originates from dock icon
 - Fullscreen toggle saves and restores previous window position and size
 - Resume window auto-opens on initial desktop mount (320ms delay)
+- Hovering or focusing a desktop item shows a non-interactive quick-look preview without blocking click-to-open
+- The iPod app opens from its desktop icon, can be dragged independently, and can be closed without changing the resume window state
 - Query-state hydration opens expected windows on page load (not yet implemented)
 - External contact actions route users to the correct destination
 - Localhost inline save round-trip updates `src/data/portfolio-content-source.ts` and survives a dev-server restart
@@ -80,4 +85,5 @@ No automated tests exist yet. The sections below describe the first tests that s
 - A recruiter can open the resume and reach contact details
 - A client can inspect businesses and projects from the desktop
 - A mobile visitor can understand the owner’s story without the desktop shell
+- A desktop visitor can ignore, open, move, play, or close the iPod app without it blocking the primary resume flow
 - A localhost author can enable edit mode, change visible text, save it, reload, and see the content persist

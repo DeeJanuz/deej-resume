@@ -5,14 +5,14 @@ import { DesktopQuickLook } from "@/components/desktop/DesktopQuickLook";
 import type {
   DesktopItemDefinition,
   DesktopItemKind,
-  PortfolioSection,
   PortfolioSectionId,
+  ResumeContent,
 } from "@/types";
 
 interface DesktopFilesProps {
   items: readonly DesktopItemDefinition[];
   openIds: ReadonlySet<PortfolioSectionId>;
-  portfolioSectionsById: Record<PortfolioSectionId, PortfolioSection>;
+  resume: ResumeContent;
   onOpen: (id: PortfolioSectionId) => void;
 }
 
@@ -86,6 +86,22 @@ const glyphRenderers: Record<DesktopItemKind, (props: GlyphProps) => React.React
       </div>
     </div>
   ),
+  media: ({ accent, iconLabel, isOpen }) => (
+    <div
+      className="relative h-16 w-11 rounded-[12px] border border-white/65 bg-[rgba(248,248,245,0.92)] shadow-[0_16px_30px_rgba(0,0,0,0.16)]"
+      style={{ filter: isOpen ? "saturate(1.06)" : "none" }}
+    >
+      <div
+        className="absolute left-1/2 top-2 h-7 w-8 -translate-x-1/2 rounded-[5px] border border-stone-500/40"
+        style={{ backgroundColor: `${accent}22` }}
+      />
+      <div
+        className="absolute bottom-2 left-1/2 flex h-6 w-6 -translate-x-1/2 items-center justify-center rounded-full border border-stone-400/55 bg-white/75 text-[8px] font-bold text-stone-700"
+      >
+        {iconLabel}
+      </div>
+    </div>
+  ),
 };
 
 const DESKTOP_ICON_TOP_START = 56;
@@ -95,6 +111,9 @@ const DESKTOP_ICON_BUTTON_HEIGHT = 104;
 const DESKTOP_ICON_ROW_STEP = 112;
 const DESKTOP_ICON_BOTTOM_PADDING = 96;
 const DESKTOP_PREVIEW_TOP_MARGIN = 40;
+const DESKTOP_PREVIEW_WIDTH = 290;
+const DESKTOP_PREVIEW_HEIGHT = 264;
+const DESKTOP_PREVIEW_SIDE_MARGIN = 16;
 
 function getMaxRowsPerColumn(viewportHeight: number) {
   const usableHeight =
@@ -119,7 +138,7 @@ function DesktopGlyph({
 export function DesktopFiles({
   items,
   openIds,
-  portfolioSectionsById,
+  resume,
   onOpen,
 }: DesktopFilesProps) {
   const [viewportSize, setViewportSize] = useState({ width: 1440, height: 900 });
@@ -163,12 +182,24 @@ export function DesktopFiles({
       return null;
     }
 
+    const maxTop = Math.max(
+      DESKTOP_PREVIEW_TOP_MARGIN,
+      viewportSize.height - DESKTOP_PREVIEW_HEIGHT - DESKTOP_PREVIEW_SIDE_MARGIN,
+    );
+    const maxLeft = Math.max(
+      DESKTOP_PREVIEW_SIDE_MARGIN,
+      viewportSize.width - DESKTOP_PREVIEW_WIDTH - DESKTOP_PREVIEW_SIDE_MARGIN,
+    );
+
     return {
       top: Math.min(
         Math.max(DESKTOP_PREVIEW_TOP_MARGIN, iconPosition.top - 8),
-        viewportSize.height - 264,
+        maxTop,
       ),
-      left: Math.min(iconPosition.left + 98, viewportSize.width - 320),
+      left: Math.min(
+        Math.max(DESKTOP_PREVIEW_SIDE_MARGIN, iconPosition.left + 98),
+        maxLeft,
+      ),
     };
   }, [itemPositions, previewId, viewportSize.height, viewportSize.width]);
 
@@ -202,9 +233,9 @@ export function DesktopFiles({
         );
       })}
 
-      {previewId && previewPosition ? (
+      {previewId === "resume" && previewPosition ? (
         <DesktopQuickLook
-          section={portfolioSectionsById[previewId]}
+          resume={resume}
           top={previewPosition.top}
           left={previewPosition.left}
         />

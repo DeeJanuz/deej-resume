@@ -1,17 +1,16 @@
-import type { PortfolioContentSource } from "@/types";
+import type {
+  PortfolioContentSource,
+  PortfolioDetailSection,
+  PortfolioLink,
+  ResumeContentSection,
+} from "@/types";
 
-export const contentSource = {
+const legacyContentSource = {
   "siteProfile": {
     "name": "Daenon Janis",
     "title": "AI product builder with secure systems depth",
     "location": "Ogden, Utah",
     "summary": "I help teams turn messy operations, data movement, and AI ideas into secure software people can actually use."
-  },
-  "ambientTrack": {
-    "title": "Happy Clappy Loop",
-    "artist": "OwlishMedia",
-    "src": "/audio/happy-clappy-loop.m4a",
-    "artworkAlt": "Abstract album art for the upbeat ambient site soundtrack"
   },
   "portfolioSections": [
     {
@@ -912,8 +911,298 @@ export const contentSource = {
       }
     }
   ]
+};
+
+type LegacySection = (typeof legacyContentSource)["portfolioSections"][number];
+type LegacyCard = {
+  title: string;
+  eyebrow?: string;
+  description: string;
+  bullets?: readonly string[];
+  links?: readonly PortfolioLink[];
+  tags?: readonly string[];
+};
+
+function getLegacySection(id: LegacySection["id"]) {
+  const section = legacyContentSource.portfolioSections.find(
+    (candidate) => candidate.id === id,
+  );
+
+  if (!section) {
+    throw new Error(`Missing legacy section: ${id}`);
+  }
+
+  return section;
+}
+
+const experienceSection = getLegacySection("experience");
+const aboutSection = getLegacySection("about");
+const personalSection = getLegacySection("personal");
+const projectsSection = getLegacySection("projects");
+const skillsSection = getLegacySection("skills");
+const founderSection = getLegacySection("businesses");
+const contactSection = getLegacySection("contact");
+const personalDetailSections =
+  (personalSection.detailSections ?? []) as readonly PortfolioDetailSection[];
+const founderCards = founderSection.cards as readonly LegacyCard[];
+const contactCards = contactSection.cards as readonly LegacyCard[];
+const experienceCards = experienceSection.cards as readonly LegacyCard[];
+const aboutCards = aboutSection.cards as readonly LegacyCard[];
+const personalCards = personalSection.cards as readonly LegacyCard[];
+const skillsCards = skillsSection.cards as readonly LegacyCard[];
+const familyPhoto = personalDetailSections.find((detail) => detail.image)?.image;
+
+const primaryContactLinks: readonly PortfolioLink[] =
+  contactCards[0]?.links ?? [];
+
+const consolidatedProjectDetails: readonly PortfolioDetailSection[] = [
+  {
+    title: "Ludflow",
+    eyebrow: "Private product and company",
+    paragraphs: [
+      "Ludflow came from a recurring problem: subject matter experts knew what they needed operationally, but the requirements handed to engineering were too vague to build from. Bad inputs led to bad builds, frustration, and abandoned projects.",
+      "I’m building Ludflow around the idea that documentation, governance, and AI context should not live in separate systems. The product ties together codebase reality, data sources, written process knowledge, and the business concepts people actually use every day.",
+      "That makes it easier for non-technical teams to describe work in plain language, for technical teams to keep documentation aligned with real systems, and for AI tools to operate from grounded context instead of guesswork.",
+      "It is the clearest example of how I like to work as a founder: start with an operational pain point, sharpen the point of view, and build a product that makes future work easier instead of harder.",
+    ],
+    bullets: [
+      "Layer 1: business concepts and attributes people work with every day.",
+      "Layer 2: the source systems where that information actually lives.",
+      "Layer 3: human-readable process documents and diagrams that AI can search and explain.",
+    ],
+    links: founderCards[0]?.links,
+  },
+  {
+    title: "MCPViews",
+    eyebrow: "Open-source product and ecosystem wedge",
+    paragraphs: [
+      "MCPViews started from a simple frustration: AI tooling was getting more capable, but the interface layer was still fragmented and too dependent on plain text. Many workflows clearly wanted tables, diagrams, reviews, and richer interaction.",
+      "I built MCPViews as a local rendering layer where agents can request the right interface, push only the minimum state, and let the renderer fetch the rest through its own APIs. That makes it both a usable product and a broader exploration of MCP-native software.",
+      "What matters most to me is the product shape: identifying a real workflow problem and designing an interface layer that materially improves the experience instead of just adding another technical abstraction.",
+    ],
+    links: founderCards[1]?.links,
+  },
+  {
+    title: "DecidR MCP",
+    eyebrow: "Decision and workflow layer in the Ludflow ecosystem",
+    paragraphs: [
+      "DecidR MCP is the initiative, architecture, and approval layer inside the broader Ludflow ecosystem. It focuses on helping AI-native teams coordinate larger slices of work without turning everything into micromanaged tickets.",
+      "The point is to keep decisions, implementation context, and stakeholder buy-in attached to the architecture itself so collaboration stays clearer as work moves asynchronously.",
+    ],
+    bullets: [
+      "Built for AI-native collaboration rather than traditional ticket-first project management.",
+      "Connects decisions, documentation, and implementation context across stakeholders.",
+    ],
+  },
+];
+
+const consolidatedProjectCards = [
+  {
+    title: "Ludflow",
+    eyebrow: "Private company",
+    description:
+      "Ludflow is my privately owned platform for AI documentation, data governance, and grounded MCP context. It grew from the recurring pain of organizations splitting knowledge across code, schemas, docs, and tribal memory, then expecting teams or AI tools to reconstruct the truth.",
+    links: founderCards[0]?.links,
+    tags: founderCards[0]?.tags,
+  },
+  {
+    title: "MCPViews",
+    eyebrow: "Open-source product",
+    description:
+      "MCPViews is an open-source desktop companion that gives AI agents a visual interface, plugin system, and richer review flows than plain text alone. It serves as both a usable tool and a public product bet on where MCP-native software is going.",
+    links: founderCards[1]?.links,
+    tags: founderCards[1]?.tags,
+  },
+  {
+    title: "DecidR MCP",
+    eyebrow: "Collaboration layer",
+    description:
+      "DecidR MCP is the initiative, architecture, and approval layer in the broader Ludflow ecosystem. It reflects how I think AI-native teams should collaborate at a systems level rather than reducing everything to disconnected tickets.",
+    tags: founderCards[2]?.tags,
+  },
+];
+
+const consolidatedAboutCards = [
+  personalCards[1],
+  aboutCards[1],
+  aboutCards[2],
+  personalCards[2],
+].filter(Boolean);
+
+const consolidatedSections: readonly ResumeContentSection[] = [
+  {
+    id: "experience",
+    navLabel: "Experience",
+    eyebrow: "Experience & Impact",
+    title: "Experience & Impact",
+    intro: experienceSection.intro,
+    summary: experienceSection.summary,
+    accent: experienceSection.accent,
+    heroGradient: experienceSection.heroGradient,
+    metrics: experienceSection.metrics,
+    cards: experienceCards,
+    detailSections: experienceSection.detailSections,
+    quickFacts: [
+      "Current role spans data engineering, security architecture, systems integration, and internal tooling.",
+      "Strongest proof points include SOC 2 ownership, lower database spend, and secure AI-assisted workflows.",
+      "Best-fit roles reward cross-functional ownership and practical product delivery, not narrow specialization.",
+    ],
+  },
+  {
+    id: "projects",
+    navLabel: "Projects",
+    eyebrow: "Projects & Founder Work",
+    title: "Projects & Founder Work",
+    intro:
+      "These are the strongest public proofs of how I work: shipping AI-native interfaces, documentation and governance systems, and product ideas shaped around messy real-world workflows. They also show the founder side of how I think about ownership, positioning, and product direction.",
+    summary:
+      "I care less about novelty for its own sake and more about building tools that reduce ambiguity, improve collaboration, and make software easier to trust.",
+    accent: projectsSection.accent,
+    heroGradient: projectsSection.heroGradient,
+    metrics: founderSection.metrics,
+    cards: consolidatedProjectCards,
+    detailSections: consolidatedProjectDetails,
+    quickFacts: [
+      "Ludflow is the private commercial product in the set.",
+      "MCPViews is the open-source interface-layer product and public ecosystem bet.",
+      "DecidR extends the same ecosystem into decision-making and execution workflows.",
+    ],
+  },
+  {
+    id: "skills",
+    navLabel: "Capabilities",
+    eyebrow: skillsSection.eyebrow,
+    title: "Capability Mix",
+    intro: skillsSection.intro,
+    summary: skillsSection.summary,
+    accent: skillsSection.accent,
+    heroGradient: skillsSection.heroGradient,
+    metrics: skillsSection.metrics,
+    cards: skillsCards,
+    detailSections: skillsSection.detailSections,
+    quickFacts: [
+      "The mix matters more than any single tool: product, data, security, AI, and communication in one builder.",
+      "I am strongest when the work crosses team boundaries and nobody else cleanly owns it.",
+      "Business systems, cloud, and AI tooling show up here because I use them as part of real delivery.",
+    ],
+  },
+  {
+    id: "about",
+    navLabel: "About",
+    eyebrow: "About Me",
+    title: "About & Personal Context",
+    intro:
+      "The personal side of the work story is that I grew up taking things apart, building computers, repairing phones, and chasing whatever new technology I could get my hands on. That instinct still shapes how I approach products, systems, and problem solving.",
+    summary:
+      "This section is less about accomplishments and more about temperament: how I work, where I create leverage, and the personal background behind the builder.",
+    accent: aboutSection.accent,
+    heroGradient: aboutSection.heroGradient,
+    heroImage: familyPhoto,
+    metrics: aboutSection.metrics,
+    cards: consolidatedAboutCards,
+    detailSections: [
+      ...(aboutSection.detailSections ?? []),
+      ...personalDetailSections,
+    ],
+    quickFacts: [
+      "Raised across the mountain west and now based in Ogden, Utah.",
+      "Technology was the hobby before it was the career: DIY computers, repairs, and gadget obsession.",
+      "Family life keeps the work grounded in something bigger than product ambition.",
+    ],
+  },
+  {
+    id: "contact",
+    navLabel: "Contact",
+    eyebrow: contactSection.eyebrow,
+    title: contactSection.title,
+    intro: contactSection.intro,
+    summary: contactSection.summary,
+    accent: contactSection.accent,
+    heroGradient: contactSection.heroGradient,
+    metrics: contactSection.metrics,
+    cards: contactCards,
+    quickFacts: [
+      "Best starting point: email.",
+      "Happy to talk about roles, consulting, product ideas, and founder work.",
+      "I prefer one clear route over a cluttered contact stack.",
+    ],
+  },
+];
+
+export const contentSource = {
+  siteProfile: legacyContentSource.siteProfile,
+  resume: {
+    id: "resume",
+    desktopLabel: "Resume",
+    iconLabel: "CV",
+    windowTitle: "Resume",
+    accent: "#2f6b73",
+    executiveSummary: {
+      eyebrow: "Executive Summary",
+      title: "AI product builder with secure systems depth",
+      intro:
+        "I’m a hardware hacker, security-minded builder, data dog, and 0-to-1 operator. I help teams turn messy operations, data movement, and AI ideas into secure software people can actually use.",
+      summary:
+        "The pattern across my work is consistent: I step into ambiguous, cross-functional problems with a hacker instinct, figure out how the system really works, and turn rough ideas into secure, usable software teams actually trust and adopt.",
+      accent: "#2f6b73",
+      heroGradient:
+        "linear-gradient(135deg, rgba(47, 107, 115, 0.18) 0%, rgba(195, 226, 230, 0.9) 100%)",
+      heroImage: aboutSection.heroImage,
+      metrics: [
+        experienceSection.metrics[0],
+        experienceSection.metrics[2],
+        founderSection.metrics[0],
+      ],
+      valuePillars: [
+        {
+          title: "Turn ambiguity into software",
+          description:
+            "I can work directly with operators and subject matter experts, tighten fuzzy requirements, and ship a real first version instead of waiting for perfect inputs.",
+        },
+        {
+          title: "Bridge product, systems, and security",
+          description:
+            "The same builder can shape the workflow, wire the integrations, reason about permissions, and make sure the result is maintainable in production.",
+        },
+        {
+          title: "Build AI that is grounded in reality",
+          description:
+            "I’m interested in AI when prompts, context, tools, and interfaces form a trustworthy workflow, not when they produce demo theater.",
+        },
+        {
+          title: "Operate with founder-level ownership",
+          description:
+            "I like owning broad slices of work, finding the wedge, and turning recurring pain points into products or internal platforms people actually want to use.",
+        },
+      ],
+      quickFacts: [
+        "Current focus: secure AI workflows, internal tools, and product systems that cross team boundaries.",
+        "Strongest fit: hands-on environments where product usefulness, systems depth, and speed all matter at once.",
+        "Based in Ogden, Utah and comfortable moving between engineering, operations, and founder-style ownership.",
+      ],
+      primaryLinks: primaryContactLinks,
+    },
+    navigation: [
+      { id: "summary", label: "Summary" },
+      { id: "experience", label: "Experience" },
+      { id: "projects", label: "Projects" },
+      { id: "skills", label: "Capabilities" },
+      { id: "about", label: "About" },
+      { id: "contact", label: "Contact" },
+    ],
+    sections: consolidatedSections,
+    defaultWindow: {
+      position: {
+        x: 132,
+        y: 74,
+      },
+      size: {
+        width: 860,
+        height: 620,
+      },
+    },
+  },
 } satisfies PortfolioContentSource;
 
 export const siteProfile = contentSource.siteProfile;
-export const ambientTrack = contentSource.ambientTrack;
-export const portfolioSections = contentSource.portfolioSections;
+export const resume = contentSource.resume;

@@ -1,10 +1,10 @@
-export type PortfolioSectionId =
+export type PortfolioSectionId = "resume" | "ipod";
+export type ResumeSectionId =
+  | "summary"
   | "experience"
   | "projects"
   | "skills"
   | "about"
-  | "personal"
-  | "businesses"
   | "contact";
 
 export interface WindowPosition {
@@ -66,7 +66,7 @@ export type WindowAction =
 
 export type ResizeDirection = "n" | "s" | "e" | "w" | "ne" | "nw" | "se" | "sw";
 
-export type DesktopItemKind = "document" | "folder" | "stack" | "contact";
+export type DesktopItemKind = "document" | "folder" | "stack" | "contact" | "media";
 
 export interface DesktopItemDefinition {
   id: PortfolioSectionId;
@@ -110,21 +110,55 @@ export interface PortfolioDetailSection {
   links?: readonly PortfolioLink[];
 }
 
-export interface PortfolioSection {
-  id: PortfolioSectionId;
+export interface ResumeValuePillar {
   title: string;
-  windowTitle: string;
+  description: string;
+}
+
+export interface ResumeNavItem {
+  id: ResumeSectionId;
+  label: string;
+}
+
+export interface ResumeExecutiveSummary {
   eyebrow: string;
-  heroImage?: PortfolioImage;
+  title: string;
   intro: string;
   summary: string;
-  sidebarNote: string;
   accent: string;
   heroGradient: string;
+  heroImage?: PortfolioImage;
+  metrics: readonly PortfolioMetric[];
+  valuePillars: readonly ResumeValuePillar[];
+  quickFacts: readonly string[];
+  primaryLinks?: readonly PortfolioLink[];
+}
+
+export interface ResumeContentSection {
+  id: Exclude<ResumeSectionId, "summary">;
+  navLabel: string;
+  eyebrow: string;
+  title: string;
+  intro: string;
+  summary: string;
+  accent: string;
+  heroGradient: string;
+  heroImage?: PortfolioImage;
   metrics: readonly PortfolioMetric[];
   cards: readonly PortfolioCard[];
   detailSections?: readonly PortfolioDetailSection[];
   quickFacts: readonly string[];
+}
+
+export interface ResumeContent {
+  id: PortfolioSectionId;
+  desktopLabel: string;
+  iconLabel: string;
+  windowTitle: string;
+  accent: string;
+  executiveSummary: ResumeExecutiveSummary;
+  navigation: readonly ResumeNavItem[];
+  sections: readonly ResumeContentSection[];
   defaultWindow: {
     position: WindowPosition;
     size: WindowSize;
@@ -138,15 +172,7 @@ export interface SiteProfile {
   summary: string;
 }
 
-export interface AmbientTrack {
-  title: string;
-  artist: string;
-  src: string;
-  artworkAlt: string;
-}
-
 export interface PortfolioContentSource {
   siteProfile: SiteProfile;
-  ambientTrack?: AmbientTrack;
-  portfolioSections: readonly PortfolioSection[];
+  resume: ResumeContent;
 }

@@ -6,12 +6,12 @@ This document tracks follow-up work, refactoring ideas, and architecture risks d
 
 ## Latest Session Summary
 
-**Last Update:** 2026-04-09
-**Last Reviewed Commit:** 3e23697 (Add localhost inline content editing and save workflow)
-**Commit Score:** 74/100 (Needs hardening)
+**Last Update:** 2026-04-27
+**Last Reviewed Commit:** 75486b4 (Add ambient desktop polish with quick-look previews)
+**Commit Score:** 90/100 (Reviewed follow-ups addressed)
 
-**Total Active Issues:** 5
-**Resolved This Month:** 7
+**Total Active Issues:** 9
+**Resolved This Month:** 9
 
 ---
 
@@ -34,7 +34,6 @@ This document tracks follow-up work, refactoring ideas, and architecture risks d
 - Define how shareable deep links should work when multiple windows are open.
 ### Low
 
-
 - Capture analytics events for recruiter and client conversion paths.
 - Consider adding `aria-live` region for window open/close announcements.
 - Keyboard navigation for traffic lights and window focus cycling.
@@ -50,3 +49,5 @@ This document tracks follow-up work, refactoring ideas, and architecture risks d
 - **2026-04-09** — Replaced if/else branching in DesktopGlyph with `glyphRenderers` registry keyed by kind (was medium OCP item).
 - **2026-04-09** — Dock now receives icon data via props instead of importing `desktopItems` directly (was medium DIP item).
 - **2026-04-09** — Moved `ResizeDirection` type to `src/types/index.ts` as single source of truth (was low duplication item).
+- **2026-04-27** — Removed the unused bundled ambient audio asset and stale `ambientTrack` metadata after replacing the player with the iPod app. (Was medium open item.)
+- **2026-04-27** — Clamped quick-look preview placement on both axes so narrow or short desktop viewports cannot produce negative coordinates. (Was low open item.)

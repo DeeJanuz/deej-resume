@@ -1,14 +1,13 @@
 "use client";
 
 import { useCallback } from "react";
-import { PortfolioWindowContent } from "@/components/content/PortfolioWindowContent";
+import { ResumeWindowContent } from "@/components/content/ResumeWindowContent";
 import { Window } from "@/components/window/Window";
-import type { PortfolioSection, WindowAction, WindowState } from "@/types";
+import type { ResumeContent, WindowAction, WindowState } from "@/types";
 
 interface WindowContainerProps {
   windowState: WindowState;
-  section: PortfolioSection;
-  sectionIndex: number;
+  resume: ResumeContent;
   dockMinimizeRequested: boolean;
   dispatch: React.Dispatch<WindowAction>;
   onDockMinimizeComplete: () => void;
@@ -16,8 +15,7 @@ interface WindowContainerProps {
 
 export function WindowContainer({
   windowState,
-  section,
-  sectionIndex,
+  resume,
   dockMinimizeRequested,
   dispatch,
   onDockMinimizeComplete,
@@ -81,7 +79,7 @@ export function WindowContainer({
   return (
     <Window
       id={windowState.id}
-      title={section.windowTitle}
+      title={windowState.title}
       isOpen={windowState.isOpen}
       isFocused={windowState.isFocused}
       isMinimized={windowState.isMinimized}
@@ -97,7 +95,7 @@ export function WindowContainer({
       onMove={onMove}
       onResize={onResize}
     >
-      <PortfolioWindowContent section={section} sectionIndex={sectionIndex} />
+      <ResumeWindowContent resume={resume} />
     </Window>
   );
 }

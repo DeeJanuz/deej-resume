@@ -11,8 +11,7 @@ import {
 import { contentSource as initialContentSource } from "@/data/portfolio-content-source";
 import type {
   PortfolioContentSource,
-  PortfolioSection,
-  PortfolioSectionId,
+  ResumeContent,
 } from "@/types";
 
 const CONTENT_SOURCE_FILE = "src/data/portfolio-content-source.ts";
@@ -53,8 +52,7 @@ type SupportedWindow = Window &
 
 interface ContentDevContextValue {
   content: PortfolioContentSource;
-  portfolioSectionsById: Record<PortfolioSectionId, PortfolioSection>;
-  sectionIndexById: Record<PortfolioSectionId, number>;
+  resume: ResumeContent;
   isLocal: boolean;
   supportsFileEditing: boolean;
   hasSaveService: boolean;
@@ -192,8 +190,7 @@ function toSourceFile(content: PortfolioContentSource) {
 export const contentSource = ${JSON.stringify(content, null, 2)} satisfies PortfolioContentSource;
 
 export const siteProfile = contentSource.siteProfile;
-export const ambientTrack = contentSource.ambientTrack;
-export const portfolioSections = contentSource.portfolioSections;
+export const resume = contentSource.resume;
 `;
 }
 
@@ -326,21 +323,7 @@ export function ContentDevProvider({
     };
   }, [hasSaveService, isLocal, mounted, supportsFileEditing]);
 
-  const portfolioSectionsById = useMemo(
-    () =>
-      Object.fromEntries(
-        content.portfolioSections.map((section) => [section.id, section]),
-      ) as unknown as Record<PortfolioSectionId, PortfolioSection>,
-    [content.portfolioSections],
-  );
-
-  const sectionIndexById = useMemo(
-    () =>
-      Object.fromEntries(
-        content.portfolioSections.map((section, index) => [section.id, index]),
-      ) as unknown as Record<PortfolioSectionId, number>,
-    [content.portfolioSections],
-  );
+  const resume = useMemo(() => content.resume, [content.resume]);
 
   const connectFile = useCallback(async () => {
     if (hasSaveService) {
@@ -479,8 +462,7 @@ export function ContentDevProvider({
   const value = useMemo<ContentDevContextValue>(
     () => ({
       content,
-      portfolioSectionsById,
-      sectionIndexById,
+      resume,
       isLocal,
       supportsFileEditing,
       hasSaveService,
@@ -505,8 +487,7 @@ export function ContentDevProvider({
       isEditMode,
       isLocal,
       lastSavedAt,
-      portfolioSectionsById,
-      sectionIndexById,
+      resume,
       hasSaveService,
       connectFile,
       disconnectFile,

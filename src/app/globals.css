@@ -157,6 +157,29 @@ button {
   }
 }
 
+@keyframes resumeRevealIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes resumeGraphicFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
 .glass-panel {
   border: 1px solid rgba(255, 255, 255, 0.4);
   background: rgba(255, 255, 255, 0.72);
@@ -199,6 +222,23 @@ button {
   animation: equalizerPulse 900ms ease-in-out infinite;
 }
 
+.resume-reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 360ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 360ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.resume-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.resume-graphic-float {
+  animation: resumeGraphicFloat 8s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -207,5 +247,14 @@ button {
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .resume-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .resume-graphic-float {
+    animation: none !important;
   }
 }

@@ -1,29 +1,29 @@
 "use client";
 
 import { SectionPoster } from "@/components/content/SectionPoster";
-import type { PortfolioSection } from "@/types";
+import type { ResumeContent } from "@/types";
 import { toRgba } from "@/components/content/sectionVisualUtils";
 
 interface DesktopQuickLookProps {
-  section: PortfolioSection;
+  resume: ResumeContent;
   top: number;
   left: number;
 }
 
-function getPreviewCopy(section: PortfolioSection) {
-  if (section.intro.length <= 132) {
-    return section.intro;
+function getPreviewCopy(resume: ResumeContent) {
+  if (resume.executiveSummary.summary.length <= 132) {
+    return resume.executiveSummary.summary;
   }
 
-  return `${section.intro.slice(0, 129).trimEnd()}...`;
+  return `${resume.executiveSummary.summary.slice(0, 129).trimEnd()}...`;
 }
 
 export function DesktopQuickLook({
-  section,
+  resume,
   top,
   left,
 }: DesktopQuickLookProps) {
-  const featuredMetric = section.metrics[0];
+  const featuredMetric = resume.executiveSummary.metrics[0];
 
   return (
     <aside
@@ -33,10 +33,11 @@ export function DesktopQuickLook({
     >
       <div className="p-3">
         <SectionPoster
-          accent={section.accent}
-          title={section.title}
+          accent={resume.accent}
+          title={resume.windowTitle}
+          image={resume.executiveSummary.heroImage}
           metric={featuredMetric}
-          artworkAlt={`${section.title} quick look art`}
+          artworkAlt={`${resume.windowTitle} quick look art`}
           forceGenerated
           className="aspect-[4/3]"
         />
@@ -49,7 +50,7 @@ export function DesktopQuickLook({
               Quick Look
             </p>
             <p className="mt-2 text-lg font-semibold text-stone-900">
-              {section.windowTitle}
+              {resume.windowTitle}
             </p>
           </div>
 
@@ -58,7 +59,7 @@ export function DesktopQuickLook({
               className="rounded-2xl border px-3 py-2 text-right"
               style={{
                 background: toRgba("#ffffff", 0.58),
-                borderColor: toRgba(section.accent, 0.16),
+                borderColor: toRgba(resume.accent, 0.16),
               }}
             >
               <div className="font-display text-2xl leading-none text-stone-900">
@@ -72,7 +73,7 @@ export function DesktopQuickLook({
         </div>
 
         <p className="mt-4 text-sm leading-6 text-stone-700">
-          {getPreviewCopy(section)}
+          {getPreviewCopy(resume)}
         </p>
       </div>
     </aside>

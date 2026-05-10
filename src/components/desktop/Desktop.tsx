@@ -1,7 +1,13 @@
 "use client";
 
-import { useCallback, useLayoutEffect, useRef, useState } from "react";
-import { AmbientPlayer } from "@/components/desktop/AmbientPlayer";
+import {
+  type PointerEvent as ReactPointerEvent,
+  useCallback,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
+import { IpodApp } from "@/components/desktop/IpodApp";
 import { usePortfolioContent } from "@/components/dev/ContentDevContext";
 import { desktopItems } from "@/data/portfolio-content";
 import { useWindowManager } from "@/hooks/useWindowManager";
@@ -17,23 +23,61 @@ const DEFAULT_WINDOW_HEIGHT_RATIO = 0.8;
 const WINDOW_HORIZONTAL_MARGIN = 24;
 const WINDOW_TOP_MARGIN = 40;
 const WINDOW_BOTTOM_MARGIN = 32;
-const INITIAL_WINDOW_IDS: readonly PortfolioSectionId[] = ["experience", "about"];
+const INITIAL_WINDOW_IDS: readonly PortfolioSectionId[] = ["resume"];
+const IPOD_WINDOW_WIDTH = 390;
+const IPOD_WINDOW_HEIGHT = 690;
 
 const iconData = Object.fromEntries(
   desktopItems.map((item) => [item.id, { label: item.label, iconLabel: item.iconLabel, accent: item.accent }])
 ) as Record<PortfolioSectionId, { label: string; iconLabel: string; accent: string }>;
 
 export function Desktop() {
-  const { content, portfolioSectionsById, sectionIndexById } = usePortfolioContent();
+  const { resume } = usePortfolioContent();
   const { windows, dispatch } = useWindowManager();
   const [dockMinimizingId, setDockMinimizingId] = useState<PortfolioSectionId | null>(null);
   const hasOpenedInitialWindow = useRef(false);
 
   const createWindowPayload = useCallback(
     (sectionId: PortfolioSectionId) => {
-      const section = portfolioSectionsById[sectionId];
       const viewportWidth = window.innerWidth;
       const viewportHeight = window.innerHeight;
+
+      if (sectionId === "ipod") {
+        const size = {
+          width: Math.min(
+            IPOD_WINDOW_WIDTH,
+            Math.max(300, viewportWidth - WINDOW_HORIZONTAL_MARGIN * 2),
+          ),
+          height: Math.min(
+            IPOD_WINDOW_HEIGHT,
+            Math.max(520, viewportHeight - WINDOW_TOP_MARGIN - WINDOW_BOTTOM_MARGIN),
+          ),
+        };
+        const position = {
+          x: Math.max(
+            WINDOW_HORIZONTAL_MARGIN,
+            Math.min(
+              viewportWidth - size.width - WINDOW_HORIZONTAL_MARGIN,
+              viewportWidth - size.width - 36,
+            ),
+          ),
+          y: Math.max(
+            WINDOW_TOP_MARGIN,
+            Math.min(
+              72,
+              viewportHeight - size.height - WINDOW_BOTTOM_MARGIN,
+            ),
+          ),
+        };
+
+        return {
+          id: sectionId,
+          title: "iPod",
+          position,
+          size,
+        };
+      }
+
       const size = {
         width: Math.min(
           Math.round(viewportWidth * DEFAULT_WINDOW_WIDTH_RATIO),
@@ -46,14 +90,14 @@ export function Desktop() {
       };
       const position = {
         x: Math.min(
-          section.defaultWindow.position.x,
+          resume.defaultWindow.position.x,
           Math.max(
             WINDOW_HORIZONTAL_MARGIN,
             viewportWidth - size.width - WINDOW_HORIZONTAL_MARGIN,
           ),
         ),
         y: Math.min(
-          section.defaultWindow.position.y,
+          resume.defaultWindow.position.y,
           Math.max(
             WINDOW_TOP_MARGIN,
             viewportHeight - size.height - WINDOW_BOTTOM_MARGIN,
@@ -62,13 +106,13 @@ export function Desktop() {
       };
 
       return {
-        id: section.id,
-        title: section.windowTitle,
+        id: sectionId,
+        title: resume.windowTitle,
         position,
         size,
       };
     },
-    [portfolioSectionsById],
+    [resume],
   );
 
   useLayoutEffect(() => {
@@ -92,6 +136,84 @@ export function Desktop() {
     });
   }
 
+  function handleDesktopItemOpen(sectionId: PortfolioSectionId) {
+    if (sectionId === "ipod") {
+      const ipodWindow = windows.find((windowState) => windowState.id === "ipod");
+
+      if (ipodWindow?.isOpen && !ipodWindow.isMinimized) {
+        dispatch({
+          type: "CLOSE_WINDOW",
+          payload: { id: sectionId },
+        });
+        return;
+      }
+    }
+
+    openSection(sectionId);
+  }
+
+  function handleIpodClose() {
+    dispatch({
+      type: "CLOSE_WINDOW",
+      payload: { id: "ipod" },
+    });
+  }
+
+  function handleIpodDragStart(event: ReactPointerEvent<HTMLDivElement>) {
+    if (event.button !== 0 || !floatingIpod) {
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    dispatch({ type: "FOCUS_WINDOW", payload: { id: "ipod" } });
+
+    const startClientX = event.clientX;
+    const startClientY = event.clientY;
+    const startPosition = floatingIpod.position;
+    const ipodSize = floatingIpod.size;
+
+    function handlePointerMove(pointerEvent: PointerEvent) {
+      const minX = WINDOW_HORIZONTAL_MARGIN;
+      const maxX = Math.max(
+        minX,
+        window.innerWidth - ipodSize.width - WINDOW_HORIZONTAL_MARGIN,
+      );
+      const minY = WINDOW_TOP_MARGIN;
+      const maxY = Math.max(
+        minY,
+        window.innerHeight - ipodSize.height - WINDOW_BOTTOM_MARGIN,
+      );
+      const nextX = Math.min(
+        maxX,
+        Math.max(minX, startPosition.x + pointerEvent.clientX - startClientX),
+      );
+      const nextY = Math.min(
+        maxY,
+        Math.max(minY, startPosition.y + pointerEvent.clientY - startClientY),
+      );
+
+      dispatch({
+        type: "MOVE_WINDOW",
+        payload: {
+          id: "ipod",
+          position: { x: nextX, y: nextY },
+        },
+      });
+    }
+
+    function handlePointerUp() {
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("pointerup", handlePointerUp);
+      window.removeEventListener("pointercancel", handlePointerUp);
+    }
+
+    window.addEventListener("pointermove", handlePointerMove);
+    window.addEventListener("pointerup", handlePointerUp);
+    window.addEventListener("pointercancel", handlePointerUp);
+  }
+
   const onDockMinimizeComplete = useCallback(() => {
     setDockMinimizingId(null);
   }, []);
@@ -105,32 +227,61 @@ export function Desktop() {
   const orderedWindows = [...windows].sort(
     (left, right) => left.zIndex - right.zIndex
   );
+  const floatingIpod = orderedWindows.find(
+    (windowState) =>
+      windowState.id === "ipod" &&
+      windowState.isOpen &&
+      !windowState.isMinimized,
+  );
+  const framedWindows = orderedWindows.filter(
+    (windowState) => windowState.id !== "ipod",
+  );
 
   return (
     <div className="relative h-screen overflow-hidden" aria-label="Interactive portfolio desktop">
       <Wallpaper />
-      <MenuBar onOpenPrimary={() => openSection("experience")} />
-      {content.ambientTrack ? <AmbientPlayer track={content.ambientTrack} /> : null}
+      <MenuBar onOpenPrimary={() => openSection("resume")} />
 
       <main className="relative h-full pt-10">
         <DesktopFiles
           items={desktopItems}
           openIds={openIds}
-          portfolioSectionsById={portfolioSectionsById}
-          onOpen={openSection}
+          resume={resume}
+          onOpen={handleDesktopItemOpen}
         />
 
-        {orderedWindows.map((windowState) => (
+        {framedWindows.map((windowState) => (
           <WindowContainer
             key={windowState.id}
             windowState={windowState}
-            section={portfolioSectionsById[windowState.id]}
-            sectionIndex={sectionIndexById[windowState.id]}
+            resume={resume}
             dockMinimizeRequested={dockMinimizingId === windowState.id}
             dispatch={dispatch}
             onDockMinimizeComplete={onDockMinimizeComplete}
           />
         ))}
+
+        {floatingIpod ? (
+          <div
+            className="absolute flex items-center justify-center"
+            data-window-id="ipod"
+            style={{
+              left: floatingIpod.position.x,
+              top: floatingIpod.position.y,
+              width: floatingIpod.size.width,
+              height: floatingIpod.size.height,
+              zIndex: floatingIpod.zIndex,
+            }}
+            onPointerDown={() =>
+              dispatch({ type: "FOCUS_WINDOW", payload: { id: "ipod" } })
+            }
+          >
+            <IpodApp
+              onClose={handleIpodClose}
+              onDragStart={handleIpodDragStart}
+            />
+          </div>
+        ) : null}
 
         <Dock
           windows={activeDockWindows}
