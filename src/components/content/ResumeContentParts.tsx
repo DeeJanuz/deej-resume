@@ -671,13 +671,15 @@ export function ResumeSectionBody({
             </div>
           </div>
 
-          <div className="border-t border-white/55 px-6 py-6 sm:px-8">
-            <SectionMetricStrip
-              accent={section.accent}
-              metrics={section.metrics}
-              pathPrefix={["resume", "sections", sectionIndex, "metrics"]}
-            />
-          </div>
+          {section.metrics.length > 0 ? (
+            <div className="border-t border-white/55 px-6 py-6 sm:px-8">
+              <SectionMetricStrip
+                accent={section.accent}
+                metrics={section.metrics}
+                pathPrefix={["resume", "sections", sectionIndex, "metrics"]}
+              />
+            </div>
+          ) : null}
         </div>
       </ScrollReveal>
 
