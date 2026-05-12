@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, type CSSProperties } from "react";
 import type { ResizeDirection, WindowPosition, WindowSize } from "@/types";
 import { useWindowAnimations } from "@/hooks/useWindowAnimations";
 import { useWindowDrag } from "@/hooks/useWindowDrag";
@@ -14,6 +14,8 @@ interface WindowProps {
   isFocused: boolean;
   isMinimized: boolean;
   isFullScreen: boolean;
+  isRestoreRequested: boolean;
+  restoreOffset?: WindowPosition;
   position: WindowPosition;
   size: WindowSize;
   zIndex: number;
@@ -21,6 +23,7 @@ interface WindowProps {
   onClose: () => void;
   onMinimize: () => void;
   onFullScreen: () => void;
+  onRestoreComplete: () => void;
   onFocus: () => void;
   onMove: (position: WindowPosition) => void;
   onResize: (size: WindowSize, position?: WindowPosition) => void;
@@ -49,6 +52,8 @@ export function Window({
   isFocused,
   isMinimized,
   isFullScreen,
+  isRestoreRequested,
+  restoreOffset,
   position,
   size,
   zIndex,
@@ -56,6 +61,7 @@ export function Window({
   onClose,
   onMinimize,
   onFullScreen,
+  onRestoreComplete,
   onFocus,
   onMove,
   onResize,
@@ -63,16 +69,18 @@ export function Window({
 }: WindowProps) {
   const windowRef = useRef<HTMLDivElement>(null);
 
-  const { animationClass, transitionStyle, handleClose, handleMinimize, isVisible } =
+  const { animationClass, handleClose, handleMinimize, handleFullScreen, isVisible } =
     useWindowAnimations({
       windowRef,
       id,
       isOpen,
       isMinimized,
-      isFullScreen,
+      isRestoreRequested,
       dockMinimizeRequested,
       onClose,
       onMinimize,
+      onFullScreen,
+      onRestoreComplete,
     });
 
   const { handlePointerDown } = useWindowDrag({
@@ -89,6 +97,14 @@ export function Window({
     return null;
   }
 
+  const restoreStyle =
+    isRestoreRequested && restoreOffset
+      ? ({
+          "--minimize-x": `${restoreOffset.x}px`,
+          "--minimize-y": `${restoreOffset.y}px`,
+        } as CSSProperties)
+      : {};
+
   return (
     <div
       ref={windowRef}
@@ -102,7 +118,7 @@ export function Window({
         height: size.height,
         zIndex,
         filter: isFullScreen || isFocused ? "none" : "brightness(0.97)",
-        ...transitionStyle,
+        ...restoreStyle,
       }}
       onPointerDown={onFocus}
     >
@@ -132,7 +148,11 @@ export function Window({
               event.stopPropagation();
             }}
           >
-            <TrafficLights onClose={handleClose} onMinimize={handleMinimize} onFullScreen={onFullScreen} />
+            <TrafficLights
+              onClose={handleClose}
+              onMinimize={handleMinimize}
+              onFullScreen={handleFullScreen}
+            />
           </div>
           <div className="flex flex-1 items-center justify-center px-6 font-[system-ui] text-[13px] font-medium text-neutral-500">
             <span className="truncate">{title}</span>

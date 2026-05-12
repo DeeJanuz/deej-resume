@@ -13,6 +13,8 @@ interface WindowContainerProps {
   onDockMinimizeComplete: () => void;
 }
 
+const MENU_BAR_HEIGHT = 25;
+
 export function WindowContainer({
   windowState,
   resume,
@@ -35,15 +37,22 @@ export function WindowContainer({
     onDockMinimizeComplete();
   }, [dispatch, windowState.id, onDockMinimizeComplete]);
 
+  const onRestoreComplete = useCallback(() => {
+    dispatch({
+      type: "COMPLETE_RESTORE_ANIMATION",
+      payload: { id: windowState.id },
+    });
+  }, [dispatch, windowState.id]);
+
   const onFullScreen = useCallback(() => {
     dispatch({
       type: "TOGGLE_FULLSCREEN",
       payload: {
         id: windowState.id,
-        fullScreenPosition: { x: 0, y: 0 },
+        fullScreenPosition: { x: 0, y: MENU_BAR_HEIGHT },
         fullScreenSize: {
           width: globalThis.innerWidth,
-          height: globalThis.innerHeight - 40,
+          height: globalThis.innerHeight - MENU_BAR_HEIGHT,
         },
       },
     });
@@ -84,6 +93,8 @@ export function WindowContainer({
       isFocused={windowState.isFocused}
       isMinimized={windowState.isMinimized}
       isFullScreen={windowState.isFullScreen}
+      isRestoreRequested={Boolean(windowState.isRestoring)}
+      restoreOffset={windowState.restoreOffset}
       position={windowState.position}
       size={windowState.size}
       zIndex={windowState.zIndex}
@@ -91,6 +102,7 @@ export function WindowContainer({
       onClose={onClose}
       onMinimize={onMinimize}
       onFullScreen={onFullScreen}
+      onRestoreComplete={onRestoreComplete}
       onFocus={onFocus}
       onMove={onMove}
       onResize={onResize}

@@ -7,11 +7,9 @@ import type {
   PortfolioLink,
   ResumeContent,
   ResumeContentSection,
-  ResumeSectionId,
 } from "@/types";
 import { SectionPoster } from "./SectionPoster";
 import { SectionMetricStrip } from "./SectionMetricStrip";
-import { mixHex, toRgba } from "./sectionVisualUtils";
 
 interface SectionLinksProps {
   accent: string;
@@ -261,226 +259,12 @@ function ResumeContentCard({
   );
 }
 
-function ResumeVectorGraphic({
-  accent,
-  variant,
-  className = "",
-}: {
-  accent: string;
-  variant: ResumeSectionId;
-  className?: string;
-}) {
-  const pale = mixHex(accent, "#ffffff", 0.78);
-  const deep = mixHex(accent, "#111827", 0.22);
-  const mist = toRgba(accent, 0.18);
-
-  if (variant === "summary") {
-    return (
-      <svg
-        viewBox="0 0 320 240"
-        className={`h-full w-full ${className}`.trim()}
-        role="img"
-        aria-label="Executive summary illustration"
-      >
-        <defs>
-          <linearGradient id="summary-gradient" x1="0%" x2="100%" y1="0%" y2="100%">
-            <stop offset="0%" stopColor={pale} />
-            <stop offset="100%" stopColor={deep} />
-          </linearGradient>
-        </defs>
-        <rect x="18" y="20" width="284" height="200" rx="32" fill="url(#summary-gradient)" />
-        <circle cx="88" cy="84" r="42" fill={toRgba("#ffffff", 0.52)} />
-        <circle cx="150" cy="112" r="62" fill={mist} />
-        <circle cx="232" cy="88" r="30" fill={toRgba("#ffffff", 0.28)} />
-        <path
-          d="M56 164C88 138 122 124 160 124C206 124 238 143 270 184"
-          fill="none"
-          stroke={toRgba("#ffffff", 0.7)}
-          strokeWidth="8"
-          strokeLinecap="round"
-        />
-        <path
-          d="M68 190C98 160 124 150 160 150C202 150 226 166 256 198"
-          fill="none"
-          stroke={toRgba(accent, 0.62)}
-          strokeWidth="10"
-          strokeLinecap="round"
-        />
-      </svg>
-    );
-  }
-
-  if (variant === "experience") {
-    return (
-      <svg
-        viewBox="0 0 320 220"
-        className={`h-full w-full ${className}`.trim()}
-        role="img"
-        aria-label="Experience illustration"
-      >
-        <rect x="28" y="26" width="92" height="148" rx="24" fill={toRgba("#ffffff", 0.72)} />
-        <rect x="132" y="52" width="70" height="122" rx="22" fill={mist} />
-        <rect x="214" y="84" width="78" height="90" rx="22" fill={toRgba(accent, 0.35)} />
-        <path
-          d="M52 176H284"
-          stroke={toRgba(deep, 0.44)}
-          strokeWidth="8"
-          strokeLinecap="round"
-        />
-        <path
-          d="M58 74H90"
-          stroke={toRgba(accent, 0.72)}
-          strokeWidth="10"
-          strokeLinecap="round"
-        />
-        <path
-          d="M58 102H100"
-          stroke={toRgba(accent, 0.46)}
-          strokeWidth="10"
-          strokeLinecap="round"
-        />
-        <path
-          d="M58 130H84"
-          stroke={toRgba(accent, 0.3)}
-          strokeWidth="10"
-          strokeLinecap="round"
-        />
-      </svg>
-    );
-  }
-
-  if (variant === "projects") {
-    return (
-      <svg
-        viewBox="0 0 320 220"
-        className={`h-full w-full ${className}`.trim()}
-        role="img"
-        aria-label="Projects illustration"
-      >
-        <circle cx="88" cy="108" r="28" fill={toRgba(accent, 0.52)} />
-        <circle cx="160" cy="64" r="24" fill={mist} />
-        <circle cx="234" cy="128" r="32" fill={toRgba("#ffffff", 0.6)} />
-        <path
-          d="M108 96L140 74"
-          stroke={toRgba(deep, 0.44)}
-          strokeWidth="8"
-          strokeLinecap="round"
-        />
-        <path
-          d="M184 78L210 112"
-          stroke={toRgba(deep, 0.44)}
-          strokeWidth="8"
-          strokeLinecap="round"
-        />
-        <path
-          d="M110 122L202 132"
-          stroke={toRgba(accent, 0.62)}
-          strokeWidth="10"
-          strokeLinecap="round"
-        />
-        <rect x="44" y="156" width="232" height="20" rx="10" fill={toRgba("#ffffff", 0.56)} />
-      </svg>
-    );
-  }
-
-  if (variant === "skills") {
-    return (
-      <svg
-        viewBox="0 0 320 220"
-        className={`h-full w-full ${className}`.trim()}
-        role="img"
-        aria-label="Capabilities illustration"
-      >
-        {[
-          [48, 56, 88],
-          [48, 102, 124],
-          [48, 148, 154],
-          [188, 56, 74],
-          [188, 102, 108],
-          [188, 148, 138],
-        ].map(([x, y, width]) => (
-          <rect
-            key={`${x}-${y}-${width}`}
-            x={x}
-            y={y}
-            width={width}
-            height="24"
-            rx="12"
-            fill={toRgba("#ffffff", 0.64)}
-          />
-        ))}
-        <circle cx="138" cy="68" r="6" fill={toRgba(accent, 0.72)} />
-        <circle cx="210" cy="114" r="6" fill={toRgba(accent, 0.72)} />
-        <circle cx="132" cy="160" r="6" fill={toRgba(accent, 0.72)} />
-      </svg>
-    );
-  }
-
-  if (variant === "about") {
-    return (
-      <svg
-        viewBox="0 0 320 220"
-        className={`h-full w-full ${className}`.trim()}
-        role="img"
-        aria-label="About illustration"
-      >
-        <path
-          d="M62 168C78 108 112 72 160 72C208 72 242 108 258 168"
-          fill={toRgba("#ffffff", 0.64)}
-        />
-        <circle cx="160" cy="78" r="34" fill={mist} />
-        <path
-          d="M94 162C112 138 132 126 160 126C188 126 208 138 226 162"
-          fill="none"
-          stroke={toRgba(accent, 0.58)}
-          strokeWidth="10"
-          strokeLinecap="round"
-        />
-        <circle cx="84" cy="68" r="16" fill={toRgba("#ffffff", 0.34)} />
-        <circle cx="244" cy="56" r="20" fill={toRgba("#ffffff", 0.28)} />
-      </svg>
-    );
-  }
-
-  return (
-    <svg
-      viewBox="0 0 320 220"
-      className={`h-full w-full ${className}`.trim()}
-      role="img"
-      aria-label="Contact illustration"
-    >
-      <rect x="42" y="48" width="236" height="136" rx="28" fill={toRgba("#ffffff", 0.68)} />
-      <path
-        d="M62 80L160 142L258 80"
-        fill="none"
-        stroke={toRgba(accent, 0.64)}
-        strokeWidth="10"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M62 160L124 112"
-        fill="none"
-        stroke={toRgba(accent, 0.32)}
-        strokeWidth="8"
-        strokeLinecap="round"
-      />
-      <path
-        d="M258 160L196 112"
-        fill="none"
-        stroke={toRgba(accent, 0.32)}
-        strokeWidth="8"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
 export function ResumeExecutiveSummaryHero({
   resume,
   rootRef,
 }: ResumeExecutiveSummaryHeroProps) {
   const summary = resume.executiveSummary;
+  const summaryHeroImage = summary.heroImage;
 
   return (
     <ScrollReveal rootRef={rootRef}>
@@ -488,7 +272,13 @@ export function ResumeExecutiveSummaryHero({
         className="overflow-hidden rounded-[28px] border border-white/65 shadow-[0_26px_48px_rgba(0,0,0,0.08)]"
         style={{ background: summary.heroGradient }}
       >
-        <div className="grid gap-8 px-6 py-7 sm:px-8 sm:py-8 xl:grid-cols-[minmax(0,1.35fr)_280px] xl:items-center">
+        <div
+          className={`grid gap-8 px-6 py-7 sm:px-8 sm:py-8 ${
+            summaryHeroImage
+              ? "xl:grid-cols-[minmax(0,1.35fr)_280px] xl:items-center"
+              : ""
+          }`.trim()}
+        >
           <div>
             <EditableText
               as="p"
@@ -527,16 +317,18 @@ export function ResumeExecutiveSummaryHero({
             />
           </div>
 
-          <div className="mx-auto w-full max-w-[280px]">
-            <SectionPoster
-              accent={summary.accent}
-              title={summary.title}
-              image={summary.heroImage}
-              metric={summary.metrics[0]}
-              sizes="(max-width: 1280px) 280px, 320px"
-              className="resume-graphic-float aspect-[4/5] w-full"
-            />
-          </div>
+          {summaryHeroImage ? (
+            <div className="mx-auto w-full max-w-[280px]">
+              <SectionPoster
+                accent={summary.accent}
+                title={summary.title}
+                image={summaryHeroImage}
+                metric={summary.metrics[0]}
+                sizes="(max-width: 1280px) 280px, 320px"
+                className="resume-graphic-float aspect-[4/5] w-full"
+              />
+            </div>
+          ) : null}
         </div>
 
         <div className="grid gap-4 border-t border-white/55 bg-[rgba(255,255,255,0.28)] px-6 py-6 sm:px-8 lg:grid-cols-2">
@@ -601,6 +393,7 @@ export function ResumeSectionBody({
   sectionIndex,
   rootRef,
 }: ResumeSectionBodyProps) {
+  const heroImage = section.heroImage;
   const desktopQuickFactColumns = section.quickFacts.reduce<Array<string[]>>(
     (columns, fact, factIndex) => {
       columns[factIndex % 2].push(fact);
@@ -625,7 +418,13 @@ export function ResumeSectionBody({
           className="overflow-hidden rounded-[28px] border border-black/5 bg-white/82 shadow-[0_20px_40px_rgba(0,0,0,0.05)]"
           style={{ backgroundImage: `${section.heroGradient}, linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.9))` }}
         >
-          <div className="grid gap-6 px-6 py-6 sm:px-8 sm:py-7 lg:grid-cols-[minmax(0,1.3fr)_240px] lg:items-center">
+          <div
+            className={`grid gap-6 px-6 py-6 sm:px-8 sm:py-7 ${
+              heroImage
+                ? "lg:grid-cols-[minmax(0,1.3fr)_240px] lg:items-center"
+                : ""
+            }`.trim()}
+          >
             <div>
               <EditableText
                 as="p"
@@ -653,22 +452,18 @@ export function ResumeSectionBody({
               />
             </div>
 
-            <div className="mx-auto w-full max-w-[220px]">
-              {section.heroImage ? (
+            {heroImage ? (
+              <div className="mx-auto w-full max-w-[220px]">
                 <SectionPoster
                   accent={section.accent}
                   title={section.title}
-                  image={section.heroImage}
+                  image={heroImage}
                   metric={section.metrics[0]}
                   sizes="220px"
                   className="resume-graphic-float aspect-[4/5] w-full"
                 />
-              ) : (
-                <div className="resume-graphic-float rounded-[26px] border border-white/65 bg-[rgba(255,255,255,0.54)] p-5 shadow-[0_18px_32px_rgba(0,0,0,0.06)]">
-                  <ResumeVectorGraphic accent={section.accent} variant={section.id} />
-                </div>
-              )}
-            </div>
+              </div>
+            ) : null}
           </div>
 
           {section.metrics.length > 0 ? (

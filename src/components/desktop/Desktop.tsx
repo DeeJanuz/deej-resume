@@ -152,6 +152,27 @@ export function Desktop() {
     openSection(sectionId);
   }
 
+  const handleDockRestore = useCallback(
+    (sectionId: PortfolioSectionId, origin: { x: number; y: number }) => {
+      const windowState = windows.find((candidate) => candidate.id === sectionId);
+      const restoreOffset = windowState
+        ? {
+            x: origin.x - (windowState.position.x + windowState.size.width / 2),
+            y: origin.y - (windowState.position.y + windowState.size.height / 2),
+          }
+        : undefined;
+
+      dispatch({
+        type: "OPEN_WINDOW",
+        payload: {
+          ...createWindowPayload(sectionId),
+          ...(restoreOffset ? { restoreOffset } : {}),
+        },
+      });
+    },
+    [createWindowPayload, dispatch, windows],
+  );
+
   function handleIpodClose() {
     dispatch({
       type: "CLOSE_WINDOW",
@@ -286,7 +307,7 @@ export function Desktop() {
         <Dock
           windows={activeDockWindows}
           iconData={iconData}
-          onRestore={(id) => dispatch({ type: "OPEN_WINDOW", payload: createWindowPayload(id) })}
+          onRestore={handleDockRestore}
           onFocus={(id) => dispatch({ type: "FOCUS_WINDOW", payload: { id } })}
           onMinimize={(id) => setDockMinimizingId(id)}
         />

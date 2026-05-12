@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type MouseEvent } from "react";
 import type { PortfolioSectionId, WindowState } from "@/types";
 
 interface DockIconData {
@@ -12,7 +12,7 @@ interface DockIconData {
 interface DockProps {
   windows: readonly WindowState[];
   iconData: Record<PortfolioSectionId, DockIconData>;
-  onRestore: (id: PortfolioSectionId) => void;
+  onRestore: (id: PortfolioSectionId, origin: { x: number; y: number }) => void;
   onFocus: (id: PortfolioSectionId) => void;
   onMinimize: (id: PortfolioSectionId) => void;
 }
@@ -58,9 +58,16 @@ export function Dock({ windows, iconData, onRestore, onFocus, onMinimize }: Dock
                 style={{
                   transform: isHovered ? "translateY(-4px) scale(1.08)" : "none",
                 }}
-                onClick={() => {
+                onClick={(event: MouseEvent<HTMLButtonElement>) => {
                   if (isMinimized) {
-                    onRestore(win.id);
+                    const iconEl = event.currentTarget.querySelector<HTMLElement>(
+                      `[data-dock-id="${win.id}"]`,
+                    );
+                    const iconRect = (iconEl ?? event.currentTarget).getBoundingClientRect();
+                    onRestore(win.id, {
+                      x: iconRect.left + iconRect.width / 2,
+                      y: iconRect.top + iconRect.height / 2,
+                    });
                   } else if (win.isFocused) {
                     onMinimize(win.id);
                   } else {

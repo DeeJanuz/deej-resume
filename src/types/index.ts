@@ -24,11 +24,13 @@ export interface WindowState {
   isFocused: boolean;
   isMinimized: boolean;
   isFullScreen: boolean;
+  isRestoring?: boolean;
   position: WindowPosition;
   size: WindowSize;
   zIndex: number;
   preFullScreenPosition?: WindowPosition;
   preFullScreenSize?: WindowSize;
+  restoreOffset?: WindowPosition;
 }
 
 export interface WindowConfig {
@@ -36,12 +38,14 @@ export interface WindowConfig {
   title: string;
   position: WindowPosition;
   size: WindowSize;
+  restoreOffset?: WindowPosition;
 }
 
 export type WindowAction =
   | { type: "OPEN_WINDOW"; payload: WindowConfig }
   | { type: "CLOSE_WINDOW"; payload: { id: PortfolioSectionId } }
   | { type: "MINIMIZE_WINDOW"; payload: { id: PortfolioSectionId } }
+  | { type: "COMPLETE_RESTORE_ANIMATION"; payload: { id: PortfolioSectionId } }
   | { type: "FOCUS_WINDOW"; payload: { id: PortfolioSectionId } }
   | {
       type: "MOVE_WINDOW";

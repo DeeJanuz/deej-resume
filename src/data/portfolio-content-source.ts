@@ -104,20 +104,7 @@ export const contentSource = {
         "summary": "The background is broad, but the pattern is consistent: I take on important systems problems that sit between departments, carry them through implementation, and make sure the result is something people can actually use and trust.",
         "accent": "#3f5f48",
         "heroGradient": "linear-gradient(135deg, rgba(63, 95, 72, 0.18) 0%, rgba(196, 223, 195, 0.85) 100%)",
-        "metrics": [
-          {
-            "value": "SOC 2",
-            "label": "Built from scratch, maintained through year two"
-          },
-          {
-            "value": "~33%",
-            "label": "Lower database spend after migration"
-          },
-          {
-            "value": "0->1",
-            "label": "Secure AI tooling for operations teams"
-          }
-        ],
+        "metrics": [],
         "cards": [
           {
             "title": "Current role",
@@ -196,20 +183,7 @@ export const contentSource = {
         "summary": "I care less about novelty for its own sake and more about building tools that reduce ambiguity, improve collaboration, and make software easier to trust.",
         "accent": "#2d5f93",
         "heroGradient": "linear-gradient(135deg, rgba(45, 95, 147, 0.18) 0%, rgba(183, 213, 239, 0.84) 100%)",
-        "metrics": [
-          {
-            "value": "03",
-            "label": "Founder-led products in the current orbit"
-          },
-          {
-            "value": "02",
-            "label": "Live public product sites"
-          },
-          {
-            "value": "OSS",
-            "label": "Open-source distribution paired with private product work"
-          }
-        ],
+        "metrics": [],
         "cards": [
           {
             "title": "Ludflow",
@@ -330,20 +304,7 @@ export const contentSource = {
         "summary": "The point of this page is not to prove I know keywords. It is to show the combination that makes me useful: I can help define the problem, build the workflow or product, wire up the CRM, ERP, and data layer underneath it, shape the infrastructure it runs on, and still think seriously about permissions, compliance, AI workflow design, and long-term maintainability.",
         "accent": "#8b6b2f",
         "heroGradient": "linear-gradient(135deg, rgba(139, 107, 47, 0.18) 0%, rgba(234, 215, 171, 0.85) 100%)",
-        "metrics": [
-          {
-            "value": "07",
-            "label": "Capability lanes I regularly combine"
-          },
-          {
-            "value": "SOC 2",
-            "label": "Security depth carried into product work"
-          },
-          {
-            "value": "AWS -> MCP",
-            "label": "Range from infrastructure through AI-native tooling"
-          }
-        ],
+        "metrics": [],
         "cards": [
           {
             "title": "Product delivery, stack selection, and internal tooling",

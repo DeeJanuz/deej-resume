@@ -24,6 +24,8 @@ function windowReducer(
                 isOpen: true,
                 isFocused: true,
                 isMinimized: false,
+                isRestoring: windowState.isMinimized,
+                restoreOffset: windowState.isMinimized ? action.payload.restoreOffset : undefined,
                 zIndex: nextZIndex,
               }
             : { ...windowState, isFocused: false }
@@ -39,6 +41,8 @@ function windowReducer(
           isFocused: true,
           isMinimized: false,
           isFullScreen: false,
+          isRestoring: false,
+          restoreOffset: undefined,
           position: action.payload.position,
           size: action.payload.size,
           zIndex: nextZIndex,
@@ -49,14 +53,33 @@ function windowReducer(
     case "CLOSE_WINDOW":
       return state.map((windowState) =>
         windowState.id === action.payload.id
-          ? { ...windowState, isOpen: false, isFocused: false }
+          ? {
+              ...windowState,
+              isOpen: false,
+              isFocused: false,
+              isRestoring: false,
+              restoreOffset: undefined,
+            }
           : windowState
       );
 
     case "MINIMIZE_WINDOW":
       return state.map((windowState) =>
         windowState.id === action.payload.id
-          ? { ...windowState, isMinimized: true, isFocused: false }
+          ? {
+              ...windowState,
+              isMinimized: true,
+              isFocused: false,
+              isRestoring: false,
+              restoreOffset: undefined,
+            }
+          : windowState
+      );
+
+    case "COMPLETE_RESTORE_ANIMATION":
+      return state.map((windowState) =>
+        windowState.id === action.payload.id
+          ? { ...windowState, isRestoring: false, restoreOffset: undefined }
           : windowState
       );
 
@@ -99,6 +122,8 @@ function windowReducer(
             size: windowState.preFullScreenSize ?? windowState.size,
             preFullScreenPosition: undefined,
             preFullScreenSize: undefined,
+            isRestoring: false,
+            restoreOffset: undefined,
           };
         }
 
@@ -109,6 +134,8 @@ function windowReducer(
           preFullScreenSize: { ...windowState.size },
           position: action.payload.fullScreenPosition,
           size: action.payload.fullScreenSize,
+          isRestoring: false,
+          restoreOffset: undefined,
         };
       });
 
