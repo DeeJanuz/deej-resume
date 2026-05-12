@@ -33,16 +33,17 @@ export function SectionPoster({
   if (image && !forceGenerated) {
     return (
       <div
-        className={`relative overflow-hidden rounded-[24px] border border-white/60 bg-white/60 shadow-[0_18px_32px_rgba(0,0,0,0.12)] ${className}`.trim()}
+        className={`relative overflow-hidden rounded-lg border border-stone-200 bg-stone-100 ${className}`.trim()}
       >
         <Image
           src={image.src}
           alt={image.alt}
           fill
+          loading="eager"
           sizes={sizes}
           className="object-cover object-center"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0)_55%,rgba(12,10,9,0.15)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0)_70%,rgba(12,10,9,0.10)_100%)]" />
       </div>
     );
   }
@@ -59,7 +60,7 @@ export function SectionPoster({
     <div
       role="img"
       aria-label={artworkAlt ?? `${title} poster art`}
-      className={`relative overflow-hidden rounded-[24px] border border-white/60 shadow-[0_18px_32px_rgba(0,0,0,0.12)] ${className}`.trim()}
+      className={`relative overflow-hidden rounded-lg border border-stone-200 ${className}`.trim()}
       style={{
         background: `linear-gradient(145deg, ${paleAccent} 0%, ${warmAccent} 48%, ${deepAccent} 100%)`,
       }}
@@ -93,7 +94,7 @@ export function SectionPoster({
       <div className="absolute inset-0 flex flex-col justify-between p-5">
         <div className="flex items-start justify-between gap-3">
           <div
-            className="rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-stone-800"
+            className="rounded-md border px-3 py-1 text-[10px] font-semibold uppercase tracking-normal text-stone-800"
             style={{
               background: toRgba("#ffffff", 0.55),
               borderColor: toRgba("#ffffff", 0.48),
@@ -102,7 +103,7 @@ export function SectionPoster({
             {metric?.value ?? initials}
           </div>
           <div
-            className="rounded-full border px-3 py-1 text-[10px] font-medium uppercase tracking-[0.2em] text-stone-700"
+            className="rounded-md border px-3 py-1 text-[10px] font-medium uppercase tracking-normal text-stone-700"
             style={{
               background: toRgba("#ffffff", 0.34),
               borderColor: toRgba("#ffffff", 0.3),
@@ -113,7 +114,7 @@ export function SectionPoster({
         </div>
 
         <div className="relative">
-          <div className="font-display text-[clamp(4rem,16vw,7rem)] leading-none tracking-[-0.08em] text-white/80">
+          <div className="text-6xl font-semibold leading-none tracking-normal text-white/80">
             {initials}
           </div>
           <div className="mt-3 max-w-[12rem] text-xs leading-5 font-medium text-stone-800/80">

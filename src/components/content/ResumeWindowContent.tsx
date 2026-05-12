@@ -67,17 +67,17 @@ export function ResumeWindowContent({ resume }: ResumeWindowContentProps) {
 
   return (
     <div className="grid h-full min-h-0 md:grid-cols-[240px_1fr]">
-      <aside className="hidden min-h-0 border-r border-black/6 bg-[rgba(246,246,246,0.95)] md:flex md:flex-col">
+      <aside className="hidden min-h-0 border-r border-stone-200 bg-stone-50 md:flex md:flex-col">
         <div className="min-h-0 flex-1 overflow-y-auto p-5">
           <EditableText
             as="p"
             path={["siteProfile", "name"]}
             text="Daenon Janis"
-            className="text-[11px] font-semibold uppercase tracking-[0.32em] text-stone-500"
+            className="text-[11px] font-semibold uppercase tracking-normal text-stone-500"
           />
 
           <div className="mt-6">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-stone-500">
+            <p className="text-[11px] font-semibold uppercase tracking-normal text-stone-500">
               Navigate
             </p>
             <ul className="mt-4 space-y-2">
@@ -94,18 +94,15 @@ export function ResumeWindowContent({ resume }: ResumeWindowContentProps) {
                           scrollContainerRef.current,
                         )
                       }
-                      className="w-full rounded-2xl border px-3 py-2 text-left text-sm font-medium transition focus-visible:outline-none"
+                      className="w-full rounded-lg border px-3 py-2 text-left text-sm font-medium transition focus-visible:outline-none"
                       style={{
                         backgroundColor: isActive
                           ? "rgba(47, 107, 115, 0.12)"
-                          : "rgba(255,255,255,0.74)",
+                          : "#ffffff",
                         borderColor: isActive
                           ? "rgba(47, 107, 115, 0.26)"
-                          : "rgba(0,0,0,0.06)",
+                          : "rgba(214,211,209,1)",
                         color: isActive ? "#1f4347" : "#57534e",
-                        boxShadow: isActive
-                          ? "0 10px 20px rgba(47, 107, 115, 0.10)"
-                          : "0 8px 18px rgba(0,0,0,0.04)",
                       }}
                     >
                       <EditableText
@@ -122,9 +119,9 @@ export function ResumeWindowContent({ resume }: ResumeWindowContentProps) {
         </div>
       </aside>
 
-      <div className="flex min-h-0 flex-col bg-[rgba(255,255,255,0.95)]">
+      <div className="flex min-h-0 flex-col bg-stone-50">
         <div ref={scrollContainerRef} className="min-h-0 overflow-y-auto">
-          <div className="space-y-6 p-4 sm:p-6">
+          <div className="space-y-5 p-4 sm:p-6">
             <div ref={registerSection("summary")} className="scroll-mt-4">
               <ResumeExecutiveSummaryHero
                 resume={resume}

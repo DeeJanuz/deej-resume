@@ -27,7 +27,7 @@ export const contentSource = {
       "metrics": [
         {
           "value": "SOC 2",
-          "label": "Built from scratch, maintained through several years"
+          "label": "Built from scratch, maintained indefinitely"
         },
         {
           "value": "0->1",
@@ -650,20 +650,7 @@ export const contentSource = {
         "summary": "I do not need a complicated contact page. One clear route is enough.",
         "accent": "#4b5563",
         "heroGradient": "linear-gradient(135deg, rgba(75, 85, 99, 0.18) 0%, rgba(211, 219, 228, 0.84) 100%)",
-        "metrics": [
-          {
-            "value": "01",
-            "label": "Primary contact route"
-          },
-          {
-            "value": "01",
-            "label": "Clear call to action"
-          },
-          {
-            "value": "Email",
-            "label": "Best way to reach me"
-          }
-        ],
+        "metrics": [],
         "cards": [
           {
             "title": "Email",

@@ -25,16 +25,21 @@ function formatDate(date: Date): string {
 }
 
 export function MenuBar({ onOpenPrimary }: MenuBarProps) {
-  const [now, setNow] = useState(() => new Date());
+  const [now, setNow] = useState<Date | null>(null);
   const { content } = usePortfolioContent();
   const { siteProfile } = content;
 
   useEffect(() => {
+    const frameId = window.requestAnimationFrame(() => {
+      setNow(new Date());
+    });
+
     const intervalId = window.setInterval(() => {
       setNow(new Date());
     }, 60_000);
 
     return () => {
+      window.cancelAnimationFrame(frameId);
       window.clearInterval(intervalId);
     };
   }, []);
@@ -72,8 +77,8 @@ export function MenuBar({ onOpenPrimary }: MenuBarProps) {
             text={siteProfile.location}
             className="hidden lg:inline"
           />
-          <span className="hidden sm:inline">{formatDate(now)}</span>
-          <span className="font-semibold">{formatTime(now)}</span>
+          <span className="hidden sm:inline">{now ? formatDate(now) : ""}</span>
+          <span className="font-semibold">{now ? formatTime(now) : ""}</span>
         </div>
       </div>
     </header>

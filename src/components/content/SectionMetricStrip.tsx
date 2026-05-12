@@ -3,7 +3,7 @@
 import { EditableText } from "@/components/dev/EditableText";
 import type { EditableContentPath } from "@/components/dev/ContentDevContext";
 import type { PortfolioMetric } from "@/types";
-import { mixHex, toRgba } from "./sectionVisualUtils";
+import { toRgba } from "./sectionVisualUtils";
 
 interface SectionMetricStripProps {
   accent: string;
@@ -27,17 +27,16 @@ export function SectionMetricStrip({
       {visibleMetrics.map((metric, index) => (
         <div
           key={`${metric.value}-${metric.label}-${index}`}
-          className="rounded-[20px] border px-4 py-4 shadow-[0_14px_28px_rgba(0,0,0,0.06)]"
+          className="rounded-lg border bg-stone-50 px-4 py-4"
           style={{
-            background: `linear-gradient(180deg, ${toRgba("#ffffff", 0.82)} 0%, ${toRgba(mixHex(accent, "#ffffff", 0.76), 0.68)} 100%)`,
-            borderColor: toRgba(accent, 0.14),
+            borderColor: toRgba(accent, 0.18),
           }}
         >
           <EditableText
             as="div"
             path={[...pathPrefix, index, "value"]}
             text={metric.value}
-            className="font-display text-3xl leading-none tracking-[-0.05em] text-stone-900"
+            className="text-2xl font-semibold leading-none tracking-normal text-stone-950"
           />
           <EditableText
             as="p"

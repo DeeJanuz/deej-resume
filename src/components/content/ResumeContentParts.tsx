@@ -8,6 +8,7 @@ import type {
   ResumeContent,
   ResumeContentSection,
 } from "@/types";
+import { PortfolioImageBlock } from "./PortfolioImageBlock";
 import { SectionPoster } from "./SectionPoster";
 import { SectionMetricStrip } from "./SectionMetricStrip";
 
@@ -74,7 +75,7 @@ function SectionLinks({ accent, links, pathPrefix }: SectionLinksProps) {
           href={link.href}
           target="_blank"
           rel="noreferrer"
-          className="rounded-full border border-black/8 bg-[rgba(246,246,246,0.96)] px-3 py-1 text-xs font-medium text-stone-600 transition hover:-translate-y-0.5"
+          className="rounded-md border border-stone-200 bg-stone-50 px-3 py-1 text-xs font-medium text-stone-700 transition hover:border-stone-300 hover:bg-white"
           style={{ boxShadow: `inset 0 0 0 1px ${accent}20` }}
         >
           <EditableText
@@ -158,13 +159,13 @@ function ResumeContentCard({
 }: ResumeContentCardProps) {
   return (
     <ScrollReveal rootRef={rootRef} delay={cardIndex * 50}>
-      <article className="rounded-[24px] border border-black/5 bg-white/84 p-6 shadow-[0_16px_32px_rgba(0,0,0,0.05)]">
+      <article className="rounded-lg border border-stone-200 bg-white p-5">
         {card.eyebrow ? (
           <EditableText
             as="p"
             path={["resume", "sections", sectionIndex, "cards", cardIndex, "eyebrow"]}
             text={card.eyebrow}
-            className="text-[10px] font-semibold uppercase tracking-[0.24em] text-stone-500"
+            className="text-[11px] font-semibold uppercase tracking-normal text-stone-500"
           />
         ) : null}
 
@@ -172,7 +173,7 @@ function ResumeContentCard({
           as="h3"
           path={["resume", "sections", sectionIndex, "cards", cardIndex, "title"]}
           text={card.title}
-          className="mt-3 text-xl font-semibold text-stone-900"
+          className="mt-2 text-lg font-semibold leading-snug text-stone-950"
         />
 
         <EditableText
@@ -235,7 +236,7 @@ function ResumeContentCard({
             {card.tags.map((tag, tagIndex) => (
               <span
                 key={`${tag}-${tagIndex}`}
-                className="rounded-full border border-black/8 bg-[rgba(246,246,246,0.96)] px-3 py-1 text-xs font-medium text-stone-600"
+              className="rounded-md border border-stone-200 bg-stone-50 px-3 py-1 text-xs font-medium text-stone-700"
               >
                 <EditableText
                   as="span"
@@ -269,8 +270,8 @@ export function ResumeExecutiveSummaryHero({
   return (
     <ScrollReveal rootRef={rootRef}>
       <section
-        className="overflow-hidden rounded-[28px] border border-white/65 shadow-[0_26px_48px_rgba(0,0,0,0.08)]"
-        style={{ background: summary.heroGradient }}
+        className="overflow-hidden rounded-lg border border-stone-200 bg-white"
+        style={{ borderTop: `4px solid ${summary.accent}` }}
       >
         <div
           className={`grid gap-8 px-6 py-7 sm:px-8 sm:py-8 ${
@@ -284,13 +285,13 @@ export function ResumeExecutiveSummaryHero({
               as="p"
               path={["resume", "executiveSummary", "eyebrow"]}
               text={summary.eyebrow}
-              className="text-[10px] font-semibold uppercase tracking-[0.3em] text-stone-500"
+              className="text-[11px] font-semibold uppercase tracking-normal text-stone-500"
             />
             <EditableText
               as="h1"
               path={["resume", "executiveSummary", "title"]}
               text={summary.title}
-              className="mt-4 max-w-3xl font-display text-4xl leading-[0.95] tracking-[-0.04em] text-stone-900 sm:text-5xl"
+              className="mt-3 max-w-3xl text-4xl font-semibold leading-tight tracking-normal text-stone-950 sm:text-[2.75rem]"
             />
             <EditableText
               as="p"
@@ -298,8 +299,11 @@ export function ResumeExecutiveSummaryHero({
               text={summary.intro}
               className="mt-4 max-w-3xl text-base leading-7 text-stone-700 sm:text-lg"
             />
-            <div className="mt-5 rounded-[22px] border border-white/60 bg-[rgba(255,255,255,0.56)] px-4 py-4 shadow-[0_16px_30px_rgba(0,0,0,0.05)]">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-stone-500">
+            <div
+              className="mt-5 border-l-2 pl-4"
+              style={{ borderColor: summary.accent }}
+            >
+              <p className="text-[11px] font-semibold uppercase tracking-normal text-stone-500">
                 Why Teams Bring Me In
               </p>
               <EditableText
@@ -325,16 +329,16 @@ export function ResumeExecutiveSummaryHero({
                 image={summaryHeroImage}
                 metric={summary.metrics[0]}
                 sizes="(max-width: 1280px) 280px, 320px"
-                className="resume-graphic-float aspect-[4/5] w-full"
+                className="aspect-[4/5] w-full"
               />
             </div>
           ) : null}
         </div>
 
-        <div className="grid gap-4 border-t border-white/55 bg-[rgba(255,255,255,0.28)] px-6 py-6 sm:px-8 lg:grid-cols-2">
+        <div className="grid gap-x-8 gap-y-5 border-t border-stone-200 px-6 py-6 sm:px-8 lg:grid-cols-2">
           {summary.valuePillars.map((pillar, index) => (
             <ScrollReveal key={pillar.title} rootRef={rootRef} delay={index * 60}>
-              <article className="rounded-[22px] border border-white/60 bg-[rgba(255,255,255,0.5)] px-4 py-4 shadow-[0_12px_24px_rgba(0,0,0,0.04)]">
+              <article className="border-l-2 pl-4" style={{ borderColor: summary.accent }}>
                 <EditableText
                   as="h2"
                   path={["resume", "executiveSummary", "valuePillars", index, "title"]}
@@ -358,7 +362,7 @@ export function ResumeExecutiveSummaryHero({
           ))}
         </div>
 
-        <div className="flex flex-col gap-4 border-t border-white/55 px-6 py-6 sm:px-8 xl:flex-row xl:items-end xl:justify-between">
+        <div className="flex flex-col gap-4 border-t border-stone-200 px-6 py-6 sm:px-8 xl:flex-row xl:items-end xl:justify-between">
           <ul className="grid gap-3 text-sm leading-6 text-stone-700">
             {summary.quickFacts.map((fact, factIndex) => (
               <li key={`${fact}-${factIndex}`} className="flex gap-3">
@@ -415,13 +419,13 @@ export function ResumeSectionBody({
     <section className="space-y-5">
       <ScrollReveal rootRef={rootRef}>
         <div
-          className="overflow-hidden rounded-[28px] border border-black/5 bg-white/82 shadow-[0_20px_40px_rgba(0,0,0,0.05)]"
-          style={{ backgroundImage: `${section.heroGradient}, linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.9))` }}
+          className="overflow-hidden rounded-lg border border-stone-200 bg-white"
+          style={{ borderTop: `4px solid ${section.accent}` }}
         >
           <div
             className={`grid gap-6 px-6 py-6 sm:px-8 sm:py-7 ${
               heroImage
-                ? "lg:grid-cols-[minmax(0,1.3fr)_240px] lg:items-center"
+                ? "lg:grid-cols-[minmax(0,1.25fr)_280px] lg:items-center"
                 : ""
             }`.trim()}
           >
@@ -430,13 +434,13 @@ export function ResumeSectionBody({
                 as="p"
                 path={["resume", "sections", sectionIndex, "eyebrow"]}
                 text={section.eyebrow}
-                className="text-[10px] font-semibold uppercase tracking-[0.28em] text-stone-500"
+                className="text-[11px] font-semibold uppercase tracking-normal text-stone-500"
               />
               <EditableText
                 as="h2"
                 path={["resume", "sections", sectionIndex, "title"]}
                 text={section.title}
-                className="mt-4 font-display text-3xl leading-[0.98] tracking-[-0.04em] text-stone-900 sm:text-4xl"
+                className="mt-3 text-3xl font-semibold leading-tight tracking-normal text-stone-950 sm:text-4xl"
               />
               <EditableText
                 as="p"
@@ -453,14 +457,14 @@ export function ResumeSectionBody({
             </div>
 
             {heroImage ? (
-              <div className="mx-auto w-full max-w-[220px]">
+              <div className="mx-auto w-full max-w-[280px]">
                 <SectionPoster
                   accent={section.accent}
                   title={section.title}
                   image={heroImage}
                   metric={section.metrics[0]}
-                  sizes="220px"
-                  className="resume-graphic-float aspect-[4/5] w-full"
+                  sizes="280px"
+                  className="aspect-[4/3] w-full"
                 />
               </div>
             ) : null}
@@ -480,8 +484,8 @@ export function ResumeSectionBody({
 
       {section.quickFacts.length ? (
         <ScrollReveal rootRef={rootRef} delay={40}>
-          <div className="rounded-[24px] border border-black/5 bg-[rgba(255,255,255,0.82)] px-6 py-5 shadow-[0_14px_30px_rgba(0,0,0,0.04)]">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-stone-500">
+          <div className="rounded-lg border border-stone-200 bg-white px-6 py-5">
+            <p className="text-[11px] font-semibold uppercase tracking-normal text-stone-500">
               In Brief
             </p>
             <ul className="mt-4 space-y-3 text-sm leading-6 text-stone-700 sm:hidden">
@@ -574,7 +578,7 @@ export function ResumeSectionBody({
               rootRef={rootRef}
               delay={detailIndex * 40}
             >
-              <article className="rounded-[24px] border border-black/5 bg-white/84 p-6 shadow-[0_16px_32px_rgba(0,0,0,0.05)]">
+              <article className="rounded-lg border border-stone-200 bg-white p-6">
                 {detail.eyebrow ? (
                   <EditableText
                     as="p"
@@ -587,7 +591,7 @@ export function ResumeSectionBody({
                       "eyebrow",
                     ]}
                     text={detail.eyebrow}
-                    className="text-[10px] font-semibold uppercase tracking-[0.24em] text-stone-500"
+                    className="text-[11px] font-semibold uppercase tracking-normal text-stone-500"
                   />
                 ) : null}
 
@@ -602,8 +606,26 @@ export function ResumeSectionBody({
                     "title",
                   ]}
                   text={detail.title}
-                  className="mt-3 text-2xl font-semibold text-stone-900"
+                  className="mt-2 text-xl font-semibold leading-snug text-stone-950"
                 />
+
+                {detail.image ? (
+                  <div className="mt-5 max-w-2xl">
+                    <PortfolioImageBlock
+                      image={detail.image}
+                      captionPath={[
+                        "resume",
+                        "sections",
+                        sectionIndex,
+                        "detailSections",
+                        detailIndex,
+                        "image",
+                        "caption",
+                      ]}
+                      sizes="(max-width: 1024px) 100vw, 640px"
+                    />
+                  </div>
+                ) : null}
 
                 {detail.paragraphs?.map((paragraph, paragraphIndex) => (
                   <EditableText

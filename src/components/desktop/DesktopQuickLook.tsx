@@ -28,7 +28,7 @@ export function DesktopQuickLook({
   return (
     <aside
       aria-hidden="true"
-      className="pointer-events-none absolute z-20 w-[290px] overflow-hidden rounded-[28px] border border-white/45 bg-[rgba(255,255,255,0.74)] shadow-[0_22px_44px_rgba(8,15,31,0.16)] backdrop-blur-2xl quick-look-panel"
+      className="pointer-events-none absolute z-20 w-[290px] overflow-hidden rounded-lg border border-stone-200 bg-white/90 shadow-[0_18px_36px_rgba(8,15,31,0.12)] backdrop-blur-2xl quick-look-panel"
       style={{ top, left }}
     >
       <div className="p-3">
@@ -46,7 +46,7 @@ export function DesktopQuickLook({
       <div className="px-4 pb-4">
         <div className="flex items-center justify-between gap-3">
           <div>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-stone-500">
+            <p className="text-[11px] font-semibold uppercase tracking-normal text-stone-500">
               Quick Look
             </p>
             <p className="mt-2 text-lg font-semibold text-stone-900">
@@ -56,13 +56,13 @@ export function DesktopQuickLook({
 
           {featuredMetric ? (
             <div
-              className="rounded-2xl border px-3 py-2 text-right"
+              className="rounded-lg border px-3 py-2 text-right"
               style={{
                 background: toRgba("#ffffff", 0.58),
                 borderColor: toRgba(resume.accent, 0.16),
               }}
             >
-              <div className="font-display text-2xl leading-none text-stone-900">
+              <div className="text-xl font-semibold leading-none text-stone-950">
                 {featuredMetric.value}
               </div>
               <div className="mt-1 max-w-[7rem] text-[10px] leading-4 text-stone-600">
