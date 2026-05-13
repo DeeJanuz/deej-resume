@@ -56,6 +56,7 @@ No automated tests exist yet. The sections below describe the first tests that s
 - Desktop quick-look previews: hover/focus visibility, hidden state on blur/leave, and viewport-safe placement (`DesktopFiles`, `DesktopQuickLook`)
 - Generated section artwork and metric strips render image-backed and generated states (`SectionPoster`, `SectionMetricStrip`)
 - iPod app controls: play/pause, previous/next, progress display, click-wheel seek gestures, drag handle, and glass close affordance (`IpodApp`)
+- Desktop game apps: dynamic Phaser mount, loading/error fallback, input controls, resize-safe canvas layout, and per-game desktop icon rendering (`GabeyBirdApp`, `SnekApp`, `DesktopFiles`)
 - Mobile fallback rendering for the same content source (`MobileLanding`)
 - Resume window rendering for the primary hire-me flow (`PortfolioWindowContent`)
 - Inline editing affordances (`EditableText`, `ContentDevTool`):
@@ -74,6 +75,8 @@ No automated tests exist yet. The sections below describe the first tests that s
 - Resume window auto-opens on initial desktop mount (320ms delay)
 - Hovering or focusing a desktop item shows a non-interactive quick-look preview without blocking click-to-open
 - The iPod app opens from its desktop icon, can be dragged independently, and can be closed without changing the resume window state
+- Gabey Bird and Snek open from distinct desktop icons, render inside standard windows, and do not interfere with the resume window state
+- Snek supports keyboard/swipe direction changes, wraps across board walls, preserves self-collision, and shades the body from bright head to dim tail
 - Query-state hydration opens expected windows on page load (not yet implemented)
 - External contact actions route users to the correct destination
 - Localhost inline save round-trip updates `src/data/portfolio-content-source.ts` and survives a dev-server restart
@@ -86,4 +89,5 @@ No automated tests exist yet. The sections below describe the first tests that s
 - A client can inspect businesses and projects from the desktop
 - A mobile visitor can understand the owner’s story without the desktop shell
 - A desktop visitor can ignore, open, move, play, or close the iPod app without it blocking the primary resume flow
+- A desktop visitor can open either arcade game, play briefly, close or minimize it, and continue reading the resume
 - A localhost author can enable edit mode, change visible text, save it, reload, and see the content persist

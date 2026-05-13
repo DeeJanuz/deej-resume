@@ -31,11 +31,14 @@ On medium and larger screens, the home page acts like a workspace:
 - A dynamic dock shows only open and minimized windows (no static shortcuts).
 - Clicking a focused dock icon minimizes that window; clicking a minimized icon restores it.
 - The iPod desktop app opens as a floating media surface instead of a standard browser-like window.
+- Desktop game apps open in standard windows and mount their Phaser canvases only after the browser client loads them.
 - The chrome should feel modern and clean rather than skeuomorphic or novelty-heavy.
 
 Current desktop items (defined in `src/data/portfolio-content.ts`):
 - `Resume` (document)
 - `iPod` (media)
+- `Gabey Bird` (game)
+- `Snek` (game)
 
 ### Mobile Breakpoint
 
@@ -154,7 +157,9 @@ src/
       ContentDevTool.tsx    # Floating toolbar for inline editing
       EditableText.tsx      # ContentEditable wrapper for visible text fields
     desktop/
+      GabeyBirdApp.tsx     # Phaser arcade game window inspired by Flappy Bird
       IpodApp.tsx          # Floating iPod-style media app
+      SnekApp.tsx          # Phaser snake game window with wrapping board movement
       Desktop.tsx          # Shell: wallpaper, menu bar, desktop files, windows, dock
       DesktopFiles.tsx     # Positioned desktop icons with glyph renderer registry
       DesktopQuickLook.tsx  # Non-interactive hover/focus previews for desktop items
@@ -209,6 +214,14 @@ Rules:
 - The media surface should open and close through the desktop icon like an app.
 - If audio is bundled into `public/`, source and license metadata must be tracked before launch.
 - Prefer externally hosted or user-provided media when redistribution rights are unclear.
+
+### Game App Surfaces
+
+Rules:
+- Games must stay opt-in through desktop icons and should not autoplay or capture input before opening.
+- Phaser should be loaded dynamically inside client-only game components to keep server rendering clean.
+- Game windows should preserve the normal desktop lifecycle: focus, close, minimize, restore, resize, and fullscreen.
+- Each game should have its own recognizable desktop icon instead of sharing a generic game tile.
 
 ### Quick-Look and Poster System
 
