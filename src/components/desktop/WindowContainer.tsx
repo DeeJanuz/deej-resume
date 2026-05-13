@@ -2,6 +2,8 @@
 
 import { useCallback } from "react";
 import { ResumeWindowContent } from "@/components/content/ResumeWindowContent";
+import { GabeyBirdApp } from "@/components/desktop/GabeyBirdApp";
+import { SnekApp } from "@/components/desktop/SnekApp";
 import { Window } from "@/components/window/Window";
 import type { ResumeContent, WindowAction, WindowState } from "@/types";
 
@@ -107,7 +109,13 @@ export function WindowContainer({
       onMove={onMove}
       onResize={onResize}
     >
-      <ResumeWindowContent resume={resume} />
+      {windowState.id === "gabey-bird" ? (
+        <GabeyBirdApp />
+      ) : windowState.id === "snek" ? (
+        <SnekApp />
+      ) : (
+        <ResumeWindowContent resume={resume} />
+      )}
     </Window>
   );
 }

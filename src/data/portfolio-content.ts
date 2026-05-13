@@ -18,4 +18,18 @@ export const desktopItems: readonly DesktopItemDefinition[] = [
     kind: "media",
     accent: "#234d73",
   },
+  {
+    id: "gabey-bird",
+    label: "Gabey Bird",
+    iconLabel: "GB",
+    kind: "game",
+    accent: "#4b7b38",
+  },
+  {
+    id: "snek",
+    label: "Snek",
+    iconLabel: "SK",
+    kind: "game",
+    accent: "#17302e",
+  },
 ] as const;

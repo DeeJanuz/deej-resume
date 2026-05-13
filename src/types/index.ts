@@ -1,4 +1,4 @@
-export type PortfolioSectionId = "resume" | "ipod";
+export type PortfolioSectionId = "resume" | "ipod" | "gabey-bird" | "snek";
 export type ResumeSectionId =
   | "summary"
   | "experience"
@@ -70,7 +70,7 @@ export type WindowAction =
 
 export type ResizeDirection = "n" | "s" | "e" | "w" | "ne" | "nw" | "se" | "sw";
 
-export type DesktopItemKind = "document" | "folder" | "stack" | "contact" | "media";
+export type DesktopItemKind = "document" | "folder" | "stack" | "contact" | "media" | "game";
 
 export interface DesktopItemDefinition {
   id: PortfolioSectionId;

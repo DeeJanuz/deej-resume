@@ -26,6 +26,10 @@ const WINDOW_BOTTOM_MARGIN = 32;
 const INITIAL_WINDOW_IDS: readonly PortfolioSectionId[] = ["resume"];
 const IPOD_WINDOW_WIDTH = 390;
 const IPOD_WINDOW_HEIGHT = 690;
+const GABEY_BIRD_WINDOW_WIDTH = 760;
+const GABEY_BIRD_WINDOW_HEIGHT = 600;
+const SNEK_WINDOW_WIDTH = 680;
+const SNEK_WINDOW_HEIGHT = 560;
 
 const iconData = Object.fromEntries(
   desktopItems.map((item) => [item.id, { label: item.label, iconLabel: item.iconLabel, accent: item.accent }])
@@ -73,6 +77,66 @@ export function Desktop() {
         return {
           id: sectionId,
           title: "iPod",
+          position,
+          size,
+        };
+      }
+
+      if (sectionId === "gabey-bird") {
+        const size = {
+          width: Math.min(
+            GABEY_BIRD_WINDOW_WIDTH,
+            Math.max(340, viewportWidth - WINDOW_HORIZONTAL_MARGIN * 2),
+          ),
+          height: Math.min(
+            GABEY_BIRD_WINDOW_HEIGHT,
+            Math.max(460, viewportHeight - WINDOW_TOP_MARGIN - WINDOW_BOTTOM_MARGIN),
+          ),
+        };
+        const position = {
+          x: Math.max(
+            WINDOW_HORIZONTAL_MARGIN,
+            Math.round((viewportWidth - size.width) / 2),
+          ),
+          y: Math.max(
+            WINDOW_TOP_MARGIN,
+            Math.round((viewportHeight - size.height) / 2),
+          ),
+        };
+
+        return {
+          id: sectionId,
+          title: "Gabey Bird",
+          position,
+          size,
+        };
+      }
+
+      if (sectionId === "snek") {
+        const size = {
+          width: Math.min(
+            SNEK_WINDOW_WIDTH,
+            Math.max(340, viewportWidth - WINDOW_HORIZONTAL_MARGIN * 2),
+          ),
+          height: Math.min(
+            SNEK_WINDOW_HEIGHT,
+            Math.max(460, viewportHeight - WINDOW_TOP_MARGIN - WINDOW_BOTTOM_MARGIN),
+          ),
+        };
+        const position = {
+          x: Math.max(
+            WINDOW_HORIZONTAL_MARGIN,
+            Math.round((viewportWidth - size.width) / 2),
+          ),
+          y: Math.max(
+            WINDOW_TOP_MARGIN,
+            Math.round((viewportHeight - size.height) / 2),
+          ),
+        };
+
+        return {
+          id: sectionId,
+          title: "Snek",
           position,
           size,
         };

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import { DesktopQuickLook } from "@/components/desktop/DesktopQuickLook";
 import type {
@@ -20,6 +21,7 @@ interface GlyphProps {
   accent: string;
   iconLabel: string;
   isOpen: boolean;
+  itemId: PortfolioSectionId;
 }
 
 const glyphRenderers: Record<DesktopItemKind, (props: GlyphProps) => React.ReactNode> = {
@@ -102,6 +104,46 @@ const glyphRenderers: Record<DesktopItemKind, (props: GlyphProps) => React.React
       </div>
     </div>
   ),
+  game: ({ accent, iconLabel, isOpen, itemId }) => (
+    <div
+      className="relative h-16 w-16 overflow-hidden rounded-[14px] border border-white/65 shadow-[0_16px_30px_rgba(0,0,0,0.16)]"
+      style={{
+        background:
+          itemId === "snek"
+            ? "linear-gradient(145deg, #f1d894 0%, #e7eedc 46%, #17302e 100%)"
+            : `linear-gradient(145deg, rgba(235,247,255,0.96) 0%, ${accent} 100%)`,
+        filter: isOpen ? "saturate(1.08)" : "none",
+      }}
+    >
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_35%_20%,rgba(255,255,255,0.8),transparent_38%)]" />
+      {itemId === "snek" ? (
+        <>
+          <div className="absolute inset-[7px] rounded-lg bg-[#102622]/90" />
+          <div className="absolute right-2 top-2 h-3 w-3 rounded-full border border-[#8f2e2a]/70 bg-[#e65b45]" />
+          <div className="absolute right-[9px] top-[5px] h-1.5 w-2 rounded-full bg-[#8fc15c]" />
+          <div className="absolute left-[13px] top-[21px] h-[11px] w-[11px] rounded-[4px] bg-[#76bd43]" />
+          <div className="absolute left-[24px] top-[21px] h-[11px] w-[11px] rounded-[4px] bg-[#76bd43]" />
+          <div className="absolute left-[24px] top-[32px] h-[11px] w-[11px] rounded-[4px] bg-[#76bd43]" />
+          <div className="absolute left-[35px] top-[32px] h-[12px] w-[12px] rounded-[5px] bg-[#a8df55]">
+            <span className="absolute left-1.5 top-1 h-1 w-1 rounded-full bg-[#17302e]" />
+            <span className="absolute right-1 top-1 h-1 w-1 rounded-full bg-[#17302e]" />
+          </div>
+        </>
+      ) : (
+        <Image
+          src="/images/gabey-bird.png"
+          alt=""
+          width={56}
+          height={56}
+          loading="eager"
+          className="absolute left-1/2 top-1/2 h-14 w-14 -translate-x-1/2 -translate-y-1/2 rounded-full object-cover"
+        />
+      )}
+      <div className="absolute bottom-1 right-1 rounded-[5px] bg-black/55 px-1.5 py-0.5 text-[8px] font-bold text-white">
+        {iconLabel}
+      </div>
+    </div>
+  ),
 };
 
 const DESKTOP_ICON_TOP_START = 56;
@@ -132,7 +174,12 @@ function DesktopGlyph({
   item: DesktopItemDefinition;
   isOpen: boolean;
 }) {
-  return glyphRenderers[item.kind]({ accent: item.accent, iconLabel: item.iconLabel, isOpen });
+  return glyphRenderers[item.kind]({
+    accent: item.accent,
+    iconLabel: item.iconLabel,
+    isOpen,
+    itemId: item.id,
+  });
 }
 
 export function DesktopFiles({
