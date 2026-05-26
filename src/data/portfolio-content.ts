@@ -32,4 +32,11 @@ export const desktopItems: readonly DesktopItemDefinition[] = [
     kind: "game",
     accent: "#17302e",
   },
+  {
+    id: "mcpviews",
+    label: "MCPViews",
+    iconLabel: "MV",
+    kind: "document",
+    accent: "#277f78",
+  },
 ] as const;

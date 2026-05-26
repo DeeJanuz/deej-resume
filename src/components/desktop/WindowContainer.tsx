@@ -3,6 +3,7 @@
 import { useCallback } from "react";
 import { ResumeWindowContent } from "@/components/content/ResumeWindowContent";
 import { GabeyBirdApp } from "@/components/desktop/GabeyBirdApp";
+import { McpViewsApp } from "@/components/desktop/McpViewsApp";
 import { SnekApp } from "@/components/desktop/SnekApp";
 import { Window } from "@/components/window/Window";
 import type { ResumeContent, WindowAction, WindowState } from "@/types";
@@ -113,6 +114,8 @@ export function WindowContainer({
         <GabeyBirdApp />
       ) : windowState.id === "snek" ? (
         <SnekApp />
+      ) : windowState.id === "mcpviews" ? (
+        <McpViewsApp />
       ) : (
         <ResumeWindowContent resume={resume} />
       )}

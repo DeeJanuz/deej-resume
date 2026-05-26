@@ -1,4 +1,4 @@
-export type PortfolioSectionId = "resume" | "ipod" | "gabey-bird" | "snek";
+export type PortfolioSectionId = "resume" | "ipod" | "gabey-bird" | "snek" | "mcpviews";
 export type ResumeSectionId =
   | "summary"
   | "experience"

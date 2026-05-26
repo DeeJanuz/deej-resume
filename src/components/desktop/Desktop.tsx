@@ -30,6 +30,8 @@ const GABEY_BIRD_WINDOW_WIDTH = 760;
 const GABEY_BIRD_WINDOW_HEIGHT = 600;
 const SNEK_WINDOW_WIDTH = 680;
 const SNEK_WINDOW_HEIGHT = 560;
+const MCPVIEWS_WINDOW_WIDTH = 1080;
+const MCPVIEWS_WINDOW_HEIGHT = 720;
 
 const iconData = Object.fromEntries(
   desktopItems.map((item) => [item.id, { label: item.label, iconLabel: item.iconLabel, accent: item.accent }])
@@ -137,6 +139,36 @@ export function Desktop() {
         return {
           id: sectionId,
           title: "Snek",
+          position,
+          size,
+        };
+      }
+
+      if (sectionId === "mcpviews") {
+        const size = {
+          width: Math.min(
+            MCPVIEWS_WINDOW_WIDTH,
+            Math.max(360, viewportWidth - WINDOW_HORIZONTAL_MARGIN * 2),
+          ),
+          height: Math.min(
+            MCPVIEWS_WINDOW_HEIGHT,
+            Math.max(480, viewportHeight - WINDOW_TOP_MARGIN - WINDOW_BOTTOM_MARGIN),
+          ),
+        };
+        const position = {
+          x: Math.max(
+            WINDOW_HORIZONTAL_MARGIN,
+            Math.round((viewportWidth - size.width) / 2),
+          ),
+          y: Math.max(
+            WINDOW_TOP_MARGIN,
+            Math.round((viewportHeight - size.height) / 2),
+          ),
+        };
+
+        return {
+          id: sectionId,
+          title: "Browser",
           position,
           size,
         };
