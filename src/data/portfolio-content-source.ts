@@ -3,9 +3,9 @@ import type { PortfolioContentSource } from "@/types";
 export const contentSource = {
   "siteProfile": {
     "name": "Daenon Janis",
-    "title": "AI product builder for trusted workflow software",
+    "title": "Forward-Deployed AI Product Engineer",
     "location": "Ogden, Utah",
-    "summary": "I turn ambiguous operations and AI ideas into secure workflow software teams can actually adopt."
+    "summary": "I build trusted AI workflow software across product, data, enterprise integrations, and security."
   },
   "resume": {
     "id": "resume",
@@ -15,9 +15,9 @@ export const contentSource = {
     "accent": "#2f6b73",
     "executiveSummary": {
       "eyebrow": "Executive Summary",
-      "title": "AI product builder",
-      "intro": "I turn ambiguous operations and AI ideas into secure workflow software teams can actually adopt. My best work sits where founders and operators need a builder who can find the real problem, shape the product, wire the systems, and keep the trust model intact.",
-      "summary": "Teams bring me in when the work is too product-shaped for a ticket queue and too operationally sensitive for a quick demo. I can move from founder-level problem discovery to usable AI workflows, data and integration plumbing, and security decisions without handing off the hard parts.",
+      "title": "Forward-Deployed AI Product Engineer",
+      "intro": "I build trusted AI workflow software across product, data, enterprise integrations, and security. My best work sits where founders and operators need a builder who can find the real problem, shape the product surface, wire the systems, and keep the trust model intact.",
+      "summary": "Teams bring me in when the work is too product-shaped for a ticket queue and too operationally sensitive for a quick demo. I can move from founder-level problem discovery to production AI workflows, data and integration plumbing, agent interfaces, and security decisions without handing off the hard parts.",
       "accent": "#2f6b73",
       "heroGradient": "linear-gradient(135deg, rgba(47, 107, 115, 0.18) 0%, rgba(195, 226, 230, 0.9) 100%)",
       "heroImage": {
@@ -57,7 +57,7 @@ export const contentSource = {
         }
       ],
       "quickFacts": [
-        "Primary target: AI product, internal platform, and workflow software roles where ambiguous work needs a builder-owner.",
+        "Headline: Forward-Deployed AI Product Engineer | Trusted workflow software, enterprise integrations, agent interfaces.",
         "Best proof: Ludflow, MCPViews, DecidR, plus Ivy Energy systems work that survived real security and operational constraints.",
         "Based in Ogden, Utah and comfortable working with founders, operators, engineers, and non-technical subject matter experts."
       ],
@@ -255,7 +255,7 @@ export const contentSource = {
           {
             "title": "Current role",
             "eyebrow": "Ivy Energy",
-            "description": "I currently work as a Data Engineer and Senior IT Security Solutions Architect. In practice, that means security and compliance ownership, data platform work, systems integrations, and internal tools for teams that need software but cannot wait for every request to become a traditional roadmap item.",
+            "description": "I currently work as a Data Engineer and Senior IT Security Solutions Architect. In practice, I own the glue work companies usually split across security, data, operations, and product engineering: SOC 2 controls and evidence, Snowflake data movement, Salesforce/Zendesk/Slack/ClickUp/Odoo integrations, and secure internal tools or AI-assisted workflows for teams that need working software now.",
             "tags": [
               "Security",
               "Data engineering",
@@ -266,11 +266,12 @@ export const contentSource = {
           {
             "title": "Operating outcomes",
             "eyebrow": "Impact",
-            "description": "The strongest outcomes map directly to the roles I want next: secure AI workflows, data movement, business-system integration, and product-minded ownership of work that crosses departments.",
+            "description": "The strongest outcomes map directly to the roles I want next: secure AI workflows, data movement, business-system integration, and product-minded ownership of work that crosses departments. The important part is that these were production responsibilities, not side experiments.",
             "bullets": [
-              "Built Ivy Energy's SOC 2 program from scratch and carried it through year two with controls across engineering, operations, and access management.",
-              "Modernized core systems and data architecture with minimal downtime so operational and product data could support reporting, automation, and downstream workflows.",
-              "Helped non-engineering teams ship secure AI-assisted tools for support, communications, operations, and cross-system workflows."
+              "Built Ivy Energy's SOC 2 program from a blank slate: scoped controls, access reviews, evidence collection, vendor and security processes, engineering and operations buy-in, then carried the program through year two.",
+              "Modernized core systems and data architecture with minimal downtime, moving operational and product data into Snowflake and reporting-ready downstream workflows.",
+              "Built and maintained integrations across Salesforce, Zendesk, Slack, ClickUp, Odoo, Snowflake, and other business-critical systems so support, operations, finance, and product data could actually move.",
+              "Helped non-engineering teams ship secure AI-assisted tools for support, communications, operations, and cross-system workflows without creating avoidable product, data, or deployment risk."
             ]
           },
           {
@@ -298,11 +299,12 @@ export const contentSource = {
             "title": "Scope and responsibility",
             "eyebrow": "What I actually own",
             "bullets": [
-              "Built the company's security posture through SOC 2 readiness and then maintained the program through year two with real controls.",
-              "Migrated core workloads off older systems and modernized the data layer so operational and product data could move cleanly into Snowflake and downstream workflows.",
-              "Built and maintained integrations across Salesforce, Zendesk, Slack, ClickUp, Odoo, Snowflake, and other business-critical internal systems.",
-              "Created secure internal tools and AI-assisted workflows for teams that needed working software quickly without creating avoidable product or deployment risk.",
-              "Translated between technical and non-technical teams so process pain could become deployable software instead of getting stuck as a vague request."
+              "Owned SOC 2 readiness and ongoing compliance through real controls across engineering, operations, access management, vendor review, evidence collection, and process ownership.",
+              "Migrated core workloads off older systems and modernized the data layer so operational and product data could move cleanly into Snowflake, reporting models, automations, and downstream workflows.",
+              "Built production integrations and sync workflows across Salesforce, Zendesk, Slack, ClickUp, Odoo, Snowflake, and other business-critical internal systems.",
+              "Created secure internal apps and AI-assisted workflows for teams that needed working software quickly without creating avoidable product, data, permission, or deployment risk.",
+              "Defined the practical trust model around internal tools: who can access the workflow, what data it touches, where review is required, how it is deployed, and who owns it after launch.",
+              "Translated between technical and non-technical teams so operator pain could become deployable software instead of getting stuck as a vague request."
             ]
           },
           {
@@ -315,8 +317,8 @@ export const contentSource = {
           }
         ],
         "quickFacts": [
-          "Ivy proves I can own high-trust systems work, not just prototype new ideas.",
-          "Strongest signals: SOC 2 ownership, data modernization, secure AI workflows, and business-system integration.",
+          "Ivy proof in plain English: I built the SOC 2 program, modernized the data layer, wired business systems together, and shipped secure AI-assisted internal workflows.",
+          "Strongest signals: SOC 2 ownership, Snowflake data movement, Salesforce/Zendesk/Odoo/Slack integrations, secure AI workflows, and business-system integration.",
           "Best-fit roles reward cross-functional product ownership and practical execution under real constraints."
         ]
       },
