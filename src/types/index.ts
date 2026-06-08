@@ -10,6 +10,7 @@ export type ResumeSectionId =
   | "summary"
   | "experience"
   | "projects"
+  | "consulting"
   | "skills"
   | "about"
   | "contact";

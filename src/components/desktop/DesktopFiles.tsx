@@ -104,7 +104,7 @@ const glyphRenderers: Record<DesktopItemKind, (props: GlyphProps) => React.React
       </div>
     </div>
   ),
-  game: ({ accent, iconLabel, isOpen, itemId }) => (
+  game: ({ accent, isOpen, itemId }) => (
     <div
       className="relative h-16 w-16 overflow-hidden rounded-[14px] border border-white/65 shadow-[0_16px_30px_rgba(0,0,0,0.16)]"
       style={{
@@ -139,9 +139,6 @@ const glyphRenderers: Record<DesktopItemKind, (props: GlyphProps) => React.React
           className="absolute left-1/2 top-1/2 h-14 w-14 -translate-x-1/2 -translate-y-1/2 rounded-full object-cover"
         />
       )}
-      <div className="absolute bottom-1 right-1 rounded-[5px] bg-black/55 px-1.5 py-0.5 text-[8px] font-bold text-white">
-        {iconLabel}
-      </div>
     </div>
   ),
 };

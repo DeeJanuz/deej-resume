@@ -5,6 +5,8 @@ import { EditableText } from "@/components/dev/EditableText";
 import type { EditableContentPath } from "@/components/dev/ContentDevContext";
 import type {
   PortfolioLink,
+  PortfolioMetric,
+  PortfolioSectionId,
   ResumeContent,
   ResumeContentSection,
 } from "@/types";
@@ -33,6 +35,7 @@ interface ResumeExecutiveSummaryHeroProps {
 interface ResumeSectionBodyProps {
   section: ResumeContentSection;
   sectionIndex: number;
+  onOpenProjectBrowser?: (targetId: PortfolioSectionId) => void;
   rootRef?: React.RefObject<HTMLElement | null>;
 }
 
@@ -50,6 +53,16 @@ function prefersReducedMotion() {
   }
 
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+const PROJECT_METRIC_TARGETS: Partial<Record<string, PortfolioSectionId>> = {
+  Ludflow: "ludflow",
+  MCPViews: "mcpviews",
+  DecidR: "decidr-mcp",
+};
+
+function getProjectMetricTargetId(metric: PortfolioMetric) {
+  return PROJECT_METRIC_TARGETS[metric.value] ?? null;
 }
 
 export function scrollWithinContainer(
@@ -360,6 +373,7 @@ export function ResumeExecutiveSummaryHero({
 export function ResumeSectionBody({
   section,
   sectionIndex,
+  onOpenProjectBrowser,
   rootRef,
 }: ResumeSectionBodyProps) {
   const heroImage = section.heroImage;
@@ -434,6 +448,10 @@ export function ResumeSectionBody({
                   accent={section.accent}
                   metrics={section.metrics}
                   pathPrefix={["resume", "sections", sectionIndex, "metrics"]}
+                  getMetricTargetId={
+                    section.id === "projects" ? getProjectMetricTargetId : undefined
+                  }
+                  onOpenTarget={onOpenProjectBrowser}
                 />
               </div>
             ) : null}

@@ -50,8 +50,13 @@ export function ProjectBrowserApp({
         className="flex min-h-12 items-center gap-2 border-b border-stone-300/80 bg-[#ebe8df] px-3"
         onSubmit={handleNavigate}
       >
-        <span className="hidden text-[12px] font-semibold text-stone-600 sm:block">
-          Browser
+        <span className="hidden items-baseline gap-2 sm:flex">
+          <span className="text-[12px] font-semibold text-stone-600">
+            Browser
+          </span>
+          <span className="max-w-[18rem] truncate text-[11px] text-stone-500">
+            (many sites block embedding and may not work)
+          </span>
         </span>
         <button
           type="button"

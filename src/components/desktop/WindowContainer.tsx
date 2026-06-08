@@ -6,13 +6,19 @@ import { GabeyBirdApp } from "@/components/desktop/GabeyBirdApp";
 import { ProjectBrowserApp } from "@/components/desktop/McpViewsApp";
 import { SnekApp } from "@/components/desktop/SnekApp";
 import { Window } from "@/components/window/Window";
-import type { ResumeContent, WindowAction, WindowState } from "@/types";
+import type {
+  PortfolioSectionId,
+  ResumeContent,
+  WindowAction,
+  WindowState,
+} from "@/types";
 
 interface WindowContainerProps {
   windowState: WindowState;
   resume: ResumeContent;
   dockMinimizeRequested: boolean;
   dispatch: React.Dispatch<WindowAction>;
+  onOpenSection: (id: PortfolioSectionId) => void;
   onDockMinimizeComplete: () => void;
 }
 
@@ -37,6 +43,7 @@ export function WindowContainer({
   resume,
   dockMinimizeRequested,
   dispatch,
+  onOpenSection,
   onDockMinimizeComplete,
 }: WindowContainerProps) {
   const onClose = useCallback(() => {
@@ -138,7 +145,10 @@ export function WindowContainer({
           title={projectBrowserTarget.title}
         />
       ) : (
-        <ResumeWindowContent resume={resume} />
+        <ResumeWindowContent
+          resume={resume}
+          onOpenProjectBrowser={onOpenSection}
+        />
       )}
     </Window>
   );

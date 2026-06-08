@@ -60,6 +60,10 @@ export const contentSource = {
         "label": "AI Products"
       },
       {
+        "id": "consulting",
+        "label": "Consulting"
+      },
+      {
         "id": "experience",
         "label": "Ivy Impact"
       },
@@ -169,6 +173,92 @@ export const contentSource = {
               "Ludflow connects business knowledge to docs, schemas, code, and AI context.",
               "MCPViews turns agent output into reviewable interfaces instead of only chat text.",
               "DecidR MCP keeps decisions, approvals, implementation context, and execution in the same loop."
+            ]
+          }
+        ],
+        "quickFacts": []
+      },
+      {
+        "id": "consulting",
+        "navLabel": "Consulting",
+        "eyebrow": "Consulting & Mentoring",
+        "title": "Technical Guidance for Non-Technical Teams",
+        "intro": "I help founders, operators, and domain experts turn early product ideas into buildable, reviewable, reasonably secure software without pretending everyone on the team needs to become an engineer.",
+        "summary": "The through-line across BitBooks and No Food Cravings is practical translation: requirements, prototypes, issue reporting, release discipline, documentation, and security choices made legible to teams with limited technical experience.",
+        "accent": "#6f5f8f",
+        "heroGradient": "linear-gradient(135deg, rgba(111, 95, 143, 0.18) 0%, rgba(211, 203, 232, 0.86) 100%)",
+        "metrics": [
+          {
+            "value": "MVP coaching",
+            "label": "Helped non-technical product owners shape safe first versions"
+          },
+          {
+            "value": "Release discipline",
+            "label": "Coached dev to staging to production workflows with safeguards"
+          },
+          {
+            "value": "Team fluency",
+            "label": "Made requirements, bugs, risks, and tradeoffs understandable"
+          }
+        ],
+        "cards": [
+          {
+            "title": "No Food Cravings",
+            "eyebrow": "Founder coaching",
+            "description": "Provided technical guidance and product coaching for a non-technical product manager building an MVP around a health and behavior-change idea. The work focused on making the first version realistic, secure enough for early learning, and understandable to the person responsible for the product.",
+            "bullets": [
+              "Translated the idea into an MVP scope with clearer product boundaries and implementation priorities.",
+              "Coached practical security, account, data, and deployment choices so early experiments did not create avoidable risk.",
+              "Helped the product owner evaluate AI-assisted development output, review tradeoffs, and keep momentum without losing control of the product."
+            ],
+            "links": [
+              {
+                "label": "Visit No Food Cravings",
+                "href": "https://www.nofoodcravings.com/"
+              }
+            ],
+            "tags": [
+              "MVP scoping",
+              "Founder coaching",
+              "Security basics",
+              "AI-assisted build review"
+            ]
+          },
+          {
+            "title": "BitBooks",
+            "eyebrow": "Team enablement",
+            "description": "Provided product and technical delivery structure for a team of accountants, Bitcoin-focused stakeholders, and non-technical contributors. The role was to make the work concrete enough that the team could define requirements, inspect prototypes, report issues, and move changes through environments with confidence.",
+            "bullets": [
+              "Created structure for requirements definition, prototype review, mockup feedback, and issue reporting.",
+              "Coached the team through dev, staging, and production release expectations with documentation and checkpoints.",
+              "Helped establish safeguards for identifying bugs, regressions, and vulnerabilities despite limited engineering depth on the team."
+            ],
+            "links": [
+              {
+                "label": "Visit BitBooks",
+                "href": "https://www.bitbooks.com/"
+              }
+            ],
+            "tags": [
+              "Requirements shaping",
+              "Prototype review",
+              "Bug reporting",
+              "Release safeguards"
+            ]
+          }
+        ],
+        "detailSections": [
+          {
+            "title": "How I mentor teams into technical work",
+            "eyebrow": "Operating style",
+            "paragraphs": [
+              "A lot of useful software starts with people who understand the domain better than they understand the implementation path. My role in these projects was to make that path visible: what should be built first, what needs review, what can wait, and where security or deployment risk should slow the team down.",
+              "I treat mentoring as part of delivery. Requirements, mockups, bug reports, deployment notes, and vulnerability checks are not overhead; they are the shared language that lets non-technical teams participate in building safer software."
+            ],
+            "bullets": [
+              "Turn vague ideas into product slices the team can reason about.",
+              "Give non-technical stakeholders enough technical literacy to make better tradeoff decisions.",
+              "Use documentation and release checkpoints to keep MVP speed from turning into invisible risk."
             ]
           }
         ],

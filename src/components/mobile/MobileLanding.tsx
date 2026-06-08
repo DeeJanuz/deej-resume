@@ -60,6 +60,7 @@ export default function MobileLanding() {
     summary: null,
     experience: null,
     projects: null,
+    consulting: null,
     skills: null,
     about: null,
     contact: null,

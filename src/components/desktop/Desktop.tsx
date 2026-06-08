@@ -230,12 +230,12 @@ export function Desktop() {
     });
   }, [createWindowPayload, dispatch]);
 
-  function openSection(sectionId: PortfolioSectionId) {
+  const openSection = useCallback((sectionId: PortfolioSectionId) => {
     dispatch({
       type: "OPEN_WINDOW",
       payload: createWindowPayload(sectionId),
     });
-  }
+  }, [createWindowPayload, dispatch]);
 
   function handleDesktopItemOpen(sectionId: PortfolioSectionId) {
     if (sectionId === "ipod") {
@@ -376,6 +376,7 @@ export function Desktop() {
             resume={resume}
             dockMinimizeRequested={dockMinimizingId === windowState.id}
             dispatch={dispatch}
+            onOpenSection={openSection}
             onDockMinimizeComplete={onDockMinimizeComplete}
           />
         ))}

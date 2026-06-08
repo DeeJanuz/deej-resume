@@ -2,7 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import { EditableText } from "@/components/dev/EditableText";
-import type { ResumeContent, ResumeSectionId } from "@/types";
+import type {
+  PortfolioSectionId,
+  ResumeContent,
+  ResumeSectionId,
+} from "@/types";
 import {
   ResumeExecutiveSummaryHero,
   ResumeSectionBody,
@@ -11,14 +15,19 @@ import {
 
 interface ResumeWindowContentProps {
   resume: ResumeContent;
+  onOpenProjectBrowser?: (targetId: PortfolioSectionId) => void;
 }
 
-export function ResumeWindowContent({ resume }: ResumeWindowContentProps) {
+export function ResumeWindowContent({
+  resume,
+  onOpenProjectBrowser,
+}: ResumeWindowContentProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const sectionRefs = useRef<Record<ResumeSectionId, HTMLElement | null>>({
     summary: null,
     experience: null,
     projects: null,
+    consulting: null,
     skills: null,
     about: null,
     contact: null,
@@ -139,6 +148,7 @@ export function ResumeWindowContent({ resume }: ResumeWindowContentProps) {
                   <ResumeSectionBody
                     section={section}
                     sectionIndex={sectionIndex}
+                    onOpenProjectBrowser={onOpenProjectBrowser}
                     rootRef={scrollContainerRef}
                   />
                 </div>
