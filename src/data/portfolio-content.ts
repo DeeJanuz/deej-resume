@@ -39,4 +39,18 @@ export const desktopItems: readonly DesktopItemDefinition[] = [
     kind: "document",
     accent: "#277f78",
   },
+  {
+    id: "decidr-mcp",
+    label: "DecidR MCP",
+    iconLabel: "DR",
+    kind: "document",
+    accent: "#2d5f93",
+  },
+  {
+    id: "ludflow",
+    label: "Ludflow",
+    iconLabel: "LF",
+    kind: "document",
+    accent: "#2f6b73",
+  },
 ] as const;

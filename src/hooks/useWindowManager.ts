@@ -84,7 +84,15 @@ function windowReducer(
       );
 
     case "FOCUS_WINDOW": {
+      const targetWindow = state.find(
+        (windowState) => windowState.id === action.payload.id,
+      );
       const nextZIndex = getMaxZIndex(state) + 1;
+
+      if (targetWindow?.isFocused && targetWindow.zIndex === nextZIndex - 1) {
+        return state;
+      }
+
       return state.map((windowState) =>
         windowState.id === action.payload.id
           ? { ...windowState, isFocused: true, zIndex: nextZIndex }

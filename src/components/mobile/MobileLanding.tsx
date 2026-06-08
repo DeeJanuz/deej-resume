@@ -192,7 +192,7 @@ export default function MobileLanding() {
         </div>
       </div>
 
-      <main className="mx-auto max-w-2xl space-y-6 px-4 py-6">
+      <main className="resume-container mx-auto max-w-2xl space-y-6 px-4 py-6">
         <div ref={registerSection("summary")}>
           <ResumeExecutiveSummaryHero resume={resume} />
         </div>

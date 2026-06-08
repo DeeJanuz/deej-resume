@@ -10,6 +10,7 @@ const BOARD_MARGIN = 24;
 const INITIAL_STEP_DELAY_MS = 155;
 const MIN_STEP_DELAY_MS = 82;
 const SPEEDUP_PER_APPLE_MS = 5;
+const MAX_DIRECTION_QUEUE_LENGTH = 4;
 const SNEK_STORAGE_KEY = "snek.best-score";
 const UI_FONT_FAMILY = "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
 const DISPLAY_FONT_FAMILY = "Georgia, 'Times New Roman', serif";
@@ -101,7 +102,7 @@ export function SnekApp() {
         private snake: GridPoint[] = [];
         private food: GridPoint | null = null;
         private currentDirection: Direction = "right";
-        private pendingDirection: Direction = "right";
+        private directionQueue: Direction[] = [];
         private pointerStart: GridPoint | null = null;
         private status: "idle" | "running" | "gameover" | "won" = "idle";
         private stepAccumulator = 0;
@@ -261,14 +262,44 @@ export function SnekApp() {
         }
 
         private queueDirection(direction: Direction) {
+          const referenceDirection = this.getQueuedReferenceDirection();
+
           if (
-            isOppositeDirection(direction, this.currentDirection) ||
-            isOppositeDirection(direction, this.pendingDirection)
+            direction === referenceDirection ||
+            isOppositeDirection(direction, referenceDirection)
           ) {
             return;
           }
 
-          this.pendingDirection = direction;
+          if (this.directionQueue.length >= MAX_DIRECTION_QUEUE_LENGTH) {
+            return;
+          }
+
+          this.directionQueue.push(direction);
+        }
+
+        private getQueuedReferenceDirection() {
+          if (this.directionQueue.length === 0) {
+            return this.currentDirection;
+          }
+
+          return this.directionQueue[this.directionQueue.length - 1] ?? this.currentDirection;
+        }
+
+        private consumeQueuedDirection() {
+          while (this.directionQueue.length > 0) {
+            const direction = this.directionQueue.shift();
+
+            if (
+              direction &&
+              direction !== this.currentDirection &&
+              !isOppositeDirection(direction, this.currentDirection)
+            ) {
+              return direction;
+            }
+          }
+
+          return this.currentDirection;
         }
 
         private startGame(initialDirection: Direction = "right") {
@@ -285,7 +316,7 @@ export function SnekApp() {
         private resetGame(initialDirection: Direction) {
           this.score = 0;
           this.currentDirection = initialDirection;
-          this.pendingDirection = initialDirection;
+          this.directionQueue = [];
           this.snake = this.createInitialSnake(initialDirection);
           this.food = this.createFood();
           this.updateScoreText();
@@ -306,7 +337,7 @@ export function SnekApp() {
         }
 
         private advanceSnake() {
-          this.currentDirection = this.pendingDirection;
+          this.currentDirection = this.consumeQueuedDirection();
 
           const delta = DIRECTION_DELTAS[this.currentDirection];
           const head = this.snake[0];

@@ -11,6 +11,12 @@ interface PortfolioImageBlockProps {
   sizes: string;
 }
 
+function getImageAspectRatio(image: PortfolioImage, fallback = "3 / 2") {
+  return image.width && image.height
+    ? `${image.width} / ${image.height}`
+    : fallback;
+}
+
 export function PortfolioImageBlock({
   image,
   captionPath,
@@ -18,14 +24,18 @@ export function PortfolioImageBlock({
 }: PortfolioImageBlockProps) {
   return (
     <figure className="overflow-hidden rounded-lg border border-stone-200 bg-white">
-      <div className="relative aspect-[3/2]">
+      <div
+        className="relative bg-stone-100"
+        style={{ aspectRatio: getImageAspectRatio(image) }}
+      >
         <Image
           src={image.src}
           alt={image.alt}
           fill
           loading="eager"
           sizes={sizes}
-          className="object-cover object-center"
+          className="object-cover"
+          style={{ objectPosition: image.objectPosition ?? "center" }}
         />
       </div>
 

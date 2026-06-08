@@ -23,7 +23,7 @@ export function SectionMetricStrip({
   }
 
   return (
-    <div className="mt-6 grid gap-3 sm:grid-cols-3">
+    <div className="resume-metric-strip mt-6 grid gap-3 sm:grid-cols-3">
       {visibleMetrics.map((metric, index) => (
         <div
           key={`${metric.value}-${metric.label}-${index}`}

@@ -127,8 +127,8 @@ export function ScrollReveal({
       },
       {
         root: rootRef?.current ?? null,
-        threshold: 0.16,
-        rootMargin: "0px 0px -12% 0px",
+        threshold: 0.01,
+        rootMargin: "0px 0px 60% 0px",
       },
     );
 
@@ -158,8 +158,8 @@ function ResumeContentCard({
   rootRef,
 }: ResumeContentCardProps) {
   return (
-    <ScrollReveal rootRef={rootRef} delay={cardIndex * 50}>
-      <article className="rounded-lg border border-stone-200 bg-white p-5">
+    <ScrollReveal rootRef={rootRef} delay={cardIndex * 25}>
+      <article className="rounded-lg border border-stone-200 bg-white p-4">
         {card.eyebrow ? (
           <EditableText
             as="p"
@@ -173,7 +173,7 @@ function ResumeContentCard({
           as="h3"
           path={["resume", "sections", sectionIndex, "cards", cardIndex, "title"]}
           text={card.title}
-          className="mt-2 text-lg font-semibold leading-snug text-stone-950"
+          className="mt-2 text-base font-semibold leading-snug text-stone-950"
         />
 
         <EditableText
@@ -187,11 +187,11 @@ function ResumeContentCard({
             "description",
           ]}
           text={card.description}
-          className="mt-3 text-sm leading-7 text-stone-600"
+          className="mt-2.5 text-[13px] leading-6 text-stone-600"
         />
 
         {card.bullets?.length ? (
-          <ul className="mt-4 space-y-2 text-sm leading-6 text-stone-600">
+          <ul className="mt-3 space-y-2 text-[13px] leading-6 text-stone-600">
             {card.bullets.map((bullet, bulletIndex) => (
               <li key={`${bullet}-${bulletIndex}`} className="flex gap-3">
                 <span
@@ -236,7 +236,7 @@ function ResumeContentCard({
             {card.tags.map((tag, tagIndex) => (
               <span
                 key={`${tag}-${tagIndex}`}
-              className="rounded-md border border-stone-200 bg-stone-50 px-3 py-1 text-xs font-medium text-stone-700"
+                className="rounded-md border border-stone-200 bg-stone-50 px-3 py-1 text-xs font-medium text-stone-700"
               >
                 <EditableText
                   as="span"
@@ -274,12 +274,25 @@ export function ResumeExecutiveSummaryHero({
         style={{ borderTop: `4px solid ${summary.accent}` }}
       >
         <div
-          className={`grid gap-8 px-6 py-7 sm:px-8 sm:py-8 ${
+          className={`resume-summary-hero-grid grid gap-6 px-5 py-6 sm:px-6 sm:py-6 ${
             summaryHeroImage
-              ? "xl:grid-cols-[minmax(0,1.35fr)_280px] xl:items-center"
+              ? "resume-summary-hero-grid--with-image xl:grid-cols-[clamp(14rem,20vw,18rem)_minmax(0,1fr)] xl:items-center"
               : ""
           }`.trim()}
         >
+          {summaryHeroImage ? (
+            <div className="resume-summary-image-wrap mx-auto w-full max-w-[clamp(13rem,58vw,18rem)] xl:max-w-none">
+              <SectionPoster
+                accent={summary.accent}
+                title={summary.title}
+                image={summaryHeroImage}
+                metric={summary.metrics[0]}
+                sizes="(max-width: 767px) min(calc(100vw - 40px), 18rem), (max-width: 1279px) 18rem, min(20vw, 18rem)"
+                className="w-full"
+              />
+            </div>
+          ) : null}
+
           <div>
             <EditableText
               as="p"
@@ -291,102 +304,69 @@ export function ResumeExecutiveSummaryHero({
               as="h1"
               path={["resume", "executiveSummary", "title"]}
               text={summary.title}
-              className="mt-3 max-w-3xl text-4xl font-semibold leading-tight tracking-normal text-stone-950 sm:text-[2.75rem]"
+              className="resume-summary-title mt-2.5 max-w-3xl text-3xl font-semibold leading-tight tracking-normal text-stone-950 sm:text-[2.35rem]"
             />
             <EditableText
               as="p"
               path={["resume", "executiveSummary", "intro"]}
               text={summary.intro}
-              className="mt-4 max-w-3xl text-base leading-7 text-stone-700 sm:text-lg"
+              className="resume-summary-intro mt-3 max-w-3xl text-[15px] leading-6 text-stone-700"
             />
-            <div
-              className="mt-5 border-l-2 pl-4"
-              style={{ borderColor: summary.accent }}
-            >
-              <p className="text-[11px] font-semibold uppercase tracking-normal text-stone-500">
-                Why Teams Bring Me In
-              </p>
-              <EditableText
-                as="p"
-                path={["resume", "executiveSummary", "summary"]}
-                text={summary.summary}
-                className="mt-2 text-sm leading-7 text-stone-700"
-              />
-            </div>
+          </div>
+        </div>
 
-            <SectionMetricStrip
-              accent={summary.accent}
-              metrics={summary.metrics}
-              pathPrefix={["resume", "executiveSummary", "metrics"]}
+        <div className="resume-summary-proof-row border-t border-stone-200 px-5 py-5 sm:px-6">
+          <div
+            className="border-l-2 pl-4"
+            style={{ borderColor: summary.accent }}
+          >
+            <p className="text-[11px] font-semibold uppercase tracking-normal text-stone-500">
+              Why Teams Bring Me In
+            </p>
+            <EditableText
+              as="p"
+              path={["resume", "executiveSummary", "summary"]}
+              text={summary.summary}
+              className="mt-2 max-w-4xl text-[13px] leading-6 text-stone-700"
             />
           </div>
 
-          {summaryHeroImage ? (
-            <div className="mx-auto w-full max-w-[280px]">
-              <SectionPoster
-                accent={summary.accent}
-                title={summary.title}
-                image={summaryHeroImage}
-                metric={summary.metrics[0]}
-                sizes="(max-width: 1280px) 280px, 320px"
-                className="aspect-[4/5] w-full"
-              />
-            </div>
-          ) : null}
+          <SectionMetricStrip
+            accent={summary.accent}
+            metrics={summary.metrics}
+            pathPrefix={["resume", "executiveSummary", "metrics"]}
+          />
         </div>
 
-        <div className="grid gap-x-8 gap-y-5 border-t border-stone-200 px-6 py-6 sm:px-8 lg:grid-cols-2">
-          {summary.valuePillars.map((pillar, index) => (
-            <ScrollReveal key={pillar.title} rootRef={rootRef} delay={index * 60}>
-              <article className="border-l-2 pl-4" style={{ borderColor: summary.accent }}>
-                <EditableText
-                  as="h2"
-                  path={["resume", "executiveSummary", "valuePillars", index, "title"]}
-                  text={pillar.title}
-                  className="text-lg font-semibold text-stone-900"
-                />
-                <EditableText
-                  as="p"
-                  path={[
-                    "resume",
-                    "executiveSummary",
-                    "valuePillars",
-                    index,
-                    "description",
-                  ]}
-                  text={pillar.description}
-                  className="mt-2 text-sm leading-7 text-stone-700"
-                />
-              </article>
-            </ScrollReveal>
-          ))}
-        </div>
-
-        <div className="flex flex-col gap-4 border-t border-stone-200 px-6 py-6 sm:px-8 xl:flex-row xl:items-end xl:justify-between">
-          <ul className="grid gap-3 text-sm leading-6 text-stone-700">
-            {summary.quickFacts.map((fact, factIndex) => (
-              <li key={`${fact}-${factIndex}`} className="flex gap-3">
-                <span
-                  className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full"
-                  style={{ backgroundColor: summary.accent }}
-                />
-                <EditableText
-                  as="span"
-                  path={["resume", "executiveSummary", "quickFacts", factIndex]}
-                  text={fact}
-                />
-              </li>
+        {summary.valuePillars.length ? (
+          <div className="resume-value-pillars grid gap-x-6 gap-y-4 border-t border-stone-200 px-5 py-5 sm:px-6 lg:grid-cols-2">
+            {summary.valuePillars.map((pillar, index) => (
+              <ScrollReveal key={pillar.title} rootRef={rootRef} delay={index * 30}>
+                <article className="border-l-2 pl-4" style={{ borderColor: summary.accent }}>
+                  <EditableText
+                    as="h2"
+                    path={["resume", "executiveSummary", "valuePillars", index, "title"]}
+                    text={pillar.title}
+                    className="text-base font-semibold text-stone-900"
+                  />
+                  <EditableText
+                    as="p"
+                    path={[
+                      "resume",
+                      "executiveSummary",
+                      "valuePillars",
+                      index,
+                      "description",
+                    ]}
+                    text={pillar.description}
+                    className="mt-1.5 text-[13px] leading-6 text-stone-700"
+                  />
+                </article>
+              </ScrollReveal>
             ))}
-          </ul>
+          </div>
+        ) : null}
 
-          {summary.primaryLinks?.length ? (
-            <SectionLinks
-              accent={summary.accent}
-              links={summary.primaryLinks}
-              pathPrefix={["resume", "executiveSummary", "primaryLinks"]}
-            />
-          ) : null}
-        </div>
       </section>
     </ScrollReveal>
   );
@@ -398,6 +378,7 @@ export function ResumeSectionBody({
   rootRef,
 }: ResumeSectionBodyProps) {
   const heroImage = section.heroImage;
+  const showHero = section.showHero !== false;
   const desktopQuickFactColumns = section.quickFacts.reduce<Array<string[]>>(
     (columns, fact, factIndex) => {
       columns[factIndex % 2].push(fact);
@@ -417,78 +398,80 @@ export function ResumeSectionBody({
 
   return (
     <section className="space-y-5">
-      <ScrollReveal rootRef={rootRef}>
-        <div
-          className="overflow-hidden rounded-lg border border-stone-200 bg-white"
-          style={{ borderTop: `4px solid ${section.accent}` }}
-        >
+      {showHero ? (
+        <ScrollReveal rootRef={rootRef}>
           <div
-            className={`grid gap-6 px-6 py-6 sm:px-8 sm:py-7 ${
-              heroImage
-                ? "lg:grid-cols-[minmax(0,1.25fr)_280px] lg:items-center"
-                : ""
-            }`.trim()}
+            className="overflow-hidden rounded-lg border border-stone-200 bg-white"
+            style={{ borderTop: `4px solid ${section.accent}` }}
           >
-            <div>
-              <EditableText
-                as="p"
-                path={["resume", "sections", sectionIndex, "eyebrow"]}
-                text={section.eyebrow}
-                className="text-[11px] font-semibold uppercase tracking-normal text-stone-500"
-              />
-              <EditableText
-                as="h2"
-                path={["resume", "sections", sectionIndex, "title"]}
-                text={section.title}
-                className="mt-3 text-3xl font-semibold leading-tight tracking-normal text-stone-950 sm:text-4xl"
-              />
-              <EditableText
-                as="p"
-                path={["resume", "sections", sectionIndex, "intro"]}
-                text={section.intro}
-                className="mt-4 text-sm leading-7 text-stone-700 sm:text-base"
-              />
-              <EditableText
-                as="p"
-                path={["resume", "sections", sectionIndex, "summary"]}
-                text={section.summary}
-                className="mt-4 text-sm leading-7 text-stone-600"
-              />
+            <div
+              className={`resume-section-hero-grid grid gap-5 px-5 py-5 sm:px-6 sm:py-6 ${
+                heroImage
+                  ? "resume-section-hero-grid--with-image lg:grid-cols-[minmax(0,1.2fr)_clamp(16rem,22vw,21rem)] lg:items-center"
+                  : ""
+              }`.trim()}
+            >
+              <div>
+                <EditableText
+                  as="p"
+                  path={["resume", "sections", sectionIndex, "eyebrow"]}
+                  text={section.eyebrow}
+                  className="text-[11px] font-semibold uppercase tracking-normal text-stone-500"
+                />
+                <EditableText
+                  as="h2"
+                  path={["resume", "sections", sectionIndex, "title"]}
+                  text={section.title}
+                  className="resume-section-title mt-2.5 text-2xl font-semibold leading-tight tracking-normal text-stone-950 sm:text-3xl"
+                />
+                <EditableText
+                  as="p"
+                  path={["resume", "sections", sectionIndex, "intro"]}
+                  text={section.intro}
+                  className="resume-section-intro mt-3 text-[13px] leading-6 text-stone-700 sm:text-sm"
+                />
+                <EditableText
+                  as="p"
+                  path={["resume", "sections", sectionIndex, "summary"]}
+                  text={section.summary}
+                  className="mt-3 text-[13px] leading-6 text-stone-600"
+                />
+              </div>
+
+              {heroImage ? (
+                <div className="resume-section-image-wrap mx-auto w-full max-w-[clamp(16rem,68vw,21rem)] lg:max-w-none">
+                  <SectionPoster
+                    accent={section.accent}
+                    title={section.title}
+                    image={heroImage}
+                    metric={section.metrics[0]}
+                    sizes="(max-width: 767px) min(calc(100vw - 48px), 21rem), (max-width: 1023px) 21rem, min(22vw, 21rem)"
+                    className="w-full"
+                  />
+                </div>
+              ) : null}
             </div>
 
-            {heroImage ? (
-              <div className="mx-auto w-full max-w-[280px]">
-                <SectionPoster
+            {section.metrics.length > 0 ? (
+              <div className="resume-section-metrics border-t border-white/55 px-5 py-5 sm:px-6">
+                <SectionMetricStrip
                   accent={section.accent}
-                  title={section.title}
-                  image={heroImage}
-                  metric={section.metrics[0]}
-                  sizes="280px"
-                  className="aspect-[4/3] w-full"
+                  metrics={section.metrics}
+                  pathPrefix={["resume", "sections", sectionIndex, "metrics"]}
                 />
               </div>
             ) : null}
           </div>
-
-          {section.metrics.length > 0 ? (
-            <div className="border-t border-white/55 px-6 py-6 sm:px-8">
-              <SectionMetricStrip
-                accent={section.accent}
-                metrics={section.metrics}
-                pathPrefix={["resume", "sections", sectionIndex, "metrics"]}
-              />
-            </div>
-          ) : null}
-        </div>
-      </ScrollReveal>
+        </ScrollReveal>
+      ) : null}
 
       {section.quickFacts.length ? (
-        <ScrollReveal rootRef={rootRef} delay={40}>
-          <div className="rounded-lg border border-stone-200 bg-white px-6 py-5">
+        <ScrollReveal rootRef={rootRef} delay={20}>
+          <div className="resume-quickfacts-card rounded-lg border border-stone-200 bg-white px-5 py-4">
             <p className="text-[11px] font-semibold uppercase tracking-normal text-stone-500">
               In Brief
             </p>
-            <ul className="mt-4 space-y-3 text-sm leading-6 text-stone-700 sm:hidden">
+            <ul className="resume-quickfacts-single mt-3 space-y-2.5 text-[13px] leading-6 text-stone-700 sm:hidden">
               {section.quickFacts.map((fact, factIndex) => (
                 <li key={`${fact}-${factIndex}`} className="flex gap-3">
                   <span
@@ -504,11 +487,11 @@ export function ResumeSectionBody({
               ))}
             </ul>
 
-            <div className="mt-4 hidden gap-6 sm:grid sm:grid-cols-2 sm:items-start">
+            <div className="resume-quickfacts-columns mt-3 hidden gap-5 sm:grid sm:grid-cols-2 sm:items-start">
               {desktopQuickFactColumns.map((column, columnIndex) => (
                 <ul
                   key={`quick-facts-column-${columnIndex}`}
-                  className="space-y-3 text-sm leading-6 text-stone-700"
+                  className="space-y-2.5 text-[13px] leading-6 text-stone-700"
                 >
                   {column.map((fact, factIndex) => {
                     const originalIndex = columnIndex + factIndex * 2;
@@ -540,7 +523,7 @@ export function ResumeSectionBody({
         </ScrollReveal>
       ) : null}
 
-      <div className="space-y-4 lg:hidden">
+      <div className="resume-card-list space-y-4 lg:hidden">
         {section.cards.map((card, cardIndex) => (
           <ResumeContentCard
             key={`${card.title}-${cardIndex}`}
@@ -553,7 +536,7 @@ export function ResumeSectionBody({
         ))}
       </div>
 
-      <div className="hidden gap-4 lg:grid lg:grid-cols-2 lg:items-start">
+      <div className="resume-card-columns hidden gap-4 lg:grid lg:grid-cols-2 lg:items-start">
         {desktopCardColumns.map((column, columnIndex) => (
           <div key={`column-${columnIndex}`} className="space-y-4">
             {column.map(({ card, cardIndex }) => (
@@ -576,9 +559,9 @@ export function ResumeSectionBody({
             <ScrollReveal
               key={`${detail.title}-${detailIndex}`}
               rootRef={rootRef}
-              delay={detailIndex * 40}
+              delay={detailIndex * 25}
             >
-              <article className="rounded-lg border border-stone-200 bg-white p-6">
+              <article className="resume-detail-card rounded-lg border border-stone-200 bg-white p-5">
                 {detail.eyebrow ? (
                   <EditableText
                     as="p"
@@ -606,11 +589,11 @@ export function ResumeSectionBody({
                     "title",
                   ]}
                   text={detail.title}
-                  className="mt-2 text-xl font-semibold leading-snug text-stone-950"
+                  className="mt-2 text-lg font-semibold leading-snug text-stone-950"
                 />
 
                 {detail.image ? (
-                  <div className="mt-5 max-w-2xl">
+                  <div className="resume-detail-image-wrap mt-5 max-w-2xl">
                     <PortfolioImageBlock
                       image={detail.image}
                       captionPath={[
@@ -641,12 +624,12 @@ export function ResumeSectionBody({
                       paragraphIndex,
                     ]}
                     text={paragraph}
-                    className="mt-4 max-w-4xl text-sm leading-7 text-stone-600"
+                    className="mt-3 max-w-4xl text-[13px] leading-6 text-stone-600"
                   />
                 ))}
 
                 {detail.bullets?.length ? (
-                  <ul className="mt-5 space-y-2 text-sm leading-6 text-stone-600">
+                  <ul className="mt-4 space-y-2 text-[13px] leading-6 text-stone-600">
                     {detail.bullets.map((bullet, bulletIndex) => (
                       <li key={`${bullet}-${bulletIndex}`} className="flex gap-3">
                         <span

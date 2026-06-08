@@ -20,6 +20,12 @@ interface SectionPosterProps {
   className?: string;
 }
 
+function getImageAspectRatio(image: PortfolioImage, fallback = "4 / 3") {
+  return image.width && image.height
+    ? `${image.width} / ${image.height}`
+    : fallback;
+}
+
 export function SectionPoster({
   accent,
   title,
@@ -34,6 +40,7 @@ export function SectionPoster({
     return (
       <div
         className={`relative overflow-hidden rounded-lg border border-stone-200 bg-stone-100 ${className}`.trim()}
+        style={{ aspectRatio: getImageAspectRatio(image) }}
       >
         <Image
           src={image.src}
@@ -41,7 +48,8 @@ export function SectionPoster({
           fill
           loading="eager"
           sizes={sizes}
-          className="object-cover object-center"
+          className="object-cover"
+          style={{ objectPosition: image.objectPosition ?? "center" }}
         />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0)_70%,rgba(12,10,9,0.10)_100%)]" />
       </div>

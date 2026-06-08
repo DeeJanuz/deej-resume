@@ -93,7 +93,9 @@ export function Window({
     position,
   });
 
-  if (!isVisible) {
+  const isParkedMinimized = isOpen && isMinimized && !isVisible;
+
+  if (!isVisible && !isParkedMinimized) {
     return null;
   }
 
@@ -111,12 +113,15 @@ export function Window({
       aria-label={title}
       className={`absolute flex flex-col ${animationClass}`}
       data-window-id={id}
+      aria-hidden={isParkedMinimized}
       style={{
         left: position.x,
         top: position.y,
         width: size.width,
         height: size.height,
         zIndex,
+        pointerEvents: isParkedMinimized ? "none" : undefined,
+        visibility: isParkedMinimized ? "hidden" : undefined,
         filter: isFullScreen || isFocused ? "none" : "brightness(0.97)",
         ...restoreStyle,
       }}

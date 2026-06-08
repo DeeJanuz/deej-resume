@@ -30,8 +30,13 @@ const GABEY_BIRD_WINDOW_WIDTH = 760;
 const GABEY_BIRD_WINDOW_HEIGHT = 600;
 const SNEK_WINDOW_WIDTH = 680;
 const SNEK_WINDOW_HEIGHT = 560;
-const MCPVIEWS_WINDOW_WIDTH = 1080;
-const MCPVIEWS_WINDOW_HEIGHT = 720;
+const PROJECT_BROWSER_WINDOW_WIDTH = 1080;
+const PROJECT_BROWSER_WINDOW_HEIGHT = 720;
+const PROJECT_BROWSER_IDS = new Set<PortfolioSectionId>([
+  "mcpviews",
+  "decidr-mcp",
+  "ludflow",
+]);
 
 const iconData = Object.fromEntries(
   desktopItems.map((item) => [item.id, { label: item.label, iconLabel: item.iconLabel, accent: item.accent }])
@@ -144,14 +149,14 @@ export function Desktop() {
         };
       }
 
-      if (sectionId === "mcpviews") {
+      if (PROJECT_BROWSER_IDS.has(sectionId)) {
         const size = {
           width: Math.min(
-            MCPVIEWS_WINDOW_WIDTH,
+            PROJECT_BROWSER_WINDOW_WIDTH,
             Math.max(360, viewportWidth - WINDOW_HORIZONTAL_MARGIN * 2),
           ),
           height: Math.min(
-            MCPVIEWS_WINDOW_HEIGHT,
+            PROJECT_BROWSER_WINDOW_HEIGHT,
             Math.max(480, viewportHeight - WINDOW_TOP_MARGIN - WINDOW_BOTTOM_MARGIN),
           ),
         };
@@ -341,16 +346,13 @@ export function Desktop() {
 
   const activeDockWindows = windows.filter((w) => w.isOpen || w.isMinimized);
 
-  const orderedWindows = [...windows].sort(
-    (left, right) => left.zIndex - right.zIndex
-  );
-  const floatingIpod = orderedWindows.find(
+  const floatingIpod = windows.find(
     (windowState) =>
       windowState.id === "ipod" &&
       windowState.isOpen &&
       !windowState.isMinimized,
   );
-  const framedWindows = orderedWindows.filter(
+  const framedWindows = windows.filter(
     (windowState) => windowState.id !== "ipod",
   );
 

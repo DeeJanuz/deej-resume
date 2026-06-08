@@ -3,7 +3,7 @@
 import { useCallback } from "react";
 import { ResumeWindowContent } from "@/components/content/ResumeWindowContent";
 import { GabeyBirdApp } from "@/components/desktop/GabeyBirdApp";
-import { McpViewsApp } from "@/components/desktop/McpViewsApp";
+import { ProjectBrowserApp } from "@/components/desktop/McpViewsApp";
 import { SnekApp } from "@/components/desktop/SnekApp";
 import { Window } from "@/components/window/Window";
 import type { ResumeContent, WindowAction, WindowState } from "@/types";
@@ -17,6 +17,20 @@ interface WindowContainerProps {
 }
 
 const MENU_BAR_HEIGHT = 25;
+const PROJECT_BROWSER_TARGETS = {
+  mcpviews: {
+    title: "MCPViews",
+    url: "https://mcpviews.com",
+  },
+  "decidr-mcp": {
+    title: "DecidR MCP",
+    url: "https://decidrmcp.com",
+  },
+  ludflow: {
+    title: "Ludflow",
+    url: "https://ludflow.com",
+  },
+} as const;
 
 export function WindowContainer({
   windowState,
@@ -87,6 +101,10 @@ export function WindowContainer({
     },
     [dispatch, windowState.id],
   );
+  const projectBrowserTarget =
+    windowState.id in PROJECT_BROWSER_TARGETS
+      ? PROJECT_BROWSER_TARGETS[windowState.id as keyof typeof PROJECT_BROWSER_TARGETS]
+      : null;
 
   return (
     <Window
@@ -114,8 +132,11 @@ export function WindowContainer({
         <GabeyBirdApp />
       ) : windowState.id === "snek" ? (
         <SnekApp />
-      ) : windowState.id === "mcpviews" ? (
-        <McpViewsApp />
+      ) : projectBrowserTarget ? (
+        <ProjectBrowserApp
+          initialUrl={projectBrowserTarget.url}
+          title={projectBrowserTarget.title}
+        />
       ) : (
         <ResumeWindowContent resume={resume} />
       )}

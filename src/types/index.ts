@@ -1,4 +1,11 @@
-export type PortfolioSectionId = "resume" | "ipod" | "gabey-bird" | "snek" | "mcpviews";
+export type PortfolioSectionId =
+  | "resume"
+  | "ipod"
+  | "gabey-bird"
+  | "snek"
+  | "mcpviews"
+  | "decidr-mcp"
+  | "ludflow";
 export type ResumeSectionId =
   | "summary"
   | "experience"
@@ -94,6 +101,9 @@ export interface PortfolioImage {
   src: string;
   alt: string;
   caption?: string;
+  width?: number;
+  height?: number;
+  objectPosition?: string;
 }
 
 export interface PortfolioCard {
@@ -141,6 +151,7 @@ export interface ResumeExecutiveSummary {
 export interface ResumeContentSection {
   id: Exclude<ResumeSectionId, "summary">;
   navLabel: string;
+  showHero?: boolean;
   eyebrow: string;
   title: string;
   intro: string;
