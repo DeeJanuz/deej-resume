@@ -9,18 +9,18 @@ interface ProjectBrowserAppProps {
   title?: string;
 }
 
-const FRAME_BLOCKED_HOSTS = new Set(["decidrmcp.com", "ludflow.com"]);
+function normalizeAddressValue(value: string, fallbackUrl: string) {
+  const trimmed = value.trim();
 
-function getUrlHost(value: string) {
-  try {
-    return new URL(value).hostname.replace(/^www\./, "");
-  } catch {
-    return "";
+  if (!trimmed) {
+    return fallbackUrl;
   }
-}
 
-function isFrameBlockedUrl(value: string) {
-  return FRAME_BLOCKED_HOSTS.has(getUrlHost(value));
+  if (/^https?:\/\//i.test(trimmed)) {
+    return trimmed;
+  }
+
+  return `https://${trimmed}`;
 }
 
 export function ProjectBrowserApp({
@@ -31,20 +31,6 @@ export function ProjectBrowserApp({
   const [addressValue, setAddressValue] = useState(initialUrl);
   const [currentUrl, setCurrentUrl] = useState(initialUrl);
 
-  function normalizeUrl(value: string) {
-    const trimmed = value.trim();
-
-    if (!trimmed) {
-      return currentUrl;
-    }
-
-    if (/^https?:\/\//i.test(trimmed)) {
-      return trimmed;
-    }
-
-    return `https://${trimmed}`;
-  }
-
   function reloadPage() {
     setFrameKey((key) => key + 1);
   }
@@ -52,7 +38,7 @@ export function ProjectBrowserApp({
   function handleNavigate(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const nextUrl = normalizeUrl(addressValue);
+    const nextUrl = normalizeAddressValue(addressValue, currentUrl);
     setAddressValue(nextUrl);
     setCurrentUrl(nextUrl);
     setFrameKey((key) => key + 1);
@@ -108,51 +94,14 @@ export function ProjectBrowserApp({
       </form>
 
       <div className="relative min-h-0 flex-1 bg-white">
-        {isFrameBlockedUrl(currentUrl) ? (
-          <div className="flex h-full items-center justify-center bg-[#f8f7f2] px-6 text-center">
-            <div className="max-w-sm rounded-lg border border-stone-200 bg-white p-6 shadow-sm">
-              <p className="text-[11px] font-semibold uppercase tracking-normal text-stone-500">
-                Embedded Preview Unavailable
-              </p>
-              <h2 className="mt-2 text-lg font-semibold text-stone-950">
-                {title}
-              </h2>
-              <p className="mt-2 text-sm leading-6 text-stone-600">
-                This site blocks iframe previews, so it needs to open in a browser tab.
-              </p>
-              <a
-                href={currentUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="mt-5 inline-flex items-center gap-2 rounded-md border border-stone-300 bg-stone-900 px-3 py-2 text-[12px] font-semibold text-white transition hover:bg-stone-700"
-              >
-                Open Site
-                <svg
-                  aria-hidden="true"
-                  className="h-3.5 w-3.5"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                >
-                  <path d="M7 17 17 7" />
-                  <path d="M9 7h8v8" />
-                </svg>
-              </a>
-            </div>
-          </div>
-        ) : (
-          <iframe
-            key={frameKey}
-            title={title}
-            src={currentUrl}
-            className="h-full w-full border-0"
-            referrerPolicy="no-referrer-when-downgrade"
-            sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
-          />
-        )}
+        <iframe
+          key={frameKey}
+          title={title}
+          src={currentUrl}
+          className="h-full w-full border-0"
+          referrerPolicy="no-referrer-when-downgrade"
+          sandbox="allow-forms allow-modals allow-same-origin allow-scripts"
+        />
       </div>
     </div>
   );

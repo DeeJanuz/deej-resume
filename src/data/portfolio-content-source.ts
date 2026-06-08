@@ -16,7 +16,7 @@ export const contentSource = {
     "executiveSummary": {
       "eyebrow": "Executive Summary",
       "title": "Forward-Deployed AI Product Engineer",
-      "intro": "I build trusted AI workflow software across product, data, integrations, and security.",
+      "intro": "I build trusted AI workflow software across product, data, integrations, and security. I work best where founders and operators need someone to find the real problem, shape the product surface, wire the systems, and mentor non-technical teams into practical AI use.",
       "summary": "I work best where founders and operators need someone to find the real problem, shape the product surface, wire the systems, and mentor non-technical teams into practical AI use.",
       "accent": "#2f6b73",
       "heroGradient": "linear-gradient(135deg, rgba(47, 107, 115, 0.18) 0%, rgba(195, 226, 230, 0.9) 100%)",
@@ -230,7 +230,7 @@ export const contentSource = {
             "title": "Work Experience",
             "eyebrow": "Ivy Energy | 2019 - Present",
             "paragraphs": [
-              "I started with Ivy Energy in 2019 as a contractor doing web development work, then grew with the company as its needs changed. The role expanded from building useful web surfaces into IT ownership, Salesforce administration, data engineering, AI enablement, and eventually the cybersecurity program.",
+              "I started with Ivy Energy in 2019 as a contractor doing web development work, then grew with the company as its needs changed. The role expanded from building useful web surfaces into IT ownership, Salesforce administration, data engineering, AI enablement, and the organizations cybersecurity program.",
               "That path is the best shorthand for how I work: I find the real operational need, take responsibility for the messy middle, and keep learning the systems required to make the work durable."
             ],
             "bullets": [
@@ -382,7 +382,7 @@ export const contentSource = {
           {
             "title": "DIY solar and backup power",
             "eyebrow": "Power projects",
-            "description": "I have a strong interest in DIY solar and 120/240v backup systems: practical electrical architecture, resilience, safe wiring patterns, and building systems that keep working when the easy path fails.",
+            "description": "I have a strong interest in DIY solar and 120/240v backup systems: practical electrical architecture, resilience, safe wiring patterns, and building systems that keep working when all else fails.",
             "tags": [
               "DIY solar",
               "120/240v backup",

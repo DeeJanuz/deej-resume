@@ -158,8 +158,8 @@ function ResumeContentCard({
   rootRef,
 }: ResumeContentCardProps) {
   return (
-    <ScrollReveal rootRef={rootRef} delay={cardIndex * 25}>
-      <article className="rounded-lg border border-stone-200 bg-white p-4">
+    <ScrollReveal rootRef={rootRef} delay={cardIndex * 25} className="h-full">
+      <article className="flex h-full flex-col rounded-lg border border-stone-200 bg-white p-4">
         {card.eyebrow ? (
           <EditableText
             as="p"
@@ -316,21 +316,6 @@ export function ResumeExecutiveSummaryHero({
         </div>
 
         <div className="resume-summary-proof-row border-t border-stone-200 px-5 py-5 sm:px-6">
-          <div
-            className="border-l-2 pl-4"
-            style={{ borderColor: summary.accent }}
-          >
-            <p className="text-[11px] font-semibold uppercase tracking-normal text-stone-500">
-              Why Teams Bring Me In
-            </p>
-            <EditableText
-              as="p"
-              path={["resume", "executiveSummary", "summary"]}
-              text={summary.summary}
-              className="mt-2 max-w-4xl text-[13px] leading-6 text-stone-700"
-            />
-          </div>
-
           <SectionMetricStrip
             accent={summary.accent}
             metrics={summary.metrics}
@@ -382,15 +367,6 @@ export function ResumeSectionBody({
   const desktopQuickFactColumns = section.quickFacts.reduce<Array<string[]>>(
     (columns, fact, factIndex) => {
       columns[factIndex % 2].push(fact);
-      return columns;
-    },
-    [[], []],
-  );
-  const desktopCardColumns = section.cards.reduce<
-    Array<Array<{ card: ResumeContentSection["cards"][number]; cardIndex: number }>>
-  >(
-    (columns, card, cardIndex) => {
-      columns[cardIndex % 2].push({ card, cardIndex });
       return columns;
     },
     [[], []],
@@ -536,20 +512,16 @@ export function ResumeSectionBody({
         ))}
       </div>
 
-      <div className="resume-card-columns hidden gap-4 lg:grid lg:grid-cols-2 lg:items-start">
-        {desktopCardColumns.map((column, columnIndex) => (
-          <div key={`column-${columnIndex}`} className="space-y-4">
-            {column.map(({ card, cardIndex }) => (
-              <ResumeContentCard
-                key={`${card.title}-${cardIndex}`}
-                section={section}
-                sectionIndex={sectionIndex}
-                card={card}
-                cardIndex={cardIndex}
-                rootRef={rootRef}
-              />
-            ))}
-          </div>
+      <div className="resume-card-columns hidden gap-4 lg:grid lg:grid-cols-2">
+        {section.cards.map((card, cardIndex) => (
+          <ResumeContentCard
+            key={`${card.title}-${cardIndex}`}
+            section={section}
+            sectionIndex={sectionIndex}
+            card={card}
+            cardIndex={cardIndex}
+            rootRef={rootRef}
+          />
         ))}
       </div>
 
