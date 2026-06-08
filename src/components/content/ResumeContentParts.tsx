@@ -331,6 +331,7 @@ export function ResumeExecutiveSummaryHero({
         <div className="resume-summary-proof-row border-t border-stone-200 px-5 py-5 sm:px-6">
           <SectionMetricStrip
             accent={summary.accent}
+            className="mt-0"
             metrics={summary.metrics}
             pathPrefix={["resume", "executiveSummary", "metrics"]}
           />
@@ -426,6 +427,19 @@ export function ResumeSectionBody({
                   text={section.summary}
                   className="mt-3 text-[13px] leading-6 text-stone-600"
                 />
+
+                {section.metrics.length > 0 ? (
+                  <SectionMetricStrip
+                    accent={section.accent}
+                    className="mt-5"
+                    metrics={section.metrics}
+                    pathPrefix={["resume", "sections", sectionIndex, "metrics"]}
+                    getMetricTargetId={
+                      section.id === "projects" ? getProjectMetricTargetId : undefined
+                    }
+                    onOpenTarget={onOpenProjectBrowser}
+                  />
+                ) : null}
               </div>
 
               {heroImage ? (
@@ -441,20 +455,6 @@ export function ResumeSectionBody({
                 </div>
               ) : null}
             </div>
-
-            {section.metrics.length > 0 ? (
-              <div className="resume-section-metrics border-t border-white/55 px-5 py-5 sm:px-6">
-                <SectionMetricStrip
-                  accent={section.accent}
-                  metrics={section.metrics}
-                  pathPrefix={["resume", "sections", sectionIndex, "metrics"]}
-                  getMetricTargetId={
-                    section.id === "projects" ? getProjectMetricTargetId : undefined
-                  }
-                  onOpenTarget={onOpenProjectBrowser}
-                />
-              </div>
-            ) : null}
           </div>
         </ScrollReveal>
       ) : null}

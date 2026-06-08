@@ -7,6 +7,7 @@ import { toRgba } from "./sectionVisualUtils";
 
 interface SectionMetricStripProps {
   accent: string;
+  className?: string;
   metrics: readonly PortfolioMetric[];
   pathPrefix: EditableContentPath;
   getMetricTargetId?: (
@@ -18,6 +19,7 @@ interface SectionMetricStripProps {
 
 export function SectionMetricStrip({
   accent,
+  className = "mt-4",
   metrics,
   pathPrefix,
   getMetricTargetId,
@@ -30,7 +32,14 @@ export function SectionMetricStrip({
   }
 
   return (
-    <div className="resume-metric-strip mt-6 grid gap-3 sm:grid-cols-3">
+    <div
+      className={[
+        "resume-metric-strip grid gap-3 sm:grid-cols-3",
+        className,
+      ]
+        .filter(Boolean)
+        .join(" ")}
+    >
       {visibleMetrics.map((metric, index) => {
         const targetId = getMetricTargetId?.(metric, index) ?? null;
         const className =

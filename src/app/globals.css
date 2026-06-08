@@ -306,8 +306,7 @@ button {
 }
 
 .resume-value-pillars,
-.resume-summary-proof-row,
-.resume-section-metrics {
+.resume-summary-proof-row {
   padding-right: 1.5rem;
   padding-left: 1.5rem;
 }
@@ -347,8 +346,7 @@ button {
   }
 
   .resume-value-pillars,
-  .resume-summary-proof-row,
-  .resume-section-metrics {
+  .resume-summary-proof-row {
     padding-right: 2rem;
     padding-left: 2rem;
   }
