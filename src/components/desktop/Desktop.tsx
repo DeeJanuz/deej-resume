@@ -30,8 +30,6 @@ const GABEY_BIRD_WINDOW_WIDTH = 760;
 const GABEY_BIRD_WINDOW_HEIGHT = 600;
 const SNEK_WINDOW_WIDTH = 680;
 const SNEK_WINDOW_HEIGHT = 560;
-const PROJECT_BROWSER_WINDOW_WIDTH = 1080;
-const PROJECT_BROWSER_WINDOW_HEIGHT = 720;
 const PROJECT_BROWSER_IDS = new Set<PortfolioSectionId>([
   "mcpviews",
   "decidr-mcp",
@@ -41,6 +39,19 @@ const PROJECT_BROWSER_IDS = new Set<PortfolioSectionId>([
 const iconData = Object.fromEntries(
   desktopItems.map((item) => [item.id, { label: item.label, iconLabel: item.iconLabel, accent: item.accent }])
 ) as Record<PortfolioSectionId, { label: string; iconLabel: string; accent: string }>;
+
+function getResumeWindowSize(viewportWidth: number, viewportHeight: number) {
+  return {
+    width: Math.min(
+      Math.round(viewportWidth * DEFAULT_WINDOW_WIDTH_RATIO),
+      viewportWidth - WINDOW_HORIZONTAL_MARGIN * 2,
+    ),
+    height: Math.min(
+      Math.round(viewportHeight * DEFAULT_WINDOW_HEIGHT_RATIO),
+      viewportHeight - WINDOW_TOP_MARGIN - WINDOW_BOTTOM_MARGIN,
+    ),
+  };
+}
 
 export function Desktop() {
   const { resume } = usePortfolioContent();
@@ -150,16 +161,7 @@ export function Desktop() {
       }
 
       if (PROJECT_BROWSER_IDS.has(sectionId)) {
-        const size = {
-          width: Math.min(
-            PROJECT_BROWSER_WINDOW_WIDTH,
-            Math.max(360, viewportWidth - WINDOW_HORIZONTAL_MARGIN * 2),
-          ),
-          height: Math.min(
-            PROJECT_BROWSER_WINDOW_HEIGHT,
-            Math.max(480, viewportHeight - WINDOW_TOP_MARGIN - WINDOW_BOTTOM_MARGIN),
-          ),
-        };
+        const size = getResumeWindowSize(viewportWidth, viewportHeight);
         const position = {
           x: Math.max(
             WINDOW_HORIZONTAL_MARGIN,
@@ -179,16 +181,7 @@ export function Desktop() {
         };
       }
 
-      const size = {
-        width: Math.min(
-          Math.round(viewportWidth * DEFAULT_WINDOW_WIDTH_RATIO),
-          viewportWidth - WINDOW_HORIZONTAL_MARGIN * 2,
-        ),
-        height: Math.min(
-          Math.round(viewportHeight * DEFAULT_WINDOW_HEIGHT_RATIO),
-          viewportHeight - WINDOW_TOP_MARGIN - WINDOW_BOTTOM_MARGIN,
-        ),
-      };
+      const size = getResumeWindowSize(viewportWidth, viewportHeight);
       const position = {
         x: Math.min(
           resume.defaultWindow.position.x,
