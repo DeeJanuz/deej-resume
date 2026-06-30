@@ -1,6 +1,7 @@
 "use client";
 
-import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
+import type { KeyboardEvent } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { encryptedProposal } from "./encryptedProposal";
 
 type UnlockState = "idle" | "checking" | "ready" | "error" | "locked";
@@ -132,6 +133,8 @@ export function MakeWellnessProposalClient() {
   const [unlockState, setUnlockState] = useState<UnlockState>("idle");
   const [pdfState, setPdfState] = useState<PdfState>("idle");
   const [attempts, setAttempts] = useState(0);
+  const passwordInputRef = useRef<HTMLInputElement>(null);
+  const botFieldRef = useRef<HTMLInputElement>(null);
   const proposalRef = useRef<HTMLDivElement>(null);
 
   const handleDownloadPdf = useCallback(async () => {
@@ -232,17 +235,13 @@ export function MakeWellnessProposalClient() {
     button.textContent = pdfState === "generating" ? "Building PDF" : "Print";
   }, [pdfState, proposal]);
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
+  async function handleUnlock() {
     if (unlockState === "checking" || unlockState === "locked") {
       return;
     }
 
-    const form = event.currentTarget;
-    const formData = new FormData(form);
-    const password = String(formData.get("password") ?? "");
-    const botField = String(formData.get("website") ?? "");
+    const password = passwordInputRef.current?.value ?? "";
+    const botField = botFieldRef.current?.value ?? "";
 
     if (botField) {
       setUnlockState("locked");
@@ -255,12 +254,26 @@ export function MakeWellnessProposalClient() {
       const decryptedHtml = await decryptProposal(password);
       setProposal(parseProposalHtml(decryptedHtml));
       setUnlockState("ready");
-      form.reset();
+      if (passwordInputRef.current) {
+        passwordInputRef.current.value = "";
+      }
+      if (botFieldRef.current) {
+        botFieldRef.current.value = "";
+      }
     } catch {
       const nextAttempts = attempts + 1;
       setAttempts(nextAttempts);
       setUnlockState(nextAttempts >= 5 ? "locked" : "error");
     }
+  }
+
+  function handlePasswordKeyDown(event: KeyboardEvent<HTMLInputElement>) {
+    if (event.key !== "Enter") {
+      return;
+    }
+
+    event.preventDefault();
+    void handleUnlock();
   }
 
   if (proposal) {
@@ -332,7 +345,7 @@ export function MakeWellnessProposalClient() {
           >
             MAKE Wellness
           </h1>
-          <form className="mt-8 grid gap-4" onSubmit={handleSubmit}>
+          <div className="mt-8 grid gap-4">
             <div>
               <label
                 className="mb-2 block text-xs font-black uppercase tracking-[0.18em] text-[#322e29]"
@@ -346,6 +359,8 @@ export function MakeWellnessProposalClient() {
                 disabled={isLocked}
                 id="proposal-password"
                 name="password"
+                onKeyDown={handlePasswordKeyDown}
+                ref={passwordInputRef}
                 type="password"
               />
             </div>
@@ -354,13 +369,15 @@ export function MakeWellnessProposalClient() {
               autoComplete="off"
               className="pointer-events-none absolute left-[-100vw] h-0 w-0 opacity-0"
               name="website"
+              ref={botFieldRef}
               tabIndex={-1}
               type="text"
             />
             <button
               className="min-h-11 border border-[#050505] bg-[#050505] px-5 py-3 text-xs font-black uppercase tracking-[0.2em] text-white transition hover:bg-white hover:text-[#050505] focus:bg-white focus:text-[#050505] focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
               disabled={isChecking || isLocked}
-              type="submit"
+              onClick={() => void handleUnlock()}
+              type="button"
             >
               {isChecking ? "Checking" : "Unlock"}
             </button>
@@ -368,7 +385,7 @@ export function MakeWellnessProposalClient() {
               {unlockState === "error" ? "That password did not work." : null}
               {unlockState === "locked" ? "Access paused after too many attempts." : null}
             </p>
-          </form>
+          </div>
         </section>
       </div>
     </main>
