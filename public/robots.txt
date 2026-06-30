@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /make-wellness
+Disallow: /make-wellness/
+Disallow: /proposals/make-wellness/

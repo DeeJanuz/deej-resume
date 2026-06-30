@@ -2,5 +2,16 @@
   X-Frame-Options: DENY
   Permissions-Policy: accelerometer=(), autoplay=(), camera=(), display-capture=(), geolocation=(), gyroscope=(), microphone=(), payment=(), usb=()
 
+/make-wellness
+  X-Robots-Tag: noindex, nofollow, noarchive, nosnippet, noimageindex
+  Cache-Control: no-store
+
+/make-wellness/*
+  X-Robots-Tag: noindex, nofollow, noarchive, nosnippet, noimageindex
+  Cache-Control: no-store
+
+/proposals/make-wellness/*
+  X-Robots-Tag: noindex, nofollow, noarchive, nosnippet, noimageindex
+
 /_next/static/*
   Cache-Control: public, max-age=31536000, immutable
