@@ -157,29 +157,6 @@ button {
   }
 }
 
-@keyframes resumeRevealIn {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes resumeGraphicFloat {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-5px);
-  }
-}
-
 .glass-panel {
   border: 1px solid rgba(255, 255, 255, 0.4);
   background: rgba(255, 255, 255, 0.72);
@@ -222,30 +199,12 @@ button {
   animation: equalizerPulse 900ms ease-in-out infinite;
 }
 
-.resume-reveal {
-  opacity: 0;
-  transform: translateY(10px);
-  transition:
-    opacity 280ms cubic-bezier(0.16, 1, 0.3, 1),
-    transform 280ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.resume-reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.resume-graphic-float {
-  animation: resumeGraphicFloat 8s ease-in-out infinite;
-}
-
 .resume-container {
   container: resume / inline-size;
 }
 
-.resume-window-layout,
-.resume-summary-hero-grid,
-.resume-section-hero-grid {
+.resume-window-layout {
+  display: grid;
   grid-template-columns: minmax(0, 1fr);
 }
 
@@ -253,166 +212,359 @@ button {
   display: none;
 }
 
-.resume-window-scroll-content {
-  padding: 1rem;
+.resume-paper {
+  background: #fbfaf7;
 }
 
-.resume-summary-hero-grid {
-  padding: 1.5rem 1.25rem;
+.resume-document {
+  max-width: 54rem;
+  margin: 0 auto;
+  padding: 2.25rem 1.5rem 5rem;
 }
 
-.resume-section-hero-grid {
-  padding: 1.25rem;
+.resume-link {
+  color: var(--accent, #2f6b73);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--accent, #2f6b73) 35%, transparent);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 150ms ease;
 }
 
-.resume-summary-title {
-  font-size: 1.9rem;
+.resume-link:hover {
+  text-decoration-color: var(--accent, #2f6b73);
 }
 
-.resume-summary-intro {
-  font-size: 0.9375rem;
+.resume-link:focus-visible,
+.resume-preview-button:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--accent, #2f6b73) 45%, transparent);
+  outline-offset: 2px;
+  border-radius: 3px;
 }
 
-.resume-section-title {
-  font-size: 1.5rem;
+.resume-preview-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.2rem 0.6rem;
+  border: 1px solid color-mix(in srgb, var(--accent, #2f6b73) 40%, transparent);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--accent, #2f6b73) 6%, transparent);
+  color: var(--accent, #2f6b73);
+  font-weight: 600;
+  transition: background-color 150ms ease;
 }
 
-.resume-section-intro {
-  font-size: 0.8125rem;
+.resume-preview-button:hover {
+  background: color-mix(in srgb, var(--accent, #2f6b73) 13%, transparent);
 }
 
-.resume-summary-image-wrap {
-  max-width: min(100%, 18rem);
+.resume-masthead {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 1.25rem;
 }
 
-.resume-section-image-wrap {
-  max-width: min(100%, 21rem);
+.resume-name {
+  font-size: clamp(2.5rem, 10cqi, 4.75rem);
+  line-height: 0.95;
+  letter-spacing: -0.025em;
 }
 
-.resume-value-pillars,
-.resume-metric-strip,
-.resume-card-columns {
-  grid-template-columns: minmax(0, 1fr);
+.resume-portrait {
+  width: 6.5rem;
+  aspect-ratio: 4 / 5;
 }
 
-.resume-quickfacts-single,
-.resume-card-list {
-  display: block;
+.resume-lead {
+  font-family: var(--font-display-family);
+  font-size: 1.2rem;
+  line-height: 1.6;
 }
 
-.resume-quickfacts-columns,
-.resume-card-columns {
+.resume-lead--section {
+  font-size: 1.1rem;
+}
+
+.resume-highlights {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.resume-highlight {
+  padding-top: 0.75rem;
+  border-top: 2px solid var(--accent, #2f6b73);
+}
+
+.resume-section {
+  margin-top: 4.5rem;
+}
+
+.resume-section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.875rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--accent, #2f6b73);
+}
+
+.resume-section-number {
+  color: var(--accent, #2f6b73);
+  font-family: var(--font-display-family);
+  font-size: 1.15rem;
+  font-style: italic;
+  font-variant-numeric: tabular-nums;
+}
+
+.resume-entries {
+  display: grid;
+  gap: 2.25rem 2.5rem;
+}
+
+.resume-entry {
+  padding-top: 1rem;
+  border-top: 1px solid #d6d3d1;
+}
+
+.resume-entry li::marker,
+.resume-note li::marker {
+  color: var(--accent, #2f6b73);
+}
+
+.resume-note {
+  padding: 1.25rem 1.5rem;
+  border-left: 3px solid var(--accent, #2f6b73);
+  background: color-mix(in srgb, var(--accent, #2f6b73) 5%, #fbfaf7);
+}
+
+.resume-group {
+  border-top: 1px solid #d6d3d1;
+}
+
+.resume-group:last-child {
+  border-bottom: 1px solid #d6d3d1;
+}
+
+.resume-group-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0.75rem;
+  padding: 1rem 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.resume-group-summary::-webkit-details-marker {
   display: none;
 }
 
-.resume-value-pillars,
-.resume-summary-proof-row {
-  padding-right: 1.5rem;
-  padding-left: 1.5rem;
+.resume-group-summary:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--accent, #2f6b73) 45%, transparent);
+  outline-offset: 2px;
+  border-radius: 3px;
 }
 
-.resume-quickfacts-card {
-  padding-right: 1.5rem;
-  padding-left: 1.5rem;
+.resume-group-chevron {
+  width: 0.8rem;
+  height: 0.8rem;
+  flex-shrink: 0;
+  color: var(--accent, #2f6b73);
+  transition: transform 150ms ease;
 }
 
-.resume-detail-image-wrap {
-  max-width: min(100%, 40rem);
+.resume-group[open] .resume-group-chevron {
+  transform: rotate(90deg);
 }
 
-@container resume (min-width: 560px) {
-  .resume-summary-hero-grid {
-    padding: 1.5rem;
-  }
-
-  .resume-section-hero-grid {
-    padding: 1.5rem;
-  }
-
-  .resume-summary-title {
-    font-size: 2.35rem;
-  }
-
-  .resume-summary-intro {
-    font-size: 0.9375rem;
-  }
-
-  .resume-section-title {
-    font-size: 1.875rem;
-  }
-
-  .resume-section-intro {
-    font-size: 0.875rem;
-  }
-
-  .resume-value-pillars,
-  .resume-summary-proof-row {
-    padding-right: 2rem;
-    padding-left: 2rem;
-  }
+.resume-group[open] .resume-group-names {
+  display: none;
 }
 
-@container resume (min-width: 700px) {
-  .resume-metric-strip {
+.resume-group > .resume-entries {
+  padding: 0.25rem 0 2.25rem;
+}
+
+.resume-tags {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.72rem;
+}
+
+@container resume (min-width: 640px) {
+  .resume-document {
+    padding: 3rem 2.75rem 6rem;
+  }
+
+  .resume-masthead {
+    gap: 2.5rem;
+  }
+
+  .resume-portrait {
+    width: 11.5rem;
+  }
+
+  .resume-lead {
+    font-size: 1.3rem;
+  }
+
+  .resume-lead--section {
+    font-size: 1.15rem;
+  }
+
+  .resume-highlights {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.75rem;
   }
 
-  .resume-quickfacts-single {
-    display: none;
-  }
-
-  .resume-quickfacts-columns {
-    display: grid;
+  .resume-entries {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @container resume (min-width: 820px) {
   .resume-window-layout {
-    grid-template-columns: 220px minmax(0, 1fr);
+    grid-template-columns: 200px minmax(0, 1fr);
   }
 
   .resume-window-sidebar {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .resume-window-scroll-content {
-    padding: 1.25rem;
+    display: block;
   }
 }
 
-@container resume (min-width: 900px) {
-  .resume-value-pillars {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
+.project-readme {
+  color: #292524;
+  font-size: 0.875rem;
+  line-height: 1.7;
 }
 
-@container resume (min-width: 1000px) {
-  .resume-summary-hero-grid--with-image {
-    grid-template-columns: clamp(14rem, 20cqw, 18rem) minmax(0, 1fr);
-    align-items: center;
-  }
+.project-readme > :first-child {
+  margin-top: 0;
+}
 
-  .resume-section-hero-grid--with-image {
-    grid-template-columns: minmax(0, 1.2fr) clamp(16rem, 22cqw, 21rem);
-    align-items: center;
-  }
+.project-readme h1,
+.project-readme h2,
+.project-readme h3 {
+  color: #0c0a09;
+  font-weight: 650;
+  line-height: 1.25;
+}
 
-  .resume-summary-image-wrap,
-  .resume-section-image-wrap {
-    max-width: none;
-  }
+.project-readme h1 {
+  margin: 0 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e7e5e4;
+  font-size: 1.875rem;
+}
 
-  .resume-card-list {
-    display: none;
-  }
+.project-readme h2 {
+  margin: 2rem 0 0.75rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid #e7e5e4;
+  font-size: 1.35rem;
+}
 
-  .resume-card-columns {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+.project-readme h3 {
+  margin: 1.5rem 0 0.5rem;
+  font-size: 1.05rem;
+}
+
+.project-readme p,
+.project-readme ul,
+.project-readme ol,
+.project-readme pre,
+.project-readme table,
+.project-readme blockquote {
+  margin: 0 0 1rem;
+}
+
+.project-readme ul,
+.project-readme ol {
+  padding-left: 1.5rem;
+}
+
+.project-readme ul {
+  list-style: disc;
+}
+
+.project-readme ol {
+  list-style: decimal;
+}
+
+.project-readme li + li {
+  margin-top: 0.35rem;
+}
+
+.project-readme li > p,
+.project-readme li > pre {
+  margin: 0.5rem 0;
+}
+
+.project-readme a {
+  color: #2d5f93;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.project-readme code {
+  padding: 0.1em 0.35em;
+  border: 1px solid #e7e5e4;
+  border-radius: 4px;
+  background: #f5f5f4;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.85em;
+}
+
+.project-readme pre {
+  overflow-x: auto;
+  padding: 0.85rem 1rem;
+  border-radius: 8px;
+  background: #1c1917;
+  color: #f5f5f4;
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
+
+.project-readme pre code {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font-size: inherit;
+}
+
+.project-readme table {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+
+.project-readme th,
+.project-readme td {
+  padding: 0.45rem 0.75rem;
+  border: 1px solid #e7e5e4;
+  text-align: left;
+  vertical-align: top;
+}
+
+.project-readme th {
+  background: #fafaf9;
+  font-weight: 600;
+}
+
+.project-readme blockquote {
+  padding-left: 1rem;
+  border-left: 3px solid #d6d3d1;
+  color: #57534e;
+}
+
+.project-readme hr {
+  margin: 1.5rem 0;
+  border: 0;
+  border-top: 1px solid #e7e5e4;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -423,14 +575,5 @@ button {
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
-  }
-
-  .resume-reveal {
-    opacity: 1 !important;
-    transform: none !important;
-  }
-
-  .resume-graphic-float {
-    animation: none !important;
   }
 }

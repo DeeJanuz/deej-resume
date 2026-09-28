@@ -54,9 +54,12 @@ No automated tests exist yet. The sections below describe the first tests that s
 - WindowContainer: memoized callback props, correct dispatch forwarding (`WindowContainer`)
 - Dock: dynamic rendering of open/minimized windows, click-to-minimize/restore/focus (`Dock`)
 - Desktop quick-look previews: hover/focus visibility, hidden state on blur/leave, and viewport-safe placement (`DesktopFiles`, `DesktopQuickLook`)
-- Generated section artwork and metric strips render image-backed and generated states (`SectionPoster`, `SectionMetricStrip`)
+- Section highlights render one term and description row per metric (`SectionHighlights`)
+- Grouped cards render one collapsible block per `group`, keep their original indexes for inline-edit paths, and open only the first group (`ResumeContentParts`)
+- Resume entries show a Preview action only when the card has a `windowId` and a window opener is passed, so mobile shows links only (`ResumeContentParts`)
 - iPod app controls: play/pause, previous/next, progress display, click-wheel seek gestures, drag handle, and glass close affordance (`IpodApp`)
 - Desktop game apps: dynamic Phaser mount, loading/error fallback, input controls, resize-safe canvas layout, and per-game desktop icon rendering (`GabeyBirdApp`, `SnekApp`, `DesktopFiles`)
+- Project README window: renders GFM tables and fenced code, resolves repo-relative links and images to GitHub, drops unsafe URL protocols, opens links in a new tab, and shows the saved commit (`ProjectReadmeApp`)
 - Mobile fallback rendering for the same content source (`MobileLanding`)
 - Resume window rendering for the primary hire-me flow (`PortfolioWindowContent`)
 - Inline editing affordances (`EditableText`, `ContentDevTool`):
@@ -76,6 +79,7 @@ No automated tests exist yet. The sections below describe the first tests that s
 - Hovering or focusing a desktop item shows a non-interactive quick-look preview without blocking click-to-open
 - The iPod app opens from its desktop icon, can be dragged independently, and can be closed without changing the resume window state
 - Gabey Bird and Snek open from distinct desktop icons, render inside standard windows, and do not interfere with the resume window state
+- The Frametop desktop icon and the Preview action on the Frametop entry both open the Frametop README window, and its "View on GitHub" link targets the repo
 - Snek supports keyboard/swipe direction changes, wraps across board walls, preserves self-collision, and shades the body from bright head to dim tail
 - Query-state hydration opens expected windows on page load (not yet implemented)
 - External contact actions route users to the correct destination

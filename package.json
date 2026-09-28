@@ -6,7 +6,8 @@
     "dev": "node scripts/dev-with-inline-editor.mjs",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "sync:frametop-readme": "node scripts/sync-frametop-readme.mjs"
   },
   "dependencies": {
     "html2canvas": "^1.4.1",
@@ -14,7 +15,9 @@
     "next": "16.2.9",
     "phaser": "^3.90.0",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

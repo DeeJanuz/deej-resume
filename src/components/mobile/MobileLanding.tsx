@@ -1,12 +1,18 @@
 "use client";
 
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+  type CSSProperties,
+} from "react";
 import { EditableText } from "@/components/dev/EditableText";
 import { usePortfolioContent } from "@/components/dev/ContentDevContext";
 import type { ResumeSectionId } from "@/types";
 import {
-  ResumeExecutiveSummaryHero,
   ResumeSectionBody,
+  ResumeSummary,
   scrollWithinContainer,
 } from "@/components/content/ResumeContentParts";
 
@@ -60,6 +66,7 @@ export default function MobileLanding() {
     summary: null,
     experience: null,
     projects: null,
+    "open-source": null,
     consulting: null,
     skills: null,
     about: null,
@@ -118,66 +125,53 @@ export default function MobileLanding() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f7f1e8] text-stone-900">
+    <div className="resume-container resume-paper min-h-screen text-stone-900">
       {!isDesktopBannerDismissed ? (
-        <div className="px-4 pt-4">
-          <div className="mx-auto flex max-w-2xl items-start justify-between gap-4 rounded-[24px] border border-black/8 bg-[rgba(255,255,255,0.82)] px-4 py-3 shadow-[0_14px_28px_rgba(34,22,12,0.08)] backdrop-blur-xl">
-            <div>
-              <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-stone-500">
-                Mobile View
-              </p>
-              <p className="mt-2 text-sm leading-6 text-stone-700">
-                This content is fully accessible on mobile, but the desktop
-                version still carries the full windowed experience.
-              </p>
-            </div>
-
-            <button
-              type="button"
-              onClick={dismissDesktopBanner}
-              aria-label="Dismiss mobile viewing notice"
-              className="shrink-0 rounded-full border border-black/10 px-3 py-1.5 text-xs font-medium text-stone-600 transition hover:bg-black/5"
-            >
-              Dismiss
-            </button>
-          </div>
+        <div className="flex items-start justify-between gap-4 border-b border-stone-200 bg-stone-50 px-5 py-3">
+          <p className="text-[13px] leading-5 text-stone-600">
+            This content is fully accessible on mobile, but the desktop version
+            still carries the full windowed experience.
+          </p>
+          <button
+            type="button"
+            onClick={dismissDesktopBanner}
+            aria-label="Dismiss mobile viewing notice"
+            className="shrink-0 text-[13px] font-medium text-stone-500 underline underline-offset-[3px] transition hover:text-stone-900"
+          >
+            Dismiss
+          </button>
         </div>
       ) : null}
 
-      <section className="relative overflow-hidden px-4 pb-8 pt-12">
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.55)_0%,rgba(247,241,232,0)_100%)]" />
-        <div className="relative mx-auto max-w-2xl">
-          <EditableText
-            as="p"
-            path={["siteProfile", "location"]}
-            text={content.siteProfile.location}
-            className="text-[11px] font-semibold uppercase tracking-[0.3em] text-stone-500"
-          />
-          <EditableText
-            as="h1"
-            path={["siteProfile", "name"]}
-            text={content.siteProfile.name}
-            className="mt-4 font-sans text-[clamp(3rem,12vw,4.75rem)] font-semibold leading-[0.92] tracking-[-0.045em] text-stone-900"
-          />
-        </div>
-      </section>
+      <div
+        ref={registerSection("summary")}
+        className="mx-auto max-w-2xl px-5 pb-8 pt-8"
+      >
+        <ResumeSummary profile={content.siteProfile} resume={resume} />
+      </div>
 
-      <div className="sticky top-0 z-20 border-y border-black/6 bg-[rgba(247,241,232,0.88)] px-4 py-3 backdrop-blur-xl">
-        <div className="flex gap-2 overflow-x-auto pb-1">
+      <nav
+        aria-label="Resume sections"
+        className="sticky top-0 z-20 border-y border-stone-200 bg-[#fbfaf7]/95 backdrop-blur"
+      >
+        <div className="mx-auto flex max-w-2xl gap-5 overflow-x-auto px-5">
           {resume.navigation.map((item, index) => {
             const isActive = item.id === activeSectionId;
+            const accent =
+              resume.sections.find((section) => section.id === item.id)?.accent ??
+              resume.accent;
 
             return (
               <button
                 key={item.id}
                 type="button"
-                className="rounded-full px-4 py-2 text-sm font-medium whitespace-nowrap transition"
-                style={{
-                  backgroundColor: isActive
-                    ? resume.accent
-                    : "rgba(255,255,255,0.72)",
-                  color: isActive ? "#ffffff" : "#57534e",
-                }}
+                aria-current={isActive ? "true" : undefined}
+                style={{ "--accent": accent } as CSSProperties}
+                className={`shrink-0 whitespace-nowrap border-b-2 py-3 text-[13px] transition ${
+                  isActive
+                    ? "border-[var(--accent)] font-semibold text-stone-950"
+                    : "border-transparent text-stone-500"
+                }`}
                 onClick={() =>
                   scrollWithinContainer(sectionRefs.current[item.id], document.body)
                 }
@@ -191,15 +185,15 @@ export default function MobileLanding() {
             );
           })}
         </div>
-      </div>
+      </nav>
 
-      <main className="resume-container mx-auto max-w-2xl space-y-6 px-4 py-6">
-        <div ref={registerSection("summary")}>
-          <ResumeExecutiveSummaryHero resume={resume} />
-        </div>
-
+      <main className="mx-auto max-w-2xl px-5 pb-16">
         {resume.sections.map((section, index) => (
-          <div key={section.id} ref={registerSection(section.id)}>
+          <div
+            key={section.id}
+            ref={registerSection(section.id)}
+            className="scroll-mt-14"
+          >
             <ResumeSectionBody section={section} sectionIndex={index} />
           </div>
         ))}

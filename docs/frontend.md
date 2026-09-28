@@ -32,6 +32,8 @@ On medium and larger screens, the home page acts like a workspace:
 - Clicking a focused dock icon minimizes that window; clicking a minimized icon restores it.
 - The iPod desktop app opens as a floating media surface instead of a standard browser-like window.
 - Desktop game apps open in standard windows and mount their Phaser canvases only after the browser client loads them.
+- Project apps with a public website (MCPViews, DecidR MCP, Ludflow) open a browser-style window that iframes the site.
+- Project apps without an embeddable site (Frametop) open a window that renders a saved copy of the repo README, with a link out to GitHub.
 - The chrome should feel modern and clean rather than skeuomorphic or novelty-heavy.
 
 Current desktop items (defined in `src/data/portfolio-content.ts`):
@@ -39,6 +41,8 @@ Current desktop items (defined in `src/data/portfolio-content.ts`):
 - `iPod` (media)
 - `Gabey Bird` (game)
 - `Snek` (game)
+- `MCPViews`, `DecidR MCP`, `Ludflow` (document, browser window)
+- `Frametop` (document, README window)
 
 ### Mobile Breakpoint
 
@@ -113,7 +117,7 @@ Purpose:
 Responsibilities:
 - Desktop background and menu bar.
 - Desktop icons and folders.
-- Quick-look preview cards and generated visual posters.
+- Quick-look preview cards.
 - Metric strips and content artwork inside windows.
 - Optional floating media app surfaces.
 - Window chrome.
@@ -148,10 +152,10 @@ src/
     page.tsx              # Responsive entry: Desktop (md+) or MobileLanding
   components/
     content/
-      PortfolioWindowContent.tsx   # Renders section data inside windows
-      SectionMetricStrip.tsx       # Compact metric highlights for section heroes
-      SectionPoster.tsx            # Image-backed or generated section artwork
-      sectionVisualUtils.ts        # Pure color and generated-art helpers
+      ResumeWindowContent.tsx      # Resume window: section nav plus the document column
+      ResumeContentParts.tsx       # Summary header, sections, entries, and detail blocks
+      SectionHighlights.tsx        # Term and description rows for section highlights
+      PortfolioImageBlock.tsx      # Captioned image figure
     dev/
       ContentDevContext.tsx # Localhost-only draft state and save workflow
       ContentDevTool.tsx    # Floating toolbar for inline editing
@@ -223,12 +227,32 @@ Rules:
 - Game windows should preserve the normal desktop lifecycle: focus, close, minimize, restore, resize, and fullscreen.
 - Each game should have its own recognizable desktop icon instead of sharing a generic game tile.
 
-### Quick-Look and Poster System
+### Project README Surfaces
+
+Use this for open-source projects whose only public home is a GitHub repo. GitHub refuses to be framed, so the browser window cannot show it.
+
+Rules:
+- The README is saved into the site as a generated module (`src/data/frametop-readme.ts`), so the window never depends on GitHub at runtime. Refresh it with `npm run sync:frametop-readme`, which pulls `README.md` from the latest commit on `main` and records the commit SHA and date.
+- Do not edit the generated module by hand. Change the README upstream, then re-sync.
+- `ProjectReadmeApp` renders the markdown with `react-markdown` and `remark-gfm`. Raw HTML in the README is not rendered, and URLs go through `react-markdown`'s default protocol filter.
+- Repo-relative links resolve to `github.com/<repo>/blob/<branch>/...` and images to `.../raw/<branch>/...`. Every link opens in a new tab.
+- The window is loaded with `next/dynamic`, so the markdown libraries and README text stay out of the initial page bundle.
+
+### Quick-Look Previews
 
 Rules:
 - Quick-look previews are informational and should not trap pointer or keyboard focus.
-- Generated posters should be pure functions of section content and visual metadata.
+- Use real content only: the portrait, the title, and a short summary. No generated artwork.
 - Preview placement should stay clamped inside the visible desktop viewport.
+
+### Resume Document
+
+Rules:
+- The resume window and mobile page share `ResumeContentParts`, so both render the same document.
+- The look is an editorial profile: numbered sections, serif display type, and a per-section `--accent` color set from the section's `accent` field. See `src/styles/STYLE_GUIDE.md` for the type scale, palette, and what to avoid.
+- An entry with a `windowId` gets a "Preview" action on desktop that opens that project's window. Mobile has no windows, so it shows only the links.
+- Render each list once and let container queries change its layout. Do not render hidden duplicate copies for different breakpoints.
+- Cards with the same `group` value render together in a native `<details>` block. The first group starts open, the rest start collapsed with their project names in the summary.
 
 ### Window Manager
 

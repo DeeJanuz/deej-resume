@@ -53,4 +53,11 @@ export const desktopItems: readonly DesktopItemDefinition[] = [
     kind: "document",
     accent: "#2f6b73",
   },
+  {
+    id: "frametop",
+    label: "Frametop",
+    iconLabel: "FT",
+    kind: "document",
+    accent: "#8a3f5b",
+  },
 ] as const;

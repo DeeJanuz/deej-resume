@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useCallback } from "react";
 import { ResumeWindowContent } from "@/components/content/ResumeWindowContent";
 import { GabeyBirdApp } from "@/components/desktop/GabeyBirdApp";
@@ -21,6 +22,20 @@ interface WindowContainerProps {
   onOpenSection: (id: PortfolioSectionId) => void;
   onDockMinimizeComplete: () => void;
 }
+
+const FrametopReadmeApp = dynamic(
+  () =>
+    import("@/components/desktop/ProjectReadmeApp").then(
+      (module) => module.FrametopReadmeApp,
+    ),
+  {
+    loading: () => (
+      <div className="flex h-full items-center justify-center bg-white text-[12px] text-stone-500">
+        Loading README...
+      </div>
+    ),
+  },
+);
 
 const MENU_BAR_HEIGHT = 25;
 const PROJECT_BROWSER_TARGETS = {
@@ -139,6 +154,8 @@ export function WindowContainer({
         <GabeyBirdApp />
       ) : windowState.id === "snek" ? (
         <SnekApp />
+      ) : windowState.id === "frametop" ? (
+        <FrametopReadmeApp />
       ) : projectBrowserTarget ? (
         <ProjectBrowserApp
           initialUrl={projectBrowserTarget.url}

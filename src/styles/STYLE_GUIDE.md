@@ -70,24 +70,37 @@ OS chrome is neutral and system-font. Brand personality lives only inside window
 
 ## Content Area (Inside Windows)
 
+The resume is styled like an editorial profile: strong serif type, numbered sections, and one muted color per section. Personality comes from typography and layout, not from boxes and effects.
+
 | Property | Value |
 |----------|-------|
-| heading font | Fraunces (display serif) |
-| body font | Manrope (sans-serif) |
-| card style | rounded-xl with section accent |
-| accent colors | per-section, defined in portfolio-content data |
+| display font | Fraunces for the name, section headings, entry titles, lead paragraphs, and italic meta lines |
+| body font | Manrope; tag lines use the system monospace |
+| page | warm paper `#fbfaf7`, one centered column (`.resume-document`, max 54rem) |
+| masthead | location and email, oversized name, italic title in the accent color, 4:5 portrait |
+| section head | italic section number plus heading over a 2px rule in the section color |
+| entries | two-column grid on wide containers, each under a 1px stone rule; no cards |
+| notes | detail sections become one tinted callout with a 3px left rule in the section color |
+| highlights | three columns under a 2px rule in the section color, serif terms, no tiles |
+| color | each section sets `--accent`; rules, numbers, bullet markers, links, and the Preview button read from it |
+| motion | none on content; text is visible at first paint |
 
 ### Section Accent Palette
 
 | Section | Accent |
 |---------|--------|
-| Resume | `#2f6b73` |
-| Experience | `#3f5f48` |
-| Projects | `#2d5f93` |
-| Skills | `#8b6b2f` |
-| About Me | `#9d6335` |
-| Businesses | `#7b4b45` |
+| Summary / resume | `#2f6b73` |
+| AI Products | `#2d5f93` |
+| Open Source | `#8a3f5b` |
+| Consulting | `#6f5f8f` |
+| Ivy Impact | `#3f5f48` |
+| Capabilities | `#8b6b2f` |
+| About | `#9d6335` |
 | Contact | `#4b5563` |
+
+Use accents only for small marks: rules, numbers, markers, and links. Never for backgrounds larger than a note's light tint.
+
+Avoid: uppercase micro-labels, pill tag clouds, stat tiles for non-numbers, cards inside cards, generated gradient art, and scroll-reveal animations.
 
 ## Animations
 

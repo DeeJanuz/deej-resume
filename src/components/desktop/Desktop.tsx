@@ -30,11 +30,12 @@ const GABEY_BIRD_WINDOW_WIDTH = 760;
 const GABEY_BIRD_WINDOW_HEIGHT = 600;
 const SNEK_WINDOW_WIDTH = 680;
 const SNEK_WINDOW_HEIGHT = 560;
-const PROJECT_BROWSER_IDS = new Set<PortfolioSectionId>([
-  "mcpviews",
-  "decidr-mcp",
-  "ludflow",
-]);
+const PROJECT_WINDOW_TITLES: Partial<Record<PortfolioSectionId, string>> = {
+  mcpviews: "Browser",
+  "decidr-mcp": "Browser",
+  ludflow: "Browser",
+  frametop: "Frametop README",
+};
 
 const iconData = Object.fromEntries(
   desktopItems.map((item) => [item.id, { label: item.label, iconLabel: item.iconLabel, accent: item.accent }])
@@ -160,7 +161,9 @@ export function Desktop() {
         };
       }
 
-      if (PROJECT_BROWSER_IDS.has(sectionId)) {
+      const projectWindowTitle = PROJECT_WINDOW_TITLES[sectionId];
+
+      if (projectWindowTitle) {
         const size = getResumeWindowSize(viewportWidth, viewportHeight);
         const position = {
           x: Math.max(
@@ -175,7 +178,7 @@ export function Desktop() {
 
         return {
           id: sectionId,
-          title: "Browser",
+          title: projectWindowTitle,
           position,
           size,
         };

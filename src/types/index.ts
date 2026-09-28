@@ -5,11 +5,13 @@ export type PortfolioSectionId =
   | "snek"
   | "mcpviews"
   | "decidr-mcp"
-  | "ludflow";
+  | "ludflow"
+  | "frametop";
 export type ResumeSectionId =
   | "summary"
   | "experience"
   | "projects"
+  | "open-source"
   | "consulting"
   | "skills"
   | "about"
@@ -114,6 +116,10 @@ export interface PortfolioCard {
   bullets?: readonly string[];
   links?: readonly PortfolioLink[];
   tags?: readonly string[];
+  // Desktop window that previews this entry, such as a project site or README.
+  windowId?: PortfolioSectionId;
+  // Cards sharing a group render together in one collapsible block.
+  group?: string;
 }
 
 export interface PortfolioDetailSection {
@@ -125,45 +131,33 @@ export interface PortfolioDetailSection {
   links?: readonly PortfolioLink[];
 }
 
-export interface ResumeValuePillar {
-  title: string;
-  description: string;
-}
-
 export interface ResumeNavItem {
   id: ResumeSectionId;
   label: string;
 }
 
 export interface ResumeExecutiveSummary {
-  eyebrow: string;
   title: string;
   intro: string;
   summary: string;
-  accent: string;
-  heroGradient: string;
   heroImage?: PortfolioImage;
   metrics: readonly PortfolioMetric[];
-  valuePillars: readonly ResumeValuePillar[];
-  quickFacts: readonly string[];
   primaryLinks?: readonly PortfolioLink[];
 }
 
 export interface ResumeContentSection {
   id: Exclude<ResumeSectionId, "summary">;
   navLabel: string;
-  showHero?: boolean;
-  eyebrow: string;
   title: string;
+  // Empty intro or summary strings are not rendered.
   intro: string;
   summary: string;
+  // Section color for its number, header rule, markers, and links.
   accent: string;
-  heroGradient: string;
   heroImage?: PortfolioImage;
   metrics: readonly PortfolioMetric[];
   cards: readonly PortfolioCard[];
   detailSections?: readonly PortfolioDetailSection[];
-  quickFacts: readonly string[];
 }
 
 export interface ResumeContent {
@@ -179,6 +173,15 @@ export interface ResumeContent {
     position: WindowPosition;
     size: WindowSize;
   };
+}
+
+export interface ProjectReadmeSnapshot {
+  title: string;
+  repoUrl: string;
+  branch: string;
+  commitSha: string;
+  commitDate: string;
+  markdown: string;
 }
 
 export interface SiteProfile {

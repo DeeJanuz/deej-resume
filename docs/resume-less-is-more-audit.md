@@ -1,5 +1,7 @@
 # Resume Less-Is-More Content Audit
 
+Status (2026-09-28): applied. The copy pass cut the resume from about 2,050 to about 1,080 words, moved Ivy Energy directly after AI Products, removed the Projects and Ivy detail sections and duplicate metric rows, dropped filler tags and labels, and reduced About and Contact to short entries. Consulting and Open Source were added after this audit and follow the same rules.
+
 ## Goal
 
 Make the resume feel sharper, more spacious, and easier to scan without losing the strongest story: Daenon builds trusted AI workflow software, has real operating proof from Ivy Energy, and can mentor non-technical operational teams into practical AI use.

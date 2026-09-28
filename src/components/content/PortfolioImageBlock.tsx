@@ -23,16 +23,15 @@ export function PortfolioImageBlock({
   sizes,
 }: PortfolioImageBlockProps) {
   return (
-    <figure className="overflow-hidden rounded-lg border border-stone-200 bg-white">
+    <figure>
       <div
-        className="relative bg-stone-100"
+        className="relative overflow-hidden rounded-md bg-stone-100"
         style={{ aspectRatio: getImageAspectRatio(image) }}
       >
         <Image
           src={image.src}
           alt={image.alt}
           fill
-          loading="eager"
           sizes={sizes}
           className="object-cover"
           style={{ objectPosition: image.objectPosition ?? "center" }}
@@ -40,7 +39,7 @@ export function PortfolioImageBlock({
       </div>
 
       {image.caption ? (
-        <figcaption className="border-t border-stone-200 px-4 py-3 text-xs leading-6 text-stone-600">
+        <figcaption className="mt-2 text-[12.5px] leading-5 text-stone-500">
           {captionPath ? (
             <EditableText
               as="span"
